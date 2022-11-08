@@ -248,3 +248,43 @@ C# parse time         : 252ms
 candidates check time : 32ms
 console write time    : 1ms
 
+[api-updater (non-obsolete-error-filter)] 2022-11-08 20:18:50 : Starting /Users/04joot01/Documents/unity installs/2020.3.17f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 192,048ms
+moved types parse time: 70ms
+candidates parse time : 1ms
+C# parse time         : 286ms
+candidates check time : 33ms
+console write time    : 1ms
+
+[api-updater (non-obsolete-error-filter)] 2022-11-08 20:26:04 : Starting /Users/04joot01/Documents/unity installs/2020.3.17f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 168,507ms
+moved types parse time: 57ms
+candidates parse time : 1ms
+C# parse time         : 350ms
+candidates check time : 38ms
+console write time    : 1ms
+
+[api-updater (non-obsolete-error-filter)] 2022-11-08 20:26:22 : Starting /Users/04joot01/Documents/unity installs/2020.3.17f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 155,003ms
+moved types parse time: 56ms
+candidates parse time : 1ms
+C# parse time         : 367ms
+candidates check time : 38ms
+console write time    : 1ms
+
+[api-updater (non-obsolete-error-filter)] 2022-11-08 20:30:14 : Starting /Users/04joot01/Documents/unity installs/2020.3.17f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 197,24ms
+moved types parse time: 52ms
+candidates parse time : 1ms
+C# parse time         : 295ms
+candidates check time : 45ms
+console write time    : 1ms
+

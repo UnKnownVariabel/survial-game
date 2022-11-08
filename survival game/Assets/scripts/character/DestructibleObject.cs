@@ -26,7 +26,7 @@ public class DestructibleObject : MonoBehaviour
 
     protected virtual void Start()
     {
-        characterManagmentSCR.destructibleObjects.Add(this);
+        Globals.destructibleObjects.Add(this);
         particlesystem = GetComponent<ParticleSystem>();
         if(particlesystem == null)
         {
@@ -59,7 +59,7 @@ public class DestructibleObject : MonoBehaviour
     }
     protected virtual void die()
     {
-        characterManagmentSCR.destructibleObjects.Remove(this);
+        Globals.destructibleObjects.Remove(this);
         Destroy(gameObject);
     }
 }
