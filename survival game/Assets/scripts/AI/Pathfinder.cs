@@ -87,8 +87,8 @@ public class Pathfinder
         {
             dpsMultiplier = 1;
         }
-        Vector2Int position = (Vector2Int)TileManager._instance.tilemap.WorldToCell(pos) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
-        Vector2Int goal = (Vector2Int)TileManager._instance.tilemap.WorldToCell(Goal) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
+        Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
+        Vector2Int goal = (Vector2Int)TileManager.instance.tilemap.WorldToCell(Goal) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
 
         node startNode = tiles[position.x, position.y];
         node endNode = tiles[goal.x, goal.y];
@@ -142,7 +142,7 @@ public class Pathfinder
         for (node Node = endNode.parent; Node != startNode; Node = Node.parent)
         {
             pathLength -= 1;
-            Path[pathLength] = (Vector2)TileManager._instance.tilemap.CellToWorld(new Vector3Int(Node.xPos - tiles.GetLength(0) / 2, Node.yPos - tiles.GetLength(1) / 2, 0)) + new Vector2(0.5f, 0.5f);
+            Path[pathLength] = (Vector2)TileManager.instance.tilemap.CellToWorld(new Vector3Int(Node.xPos - tiles.GetLength(0) / 2, Node.yPos - tiles.GetLength(1) / 2, 0)) + new Vector2(0.5f, 0.5f);
         }
         //Debug.Log("milliseconds to run A*: " + (System.DateTime.Now - startTime).TotalMilliseconds.ToString());
         return new path(Path, cost*1.4f/speed);
@@ -184,7 +184,7 @@ public class Pathfinder
     }
     public static Vector2 getEscapeCord(Vector2 pos, Vector2 Enemy)
     {
-        Vector2Int position = (Vector2Int)TileManager._instance.tilemap.WorldToCell(pos) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
+        Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
         //Vector2Int enemy = (Vector2Int)TileManager._instance.tilemap.WorldToCell(Enemy) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
         Vector2 Direction = (pos - Enemy).normalized;
         Vector2Int direction = new Vector2Int(Mathf.RoundToInt(Direction.x), Mathf.RoundToInt(Direction.y));
@@ -305,7 +305,7 @@ public class Pathfinder
         return toWorldPos(position);
         Vector2 toWorldPos(Vector2Int pos)
         {
-            return (Vector2)TileManager._instance.tilemap.CellToWorld(new Vector3Int(pos.x - tiles.GetLength(0) / 2, pos.y - tiles.GetLength(1) / 2, 0)) + new Vector2(0.5f, 0.5f);
+            return (Vector2)TileManager.instance.tilemap.CellToWorld(new Vector3Int(pos.x - tiles.GetLength(0) / 2, pos.y - tiles.GetLength(1) / 2, 0)) + new Vector2(0.5f, 0.5f);
         }
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ced444e347f043c68cf98df50a258de, type: 3}
+  m_Name: gras
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: b200a90461088455b8ff3a5d6323869e, type: 2}
+  DPS: 0
+  speed: 1
+  plantsurviveplantSurvivability: 1

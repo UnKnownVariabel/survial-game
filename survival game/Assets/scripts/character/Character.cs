@@ -28,7 +28,7 @@ public class Character : DestructibleObject
     // Update is called once per frame
     protected virtual void Update()
     {
-        float DPS = TileManager._instance.getDPS(transform.position);
+        float DPS = TileManager.instance.getDPS(transform.position);
         if (DPS != 0)
         {
             TakeDamage(Time.deltaTime * DPS);
@@ -40,8 +40,8 @@ public class Character : DestructibleObject
         {
             movement.Normalize();
         }
-            
-        rb.velocity = movement * movementSpeed * TileManager._instance.getSpeed(transform.position);
+        //Debug.Log(TileManager.instance.DPS[1, 1]);  
+        rb.velocity = movement * movementSpeed * TileManager.instance.getSpeed(transform.position);
     }
     /*private void setDirection(Vector2 direction)
     {

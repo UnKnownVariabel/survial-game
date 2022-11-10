@@ -9,4 +9,9 @@ public class GameManager : MonoBehaviour
         Globals.destructibleObjects = new List<DestructibleObject>();
         Globals.characters = new List<Character>();
     }
+    private void Start()
+    {
+        WorldGeneration.worldBounds = new Vector2(16, 16);
+        WorldGeneration.instance.startGame();
+    }
 }

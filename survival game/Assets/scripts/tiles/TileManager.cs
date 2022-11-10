@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-    public static TileManager _instance;
+    public static TileManager instance;
     private Dictionary<TileBase, TileData> dataFromTiles;
     [SerializeField] public Tilemap tilemap;
     [SerializeField] private List<TileData> dataFiles;
@@ -22,11 +22,11 @@ public class TileManager : MonoBehaviour
                 dataFromTiles.Add(tile, tileData);
             }
         }
-        if (_instance != null)
+        if (instance != null)
         {
             Debug.Log("two tile managers have been instantiated");
         }
-        _instance = this;
+        instance = this;
     }
     public void Init(float[,] dps, float[,] speed)
     {
