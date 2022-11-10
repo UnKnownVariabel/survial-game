@@ -41,7 +41,7 @@ public class Character : DestructibleObject
             movement.Normalize();
         }
         //Debug.Log(TileManager.instance.DPS[1, 1]);  
-        rb.velocity = movement * movementSpeed * TileManager.instance.getSpeed(transform.position);
+        rb.velocity = movement * movementSpeed * Globals.currentChunk.getSpeed(transform.position);
     }
     /*private void setDirection(Vector2 direction)
     {

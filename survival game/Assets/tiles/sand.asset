@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: sand
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: d633eeb285b904e388639426950f9b08, type: 2}
+  - {fileID: 11400000, guid: 50540354aa8dc452aaffede5d4a7c3e1, type: 2}
   DPS: 0
   speed: 0.7
   plantsurviveplantSurvivability: 0.4

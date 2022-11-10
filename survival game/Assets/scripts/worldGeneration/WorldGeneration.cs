@@ -8,12 +8,6 @@ public class WorldGeneration : MonoBehaviour
 {
     public static Vector2 worldBounds = new Vector2(30, 30);
     public float MinDistanceBetwenFlags = 4;
-    public List<Vector2Int> flags;
-    public static int amountOfFlags = 0;
-    public GameObject flagPref;
-    public static int amountOfBots = 0;
-    public GameObject botPref;
-    public List<Color> teamColors;
     [SerializeField] private TileBase grasTile;
     [SerializeField] private TileBase sandTile;
     [SerializeField] private Image mapImage;
@@ -24,9 +18,14 @@ public class WorldGeneration : MonoBehaviour
     public Tile treeTile;
     public Tilemap groundMap;
     public Tilemap decorationMap;
+    public Transform player;
+
+    
     private Vector2Int worldGroundBorder;
+    Vector2Int offset;
+    public const int chunkSize = 16;
     public static WorldGeneration instance { get; private set; }
-    private string[] names = {"Liam", "Noah", "Oliver", "Elijah", "William", "James", "Benjamin", "Lucas", "Henry", "Alexander", "Mason", "Michael", "Ethan", "Daniel", "Jacob", "Logan", "Jackson", "Levi", "Sebastian", "Mateo", "Jack", "Owen", "Theodore", "Aiden", "Samuel", "Joseph", "John", "David", "Wyatt", "Matthew", "Luke", "Asher", "Carter", "Julian", "Grayson", "Leo", "Jayden", "Gabriel", "Isaac", "Lincoln", "Anthony", "Hudson", "Dylan", "Ezra", "Thomas", "Charles", "Jaxon", "Maverick", "Josiah", "Isaiah", "Andrew", "Elias", "Joshua", "Nathan", "Caleb", "Ryan", "Adrian", "Miles", "Eli", "Nolan", "Christian", "Aaron", "Cameron", "Ezekiel", "Colton", "Luca", "Landon", "Hunter", "Jonathan", "Santiago", "Axel", "Easton", "Cooper", "Jeremiah", "Angel", "Roman", "Connor", "Jameson", "Robert", "Greyson", "Jordan", "Ian", "Carson", "Jaxson", "Leonardo", "Nicholas", "Dominic", "Austin", "Everett", "Brooks", "Xavier", "Kai", "Jose", "Parker", "Adam", "Jace", "Wesley", "Kayden", "Silas", "Olivia", "Emma", "Ava", "Charlotte", "Sophia", "Amelia", "Isabella", "Mia", "Evelyn", "Harper", "Camila", "Gianna", "Abigail", "Luna", "Ella", "Elizabeth", "Sofia", "Emily", "Avery", "Mila", "Scarlett", "Eleanor", "Madison", "Layla", "Penelope", "Aria", "Chloe", "Grace", "Ellie", "Nora", "Hazel", "Zoey", "Riley", "Victoria", "Lily", "Aurora", "Violet", "Nova", "Hannah", "Emilia", "Zoe", "Stella", "Everly", "Isla", "Leah", "Lillian", "Addison", "Willow", "Lucy", "Paisley", "Natalie", "Naomi", "Eliana", "Brooklyn", "Elena", "Aubrey", "Claire", "Ivy", "Kinsley", "Audrey", "Maya", "Genesis", "Skylar", "Bella", "Aaliyah", "Madelyn", "Savannah", "Anna", "Delilah", "Serenity", "Caroline", "Kennedy", "Valentina", "Ruby", "Sophie", "Alice", "Gabriella", "Sadie", "Ariana", "Allison", "Hailey", "Autumn", "Nevaeh", "Natalia", "Quinn", "Josephine", "Sarah", "Cora", "Emery", "Samantha", "Piper", "Leilani", "Eva", "Everleigh", "Madeline", "Lydia", "Jade", "Peyton", "Brielle", "Adeline"};
+    private Dictionary<(int, int), Chunk> chunks;
     private void Awake()
     {
         if (instance != null)
@@ -37,75 +36,95 @@ public class WorldGeneration : MonoBehaviour
         {
             instance = this;
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        chunks = new Dictionary<(int, int), Chunk>();
+        offset = new Vector2Int(Random.Range(-100, 100), Random.Range(-100, 100));
     }
     public void startGame()
     {
+        Debug.Log("starting game");
         Time.timeScale = 1;
-        GenerateGroundTiles();
+        GenerateChunk(0, 0);
+        GenerateChunk(1, 0);
+        GenerateChunk(1, 1);
+        GenerateChunk(0, 1);
+        GenerateChunk(-1, 0);
+        GenerateChunk(-1, -1);
+        GenerateChunk(0, -1);
+        GenerateChunk(1, -1);
+        GenerateChunk(-1, 1);
+        Globals.currentChunk = chunks[(0, 0)];
+        Debug.Log(Globals.currentChunk);
+
+        //GenerateGroundTiles();
         //spawnFlags();
         //GenerateDecorations();
         //spawnBots();
         //minimapSCR.instance.createFlags();
     }
-    /*private void spawnBots()
+
+    private void Update()
     {
-        int i = 0;
-        for(int I = 0; i < amountOfBots && I < 10000; I++)
+        if(player.position.x < Globals.currentChunk.x * chunkSize - chunkSize / 2)
         {
-            Vector3 position = new Vector3(Random.Range(-worldBounds.x / 2, worldBounds.x / 2), Random.Range(-worldBounds.y / 2, worldBounds.y / 2), -2);
-            if (TileManager.instance.getTile(position) != null)
+            Globals.currentChunk = chunks[(Globals.currentChunk.x - 1, Globals.currentChunk.y)];
+        }
+        else if (player.position.x > Globals.currentChunk.x * chunkSize + chunkSize / 2)
+        {
+            Globals.currentChunk = chunks[(Globals.currentChunk.x + 1, Globals.currentChunk.y)];
+        }
+        if (player.position.y < Globals.currentChunk.y * chunkSize - chunkSize / 2)
+        {
+            Globals.currentChunk = chunks[(Globals.currentChunk.x, Globals.currentChunk.y - 1)];
+        }
+        else if (player.position.y > Globals.currentChunk.y * chunkSize + chunkSize / 2)
+        {
+            Globals.currentChunk = chunks[(Globals.currentChunk.x, Globals.currentChunk.y + 1)];
+        }
+    }
+
+    private void GenerateChunk(int x, int y)
+    {
+        int startX = x * chunkSize - chunkSize / 2;
+        int startY = y * chunkSize - chunkSize / 2;
+        float[,] DPS = new float[chunkSize, chunkSize];
+        float[,] Speed = new float[chunkSize, chunkSize];
+        for (int Y = 0; Y < chunkSize; Y++)
+        {
+            for(int X = 0; X < chunkSize; X++)
             {
-                GameObject bot = Instantiate(botPref, position, Quaternion.identity);
-                mainCharacterSCR mainCharacter = bot.GetComponent<mainCharacterSCR>();
-                if (teamColors.Count > i)
-                {
-                    mainCharacter.playerColor = teamColors[i];
-                }
-                else
-                {
-                    mainCharacter.playerColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                }
-                mainCharacter.Name = names[Random.Range(0, names.Length)];
-                i++;
+                drawTile(startX + X, startY + Y);
             }
         }
-    }*/
-    /*private void spawnFlags()
-    {
-        for(int i = 0; i < 10000 && flags.Count < amountOfFlags; i++)
+        Chunk chunk = new Chunk(x, y, DPS, Speed);
+        chunks.Add((x, y), chunk);
+
+        void drawTile(int x, int y)
         {
-            Vector2Int cords = new Vector2Int(Mathf.RoundToInt(Random.Range(-worldBounds.x / 2, worldBounds.x / 2)), Mathf.RoundToInt(Random.Range(-worldBounds.y / 2, worldBounds.y / 2)));
-            bool addCords = true;
-            if(TileManager.instance.getTile(cords) != null)
+            float magnification = 10;
+            float noise = Mathf.PerlinNoise((x + offset.x) / magnification, (y + offset.y) / magnification);
+            TileData data;
+            if (noise > 0.45)
             {
-                foreach (Vector2 flag in flags)
-                {
-                    if (Vector2.Distance(cords, flag) <= MinDistanceBetwenFlags)
-                    {
-                        addCords = false;
-                        break;
-                    }
-                }
+                groundMap.SetTile(new Vector3Int(x - worldGroundBorder.x / 2, y - worldGroundBorder.y / 2, 0), grasTile);
+                //texture.SetPixel(x, y, grasColor);
+                data = TileManager.instance.getData(grasTile);
+
+            }
+            else if (noise > 0.3)
+            {
+                groundMap.SetTile(new Vector3Int(x - worldGroundBorder.x / 2, y - worldGroundBorder.y / 2, 0), sandTile);
+                //texture.SetPixel(x, y, sandColor);
+                data = TileManager.instance.getData(sandTile);
             }
             else
             {
-                addCords = false;
+                //texture.SetPixel(x, y, waterColor);
+                data = TileManager.instance.getData(null);
             }
-            if (addCords)
-            {
-                flags.Add(cords);
-            }
+            DPS[x - startX, y - startY] = data.DPS;
+            Speed[x - startX, y - startY] = data.speed;
         }
-        foreach(Vector2 flag in flags)
-        {
-            Instantiate(flagPref, new Vector3(flag.x, flag.y, -1f), Quaternion.identity);
-        }
-        
-    }*/
+    }
     private void GenerateGroundTiles()
     {
         worldGroundBorder = new Vector2Int(Mathf.RoundToInt(worldBounds.x + worldBounds.x % 2), Mathf.RoundToInt(worldBounds.y + worldBounds.y % 2));
@@ -115,7 +134,6 @@ public class WorldGeneration : MonoBehaviour
         Pathfinder.GridSizeY = worldGroundBorder.y;
         float[,] DPS = new float[worldGroundBorder.x, worldGroundBorder.y];
         float[,] Speed = new float[worldGroundBorder.x, worldGroundBorder.y];
-        Vector2Int offset = new Vector2Int(Random.Range(-100, 100), Random.Range(-100, 100));
         for (int y = 0; y < worldGroundBorder.y; y++)
         {
             for (int x = 0; x < worldGroundBorder.x; x++)
@@ -178,16 +196,5 @@ public class WorldGeneration : MonoBehaviour
                 i++;
             }
         }
-    }*/
-    /*private bool checkForFlag(Vector2Int position)
-    {
-        foreach(Vector2Int flag in flags)
-        {
-            if(flag == position)
-            {
-                return true;
-            }
-        }
-        return false;
     }*/
 }

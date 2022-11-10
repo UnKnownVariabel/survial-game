@@ -180,12 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinDistanceBetwenFlags: 4
-  flags: []
-  flagPref: {fileID: 0}
-  botPref: {fileID: 0}
-  teamColors: []
   grasTile: {fileID: 11400000, guid: b200a90461088455b8ff3a5d6323869e, type: 2}
-  sandTile: {fileID: 11400000, guid: d633eeb285b904e388639426950f9b08, type: 2}
+  sandTile: {fileID: 11400000, guid: 50540354aa8dc452aaffede5d4a7c3e1, type: 2}
   mapImage: {fileID: 0}
   grasColor: {r: 0, g: 1, b: 0, a: 0}
   sandColor: {r: 1, g: 0.9497953, b: 0.08018869, a: 0}
@@ -194,6 +190,7 @@ MonoBehaviour:
   treeTile: {fileID: 0}
   groundMap: {fileID: 581638844}
   decorationMap: {fileID: 0}
+  player: {fileID: 1063572732}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
