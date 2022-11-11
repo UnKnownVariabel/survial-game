@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1063572732}
-  cameraBuffer: 0.3
+  cameraBuffer: 0.7
   camera: {fileID: 519420031}
 --- !u!20 &519420031
 Camera:

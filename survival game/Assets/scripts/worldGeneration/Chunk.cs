@@ -7,14 +7,16 @@ public class Chunk
     public bool isSpawnd;
     private float[,] DPS;
     private float[,] Speed;
+    public byte[,] tiles;
     public int x, y;
 
-    public Chunk(int X, int Y, float[,] dps, float[,] speed)
+    public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
         x = X;
         y = Y;
         DPS = dps;
         Speed = speed;
+        tiles = Tiles;
     }
 
     public float getDPS(Vector2 pos)
