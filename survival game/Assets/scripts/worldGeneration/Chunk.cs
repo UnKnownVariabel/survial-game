@@ -9,6 +9,7 @@ public class Chunk
     private float[,] Speed;
     public byte[,] tiles;
     public int x, y;
+    public List<Item> items = new List<Item>();
 
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
