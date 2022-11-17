@@ -16,6 +16,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private Color waterColor;
     public Tile stonesTile;
     public Tile treeTile;
+    public GameObject treePrefab;
     public Tilemap groundMap;
     public Tilemap decorationMap;
     public Transform player;
@@ -122,6 +123,7 @@ public class WorldGeneration : MonoBehaviour
         float[,] Speed = new float[chunkSize, chunkSize];
         byte[,] tiles = new byte[chunkSize, chunkSize];
         Random.InitState(offset.x - x - y);
+        chunk = new Chunk(x, y, DPS, Speed, tiles);
         for (int Y = 0; Y < chunkSize; Y++)
         {
             for(int X = 0; X < chunkSize; X++)
@@ -129,7 +131,6 @@ public class WorldGeneration : MonoBehaviour
                 drawTile(startX + X, startY + Y);
             }
         }
-        chunk = new Chunk(x, y, DPS, Speed, tiles);
         chunk.isSpawnd = true;
         Globals.chunks.Add((x, y), chunk);
 
@@ -151,7 +152,8 @@ public class WorldGeneration : MonoBehaviour
                     switch ((chunk.tiles[X, Y] - chunk.tiles[X, Y] % 16) / 16)
                     {
                         case 1:
-                            decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), treeTile);
+                            //decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), treeTile);
+                            chunk.trees.Add(Instantiate(treePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity));
                             break;
                         case 2:
                             decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), stonesTile);
@@ -175,7 +177,8 @@ public class WorldGeneration : MonoBehaviour
                 tiles[x - startX, y - startY] = 2;
                 if (Random.value * data.plantsurviveplantSurvivability < 0.3f)
                 {
-                    decorationMap.SetTile(new Vector3Int(x, y, 0), treeTile);
+                    //decorationMap.SetTile(new Vector3Int(x, y, 0), treeTile);
+                    chunk.trees.Add(Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity));
                     tiles[x - startX, y - startY] += 16;
                 }
                 else if(Random.value < 0.1f)
@@ -271,6 +274,10 @@ public class WorldGeneration : MonoBehaviour
                 groundMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), null);
                 decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), null);
             }
+        }
+        foreach(GameObject tree in Globals.chunks[(x, y)].trees)
+        {
+            Destroy(tree);
         }
     }
 }

@@ -24,7 +24,10 @@ public class InventorySpot : MonoBehaviour
         item = data;
         amount++;
         image.sprite = item.sprite;
-        text.text = amount.ToString();
+        if(amount > 1)
+        {
+            text.text = amount.ToString();
+        }
         image.enabled = true;
     }
 }

@@ -195,6 +195,7 @@ MonoBehaviour:
   waterColor: {r: 0.07075471, g: 0.9145294, b: 1, a: 0}
   stonesTile: {fileID: 11400000, guid: 0fdc38b2e1aa243f9a8bc2f463ca5936, type: 2}
   treeTile: {fileID: 11400000, guid: e231b225a06334f179c74847bf8afd46, type: 2}
+  treePrefab: {fileID: 7994763613227895426, guid: 77dad9dcf479d4ec9a2c269071cc0470, type: 3}
   groundMap: {fileID: 581638844}
   decorationMap: {fileID: 481974423}
   player: {fileID: 1063572732}
@@ -224,7 +225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481974420}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 720670800}
@@ -385,7 +386,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -554,7 +555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581638841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 720670800}
@@ -993,7 +994,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1042,7 +1043,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54061fba004e64cc78379008d06044c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1067,10 +1068,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   team: 0
-  minVisDamage: 10
+  minVisDamage: 3
   healthBar: {fileID: 0}
   isDead: 0
-  movementSpeed: 10
+  movementSpeed: 3
   rb: {fileID: 1063572728}
   pickUpDistance: 0.5
   inventory:
@@ -1093,7 +1094,7 @@ Transform:
   m_GameObject: {fileID: 1063572727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.75, y: 3.06, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1

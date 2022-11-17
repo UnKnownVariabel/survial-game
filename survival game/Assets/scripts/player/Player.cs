@@ -45,22 +45,43 @@ public class Player : Character
     }
     void PickUpItems()
     {
-        foreach(Item item in Globals.currentChunk.items)
+        PickUpInChunk(Globals.currentChunk);
+        if (transform.position.x - Globals.currentChunk.x * WorldGeneration.chunkSize > WorldGeneration.chunkSize / 2 - pickUpDistance)
         {
-            if(Vector2.Distance(item.transform.position, transform.position) < pickUpDistance)
+            PickUpInChunk(Globals.chunks[(Globals.currentChunk.x + 1, Globals.currentChunk.y)]);
+        }
+        else if (transform.position.x - Globals.currentChunk.x * WorldGeneration.chunkSize < -(WorldGeneration.chunkSize / 2 - pickUpDistance))
+        {
+            PickUpInChunk(Globals.chunks[(Globals.currentChunk.x - 1, Globals.currentChunk.y)]);
+        }
+        if (transform.position.y - Globals.currentChunk.y * WorldGeneration.chunkSize > WorldGeneration.chunkSize / 2 - pickUpDistance)
+        {
+            PickUpInChunk(Globals.chunks[(Globals.currentChunk.x, Globals.currentChunk.y + 1)]);
+        }
+        else if (transform.position.y - Globals.currentChunk.y * WorldGeneration.chunkSize < -(WorldGeneration.chunkSize / 2 - pickUpDistance))
+        {
+            PickUpInChunk(Globals.chunks[(Globals.currentChunk.x, Globals.currentChunk.y - 1)]);
+        }
+
+        void PickUpInChunk(Chunk chunk)
+        {
+            foreach (Item item in chunk.items)
             {
-                for(int i = 0; i < inventory.Length; i++)
+                if (Vector2.Distance(item.transform.position, transform.position) < pickUpDistance)
                 {
-                    if(inventory[i].item == null || (inventory[i].item == item.data && inventory[i].amount < item.data.stackSize))
+                    for (int i = 0; i < inventory.Length; i++)
                     {
-                        inventory[i].AddItem(item.data);
-                        break;
+                        if (inventory[i].item == null || (inventory[i].item == item.data && inventory[i].amount < item.data.stackSize))
+                        {
+                            inventory[i].AddItem(item.data);
+                            break;
+                        }
+
                     }
-                    
+                    chunk.items.Remove(item);
+                    Destroy(item.gameObject);
+                    break;
                 }
-                Globals.currentChunk.items.Remove(item);
-                Destroy(item.gameObject);
-                break;
             }
         }
     }

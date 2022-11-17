@@ -10,6 +10,7 @@ public class Chunk
     public byte[,] tiles;
     public int x, y;
     public List<Item> items = new List<Item>();
+    public List<GameObject> trees = new List<GameObject>();
 
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
