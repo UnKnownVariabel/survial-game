@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8538dc7f2c6504ddaa640b683954d3ff, type: 3}
+  m_Name: log barier
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: bc2c982ed1f7a499f97beacc35660d00, type: 3}
+  ItemIndex: 1
+  stackSize: 10
+  isPlaceble: 1
+  WallTile: {fileID: 11400000, guid: 3a9a392f7c7b24a8e8311295bb3b2198, type: 2}

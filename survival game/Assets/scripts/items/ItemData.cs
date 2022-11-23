@@ -8,4 +8,9 @@ public class ItemData : ScriptableObject
     public Sprite sprite;
     public byte ItemIndex;
     public byte stackSize;
+    public bool isPlaceble = false;
+    public virtual void placeItem(int x, int y)
+    {
+        Debug.LogError("cant place non placeble item");
+    }
 }
