@@ -8,6 +8,7 @@ public class InventorySpot : MonoBehaviour
     public ItemData item;
     public int amount = 0;
     public int index;
+    public SpriteRenderer holdingSprite;
     public bool selected
     {
         get
@@ -18,6 +19,14 @@ public class InventorySpot : MonoBehaviour
         {
             IsSelected = value;
             selecitonImage.enabled = value;
+            if(item != null)
+            {
+                holdingSprite.sprite = item.sprite;
+            }
+            else
+            {
+                holdingSprite.sprite = null;
+            }
         }
     }
     private bool IsSelected = false;
@@ -44,17 +53,22 @@ public class InventorySpot : MonoBehaviour
             text.text = amount.ToString();
         }
         image.enabled = true;
+        if (selected)
+        {
+            holdingSprite.sprite = item.sprite;
+        }
     }
     public void RemoveItem()
     {
         amount--;
-        if(amount < 2)
+        if (amount < 2)
         {
             text.text = "";
-            if(amount <= 0)
+            if (amount <= 0)
             {
                 image.enabled = false;
                 item = null;
+                holdingSprite.sprite = null;
             }
         }
         else

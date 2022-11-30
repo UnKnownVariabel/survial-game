@@ -10,4 +10,8 @@ public class PlacebleItemData : ItemData
     {
 
     }
+    public override dynamic ReturnFullClass()
+    {
+        return this;
+    }
 }

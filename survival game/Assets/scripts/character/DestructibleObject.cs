@@ -18,6 +18,9 @@ public class DestructibleObject : MonoBehaviour
     private ParticleSystem particlesystem;
     public HealthBar healthBar;
     public bool isDead;
+    public Item itemPrefab;
+    public ItemData[] itemDrops;
+    public DestructibleObject Corpse;
     // Start is called before the first frame update
     protected virtual void Awake()
     {
@@ -30,7 +33,7 @@ public class DestructibleObject : MonoBehaviour
         particlesystem = GetComponent<ParticleSystem>();
         if(particlesystem == null)
         {
-            Debug.Log("particle system not found");
+            //Debug.Log("particle system not found");
         }
     }
     public void setHealth()
@@ -53,12 +56,24 @@ public class DestructibleObject : MonoBehaviour
             }
             if (temp != (int)realHealth / minVisDamage)
             {
-                particlesystem.Play();
+                if(particlesystem != null)
+                {
+                    particlesystem.Play();
+                }
             }
         }
     }
     protected virtual void die()
     {
+        for(int i = 0; i < itemDrops.Length; i++)
+        {
+            Item itemInstance = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            itemInstance.data = itemDrops[i];
+        }
+        if(Corpse != null)
+        {
+            Instantiate(Corpse, transform.position, Quaternion.identity);
+        }
         Globals.destructibleObjects.Remove(this);
         Destroy(gameObject);
     }
