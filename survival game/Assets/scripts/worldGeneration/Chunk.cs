@@ -10,7 +10,8 @@ public class Chunk
     public byte[,] tiles;
     public int x, y;
     public List<Item> items = new List<Item>();
-    public List<GameObject> trees = new List<GameObject>();
+    //public List<DestructibleObject> trees = new List<DestructibleObject>();
+    public Dictionary<(int x, int y), StaticObject> staticObjects = new Dictionary<(int x, int y), StaticObject>();
 
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
@@ -30,5 +31,10 @@ public class Chunk
     {
         Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(Speed.GetLength(0) / 2 - x * WorldGeneration.chunkSize, Speed.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return Speed[position.x, position.y];
+    }
+    public (int, int) TilePos(Vector3 position)
+    {
+        Vector2Int pos = (Vector2Int)TileManager.instance.tilemap.WorldToCell(position) + new Vector2Int(DPS.GetLength(0) / 2 - x * WorldGeneration.chunkSize, DPS.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
+        return (pos.x, pos.y);
     }
 }

@@ -89,6 +89,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 154526047052862712, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: Corpse
+      value: 
+      objectReference: {fileID: 1086788638657310473, guid: a258a6a9463234e3bb4400fb23a73baf, type: 3}
+    - target: {fileID: 154526047052862712, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: itemPrefab
+      value: 
+      objectReference: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
+    - target: {fileID: 154526047052862712, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: ObjectIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 154526047052862712, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: itemDrops.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 154526047052862712, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: itemDrops.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 796c59a228244472da175f698622d6bd, type: 2}
     - target: {fileID: 356130169739427689, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_RootOrder
       value: 0

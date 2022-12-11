@@ -16,4 +16,8 @@ MonoBehaviour:
   ItemIndex: 1
   stackSize: 10
   isPlaceble: 1
+  isTool: 0
+  placedSprite: {fileID: 0}
+  health: 100
+  prefab: {fileID: 8667193895550542649, guid: 794a640c8e67342699eeb754986dbaa9, type: 3}
   WallTile: {fileID: 11400000, guid: 3a9a392f7c7b24a8e8311295bb3b2198, type: 2}

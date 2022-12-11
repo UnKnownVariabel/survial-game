@@ -21,6 +21,8 @@ public class DestructibleObject : MonoBehaviour
     public Item itemPrefab;
     public ItemData[] itemDrops;
     public DestructibleObject Corpse;
+    public Chunk chunk;
+    //public byte staticIndex;
     // Start is called before the first frame update
     protected virtual void Awake()
     {
@@ -72,7 +74,8 @@ public class DestructibleObject : MonoBehaviour
         }
         if(Corpse != null)
         {
-            Instantiate(Corpse, transform.position, Quaternion.identity);
+            DestructibleObject corpse = Instantiate(Corpse, transform.position, Quaternion.identity);
+            corpse.chunk = chunk;
         }
         Globals.destructibleObjects.Remove(this);
         Destroy(gameObject);

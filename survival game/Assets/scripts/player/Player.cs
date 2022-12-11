@@ -6,48 +6,18 @@ using UnityEngine.Tilemaps;
 
 public class Player : Character
 {
-    public float pickUpDistance = 0.5f;
+    public Inventory inventory;
     public SpriteRenderer holdingSprite;
+    public float pickUpDistance = 0.5f;
     public Transform handTransform;
     public BoxCollider2D HandCollider;
     public Animation toolAnimation;
-    [SerializeField] private InventorySpot[] inventory = new InventorySpot[10];
     private DateTime lastSwing;
-    private InventorySpot selectedInventorySpot
-    {
-        get
-        {
-            return _selectedInventorySpet;
-        }
-        set
-        {
-            if(value != null)
-            {
-                if (_selectedInventorySpet != null)
-                {
-                    _selectedInventorySpet.selected = false;
-                }
-                _selectedInventorySpet = value;
-                _selectedInventorySpet.selected = true;
-            }
-            else
-            {
-                Debug.LogError("value null rejected from SelectedInventorySpot");
-            }
-        }
-    }
-    private InventorySpot _selectedInventorySpet;
     private Vector2 direction;
 
     protected override void Awake()
     {
         base.Awake();
-        for(int i = 0; i < inventory.Length; i++)
-        {
-            inventory[i].index = i;
-            inventory[i].holdingSprite = holdingSprite;
-        }
-        selectedInventorySpot = inventory[0];
         lastSwing = DateTime.Now;
     }
 
@@ -77,24 +47,6 @@ public class Player : Character
         {
             PickUpItems();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            int i = selectedInventorySpot.index - 1;
-            if(i < 0)
-            {
-                i = inventory.Length - 1;
-            }
-            selectedInventorySpot = inventory[i];
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            int i = selectedInventorySpot.index + 1;
-            if (i >= inventory.Length)
-            {
-                i = 0;
-            }
-            selectedInventorySpot = inventory[i];
-        }
 
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
         if (Direction.x < 0)
@@ -108,22 +60,27 @@ public class Player : Character
             //holdingSprite.transform.localScale = new Vector3(1, 1);
         }
         handTransform.right = Direction;
+        setDirection(Direction);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            if (selectedInventorySpot.item != null)
+            if (inventory.selectedInventorySpot.item != null)
             {
-                if (selectedInventorySpot.item.isPlaceble)
+                if (inventory.selectedInventorySpot.item.isPlaceble)
                 {
-                    Debug.Log("is placeble");
-                    Vector3Int mousePos = Globals.wallTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                    selectedInventorySpot.item.placeItem(mousePos.x, mousePos.y);
-                    selectedInventorySpot.RemoveItem();
+                    Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector3Int mousePos = Globals.wallTilemap.WorldToCell(pos);
+                    Chunk chunk = Globals.GetChunk(pos);
+                    (int x, int y) key = chunk.TilePos(pos);
+                    if (!chunk.staticObjects.ContainsKey(key))
+                    {
+                        ((PlacebleItemData)inventory.selectedInventorySpot.item).placeItem(pos);
+                        inventory.selectedInventorySpot.RemoveItem();
+                    }
                 }
-                else if (selectedInventorySpot.item.isTool)
+                else if (inventory.selectedInventorySpot.item.isTool)
                 {
-                    ToolData tool = (ToolData)selectedInventorySpot.item;
-                    Debug.Log((DateTime.Now - lastSwing).TotalSeconds);
+                    ToolData tool = (ToolData)inventory.selectedInventorySpot.item;
                     if((DateTime.Now - lastSwing).TotalSeconds > tool.swingTime)
                     {
                         lastSwing = DateTime.Now;
@@ -131,12 +88,14 @@ public class Player : Character
                         if (Direction.x < 0)
                         {
                             toolAnimation["tool_left"].speed = 1 / tool.swingTime;
+                            toolAnimation.Rewind("tool_left");
                             toolAnimation.Play("tool_left");
                             boxPos = new Vector2(HandCollider.offset.x, -HandCollider.offset.y) * Direction + (Vector2)HandCollider.transform.position;
                         }
                         else
                         {
                             toolAnimation["tool"].speed = 1 / tool.swingTime;
+                            toolAnimation.Rewind("tool");
                             toolAnimation.Play("tool");
                             boxPos = HandCollider.offset * Direction + (Vector2)HandCollider.transform.position;
                         }
@@ -154,11 +113,6 @@ public class Player : Character
                     }
                 }
             }
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector3Int mousePos = Globals.wallTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Globals.wallTilemap.SetTile(mousePos, null);
         }
     }
     void PickUpItems()
@@ -187,17 +141,11 @@ public class Player : Character
             {
                 if (Vector2.Distance(item.transform.position, transform.position) < pickUpDistance)
                 {
-                    for (int i = 0; i < inventory.Length; i++)
+                    if (inventory.pickUpItem(item.data))
                     {
-                        if (inventory[i].item == null || (inventory[i].item == item.data && inventory[i].amount < item.data.stackSize))
-                        {
-                            inventory[i].AddItem(item.data);
-                            break;
-                        }
-
+                        chunk.items.Remove(item);
+                        Destroy(item.gameObject);
                     }
-                    chunk.items.Remove(item);
-                    Destroy(item.gameObject);
                     break;
                 }
             }

@@ -9,9 +9,9 @@ public class Character : DestructibleObject
     //public Transform WeaponPos;
     //public GameObject WeaponPref;
     public Rigidbody2D rb;
-    //public SpriteRenderer SpriteRenderer;
+    public SpriteRenderer SpriteRenderer;
     //public SpriteRenderer FetherRenderer;
-    //public Sprite[] sprites = new Sprite[4];
+    public Sprite[] sprites = new Sprite[4];
 
     protected override void Awake()
     {
@@ -43,38 +43,26 @@ public class Character : DestructibleObject
         //Debug.Log(TileManager.instance.DPS[1, 1]);  
         rb.velocity = movement * movementSpeed * Globals.currentChunk.getSpeed(transform.position);
     }
-    /*private void setDirection(Vector2 direction)
+    protected void setDirection(Vector2 direction)
     {
         
         if (direction.y < -0.7)
         {
-            WeaponPos.localPosition = new Vector3(WeaponPos.localPosition.x, WeaponPos.localPosition.y, -1);
-            WeaponPos.localScale = new Vector3(1, 1, 1);
             SpriteRenderer.sprite = sprites[0];
-            FetherRenderer.sprite = sprites[4];
         }
         else if (direction.y > 0.7)
         {
-            WeaponPos.localPosition = new Vector3(WeaponPos.localPosition.x, WeaponPos.localPosition.y, 0);
-            WeaponPos.localScale = new Vector3(1, 1, 1);
-            SpriteRenderer.sprite = sprites[1];
-            FetherRenderer.sprite = sprites[5];
+            SpriteRenderer.sprite = sprites[2];
         }
         else if (direction.x < -0.7)
         {
-            WeaponPos.localPosition = new Vector3(WeaponPos.localPosition.x, WeaponPos.localPosition.y, 0);
-            WeaponPos.localScale = new Vector3(-1, 1, 1);
-            SpriteRenderer.sprite = sprites[2];
-            FetherRenderer.sprite = sprites[6];
+            SpriteRenderer.sprite = sprites[1];
         }
         else
         {
-            WeaponPos.localPosition = new Vector3(WeaponPos.localPosition.x, WeaponPos.localPosition.y, 0);
-            WeaponPos.localScale = new Vector3(1, 1, 1);
             SpriteRenderer.sprite = sprites[3];
-            FetherRenderer.sprite = sprites[7];
         }
-    }*/
+    }
     /*public void PointTo(Vector3 target)
     {
         setDirection(((Vector2)(target - transform.position)).normalized);

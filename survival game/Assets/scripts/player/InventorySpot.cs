@@ -9,6 +9,7 @@ public class InventorySpot : MonoBehaviour
     public int amount = 0;
     public int index;
     public SpriteRenderer holdingSprite;
+    public Inventory inventory;
     public bool selected
     {
         get
@@ -67,13 +68,19 @@ public class InventorySpot : MonoBehaviour
             if (amount <= 0)
             {
                 image.enabled = false;
+                inventory.tryFindSameItem(item);
                 item = null;
                 holdingSprite.sprite = null;
+                amount = 0;
             }
         }
         else
         {
             text.text = amount.ToString();
         }
+    }
+    public void clicked()
+    {
+        inventory.selectedInventorySpot = this;
     }
 }

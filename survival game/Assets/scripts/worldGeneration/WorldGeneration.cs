@@ -16,7 +16,9 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private Color waterColor;
     public Tile stonesTile;
     public Tile treeTile;
-    public GameObject treePrefab;
+    public StaticObject treePrefab;
+    public StaticObject stumpPrefab;
+    public PlacebleItemData wall;
     public Tilemap groundMap;
     public Tilemap decorationMap;
     public Transform player;
@@ -87,7 +89,6 @@ public class WorldGeneration : MonoBehaviour
             for (int i = -chunkBuffer.x; i <= chunkBuffer.x; i++)
             {
                 actions.Add(new Action(0, Globals.currentChunk.x + i, Globals.currentChunk.y - 1 - chunkBuffer.y));
-                //GenerateChunk(Globals.currentChunk.x + i, Globals.currentChunk.y - 1 - chunkBuffer.y);
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x, Globals.currentChunk.y - 1)];
             CheckUnnecessaryChunks();
@@ -97,7 +98,6 @@ public class WorldGeneration : MonoBehaviour
             for (int i = -chunkBuffer.x; i <= chunkBuffer.x; i++)
             {
                 actions.Add(new Action(0, Globals.currentChunk.x + i, Globals.currentChunk.y + 1 + chunkBuffer.y));
-                //GenerateChunk(Globals.currentChunk.x + i, Globals.currentChunk.y + 1 + chunkBuffer.y);
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x, Globals.currentChunk.y + 1)];
             CheckUnnecessaryChunks();
@@ -140,6 +140,7 @@ public class WorldGeneration : MonoBehaviour
             {
                 for (int X = 0; X < chunkSize; X++)
                 {
+                    //checking left half of byte ground tile data
                     switch(chunk.tiles[X, Y] % 16)
                     {
                         case 1:
@@ -149,14 +150,22 @@ public class WorldGeneration : MonoBehaviour
                             groundMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), grasTile);
                             break;
                     }
+                    //checking right half of byte decoration tile data
                     switch ((chunk.tiles[X, Y] - chunk.tiles[X, Y] % 16) / 16)
                     {
                         case 1:
-                            //decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), treeTile);
-                            chunk.trees.Add(Instantiate(treePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity));
+                            StaticObject tree = Instantiate(treePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            tree.chunk = chunk;
                             break;
                         case 2:
                             decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), stonesTile);
+                            break;
+                        case 3:
+                            StaticObject stump = Instantiate(stumpPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            stump.chunk = chunk;
+                            break;
+                        case 4:
+                            wall.placeItem(new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0));
                             break;
                     }
                 }
@@ -172,18 +181,20 @@ public class WorldGeneration : MonoBehaviour
             if (noise > 0.45)
             {
                 groundMap.SetTile(new Vector3Int(x, y, 0), grasTile);
-                //texture.SetPixel(x, y, grasColor);
                 data = TileManager.instance.getData(grasTile);
+                //setting byte to 00000010 to indicate gras for redrawing chunk
                 tiles[x - startX, y - startY] = 2;
                 if (Random.value * data.plantsurviveplantSurvivability < 0.3f)
                 {
-                    //decorationMap.SetTile(new Vector3Int(x, y, 0), treeTile);
-                    chunk.trees.Add(Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity));
+                    StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                    tree.chunk = chunk;
+                    //adding 00010000 to byte to indicate tree for redrawing chunk
                     tiles[x - startX, y - startY] += 16;
                 }
                 else if(Random.value < 0.1f)
                 {
                     decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
+                    //adding 00100000 to byte to indicate stone for redrawing chunk
                     tiles[x - startX, y - startY] += 32;
                 }
                 
@@ -191,19 +202,20 @@ public class WorldGeneration : MonoBehaviour
             else if (noise > 0.3)
             {
                 groundMap.SetTile(new Vector3Int(x, y, 0), sandTile);
-                //texture.SetPixel(x, y, sandColor);
                 data = TileManager.instance.getData(sandTile);
+                //setting byte to 00000001 to indicate sand for redrawing chunk
                 tiles[x - startX, y - startY] = 1;
                 if (Random.value < 0.1f)
                 {
                     decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
+                    //adding 00100000 to byte to indicate stone for redrawing chunk
                     tiles[x - startX, y - startY] += 32;
                 }
             }
             else
             {
-                //texture.SetPixel(x, y, waterColor);
                 data = TileManager.instance.getData(null);
+                //setting byte to 00000000 to indicate water for redrawing chunk
                 tiles[x - startX, y - startY] = 0;
             }
             DPS[x - startX, y - startY] = data.DPS;
@@ -275,9 +287,11 @@ public class WorldGeneration : MonoBehaviour
                 decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), null);
             }
         }
-        foreach(GameObject tree in Globals.chunks[(x, y)].trees)
+        foreach(StaticObject staticObject in Globals.chunks[(x, y)].staticObjects.Values)
         {
-            Destroy(tree);
+            //Debug.Log(tree.transform.position);
+            Destroy(staticObject.gameObject);
         }
+        Globals.chunks[(x, y)].staticObjects = new Dictionary<(int x, int y), StaticObject>();
     }
 }
