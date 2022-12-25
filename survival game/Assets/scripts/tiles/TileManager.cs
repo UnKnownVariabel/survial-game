@@ -44,12 +44,6 @@ public class TileManager : MonoBehaviour
         {
             return water.speed;
         }
-        /*TileBase tile = tilemap.GetTile(tilemap.WorldToCell(position));
-        if (tile == null)
-        {
-            return water.speed;
-        }
-        return dataFromTiles[tile].speed;*/
     }
     public float getDPS(Vector3 pos)
     {
@@ -62,14 +56,8 @@ public class TileManager : MonoBehaviour
         {
             return water.DPS;
         }
-        /*TileBase tile = tilemap.GetTile(tilemap.WorldToCell(position));
-        if (tile == null)
-        {
-            return water.DPS;
-        }
-        return dataFromTiles[tile].DPS;*/
     }
-    public void AddDPS(Vector3 pos, float value)
+    /*public void AddDPS(Vector3 pos, float value)
     {
         Vector2Int position = (Vector2Int)tilemap.WorldToCell(pos) + new Vector2Int(DPS.GetLength(0) / 2, DPS.GetLength(1) / 2);
         DPS[position.x, position.y] += value;
@@ -80,7 +68,7 @@ public class TileManager : MonoBehaviour
         Vector2Int position = (Vector2Int)tilemap.WorldToCell(pos) + new Vector2Int(Speed.GetLength(0) / 2, Speed.GetLength(1) / 2);
         Speed[position.x, position.y] *= value;
         Pathfinder.tiles[position.x, position.y].addToSpeed(value);
-    }
+    }*/
     public TileBase getTile(Vector2 position)
     {
         return tilemap.GetTile(tilemap.WorldToCell(position));

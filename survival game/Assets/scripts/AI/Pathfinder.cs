@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 //using System;
 
 public class Pathfinder
 {
-    public static node[,] tiles;
     public static int GridSizeX;
     public static int GridSizeY;
-    public class node : IHeapItem<node>
+    public class Node : IHeapItem<Node>
     {
         public int G;
         public int H;
@@ -18,7 +18,7 @@ public class Pathfinder
         private float DPS;
         public int xPos;
         public int yPos;
-        public node parent;
+        public Node parent;
         private int heapIndex;
         public int travelCost;
         public int diagonalExtra;
@@ -30,7 +30,7 @@ public class Pathfinder
                 return G + H;
             }
         }
-        public node(int x, int y, float Speed, float dps)
+        public Node(int x, int y, float Speed, float dps)
         {
             xPos = x;
             yPos = y;
@@ -38,6 +38,7 @@ public class Pathfinder
             DPS = dps;
             travelCost = (int)(10 / Speed);
             diagonalExtra = (int)(4 / Speed);
+            //diagonalExtra = 4;
             travelDamage = (int)(dps / Speed);
         }
         public void addToSpeed(float value)
@@ -63,7 +64,7 @@ public class Pathfinder
                 heapIndex = value;
             }
         }
-        public int CompareTo(node nodeToCompare)
+        public int CompareTo(Node nodeToCompare)
         {
             int compare = F.CompareTo(nodeToCompare.F);
             if (compare == 0)
@@ -73,9 +74,68 @@ public class Pathfinder
             return -compare;
         }
     }
-    public static path createPath(Vector2 pos, Vector2 Goal, float speed, float health)
+    public static (int x, int y) WorldToPathPos(Vector3 position)
     {
-        if(tiles == null) { return null; }
+        return (Mathf.RoundToInt(position.x - 0.5f), Mathf.RoundToInt(position.y - 0.5f));
+    }
+    public static Vector3 PathToWorldPos((int x, int y) position)
+    {
+        return new Vector3(position.x + 0.5f, position.y + 0.5f, 0);
+    }
+    public static Node GetNode(int x, int y)
+    {
+        const int chunksize = 16;
+        int modX = x % chunksize;
+        int modY = y % chunksize;
+        (int x, int y) key;
+        if (modX < 8 && modX > -9)
+        {
+            key.x = x / chunksize;
+        }
+        else
+        {
+            key.x = x / chunksize + Math.Sign(x);
+        }
+        if (modY < 8 && modY > -9)
+        {
+            key.y = y / chunksize;
+        }
+        else
+        {
+            key.y = y / chunksize + Math.Sign(y);
+        }
+        Chunk chunk;
+        try
+        {
+            chunk = Globals.chunks[key];
+        }
+        catch
+        {
+            //Debug.Log("chunk dose not exist: " + key.ToString());
+            return null;
+        }
+        x = x - key.x * chunksize + chunksize / 2;
+        y = y - key.y * chunksize + chunksize / 2;
+        if(x > 15 || x < 0)
+        {
+            Debug.Log("x = " + x.ToString());
+        }
+        if (y > 15 || y < 0)
+        {
+            Debug.Log("y = " + y.ToString());
+        }
+        return chunk.nodes[x, y];
+    }
+    public static Path createPath(Vector2 pos, Vector2 Goal, float speed, float health)
+    {
+        // checking Getnode against node positions
+
+        int x = 7;
+        int y = 14;
+        Node test = GetNode(x, y);
+        Debug.Log(String.Format("Input: (x: {0}, y: {1}) Node: (x: {2}, y: {3})", x, y, test.xPos, test.yPos));
+
+        //
         System.DateTime startTime = System.DateTime.Now;
 
         int dpsMultiplier = (int)(80 / health / speed);
@@ -87,27 +147,31 @@ public class Pathfinder
         {
             dpsMultiplier = 1;
         }
-        Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
-        Vector2Int goal = (Vector2Int)TileManager.instance.tilemap.WorldToCell(Goal) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
+        (int x, int y) position = WorldToPathPos(pos);
+        (int x, int y) goal = WorldToPathPos(Goal);
 
-        node startNode = tiles[position.x, position.y];
-        node endNode = tiles[goal.x, goal.y];
-        if(startNode == endNode)
+        Node startNode = GetNode(position.x, position.y);
+        Node endNode = GetNode(goal.x, goal.y);
+
+        //Debug.Log(startNode.xPos);
+        //Debug.Log(endNode.xPos);
+        if (startNode == endNode)
         {
-            return new path(new Vector2[] {Goal}, 0);
+            return new Path(new Vector2[] {Goal}, 0);
         }
-        Heap<node> openSet = new Heap<node>(tiles.Length);
-        HashSet<node> closedSet = new HashSet<node>();
+        Heap<Node> openSet = new Heap<Node>();
+        HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
         while (openSet.Count > 0)
         {
-            node currentNode = openSet.RemoveFirst();
+            Node currentNode = openSet.RemoveFirst();
             closedSet.Add(currentNode);
             if (currentNode == endNode)
             {
+                Debug.Log("current node is endnode");
                 break;
             }
-            foreach(node neighbour in getNeighbours(currentNode))
+            foreach(Node neighbour in getNeighbours(currentNode))
             {
                 if (closedSet.Contains(neighbour))
                 {
@@ -131,25 +195,27 @@ public class Pathfinder
         }
         int pathLength = 0;
         int cost = 0;
-        for (node Node = endNode; Node != startNode; Node = Node.parent)
+        Debug.Log(closedSet.Count);
+        for (Node node = endNode; node != startNode; node = node.parent)
         {
+            Debug.Log(node);
             pathLength++;
-            cost += Node.travelDamage;
+            cost += node.travelDamage;
         }
         Vector2[] Path = new Vector2[pathLength];
         pathLength--;
         Path[pathLength] = Goal;
-        for (node Node = endNode.parent; Node != startNode; Node = Node.parent)
+        for (Node node = endNode.parent; node != startNode; node = node.parent)
         {
             pathLength -= 1;
-            Path[pathLength] = (Vector2)TileManager.instance.tilemap.CellToWorld(new Vector3Int(Node.xPos - tiles.GetLength(0) / 2, Node.yPos - tiles.GetLength(1) / 2, 0)) + new Vector2(0.5f, 0.5f);
+            Path[pathLength] = PathToWorldPos((node.xPos, node.yPos));
         }
-        //Debug.Log("milliseconds to run A*: " + (System.DateTime.Now - startTime).TotalMilliseconds.ToString());
-        return new path(Path, cost*1.4f/speed);
+        Debug.Log("milliseconds to run A*: " + (System.DateTime.Now - startTime).TotalMilliseconds.ToString());
+        return new Path(Path, cost*1.4f/speed);
         //return new path(Path);
-        List<node> getNeighbours(node node)
+        List<Node> getNeighbours(Node node)
         {
-            List<node> neighbours = new List<node>();
+            List<Node> neighbours = new List<Node>();
             for(int x = -1; x <= 1; x++)
             {
                 for(int y = -1; y <= 1; y++)
@@ -160,19 +226,21 @@ public class Pathfinder
                     }
                     int checkX = node.xPos + x;
                     int checkY = node.yPos + y;
-                    if (checkX >= 0 && checkX < GridSizeX && checkY >= 0 && checkY < GridSizeY)
+                    Node new_node = GetNode(checkX, checkY);
+                    if (new_node != null)
                     {
-                        neighbours.Add(tiles[checkX, checkY]);
+                        neighbours.Add(new_node);
+
                     }
                 }
             }
             return neighbours;
         }
-        int Gcost(node node, node parent)
+        int Gcost(Node node, Node parent)
         {
             return node.travelDamage * dpsMultiplier + node.travelCost + Mathf.Abs((node.xPos - parent.xPos)*(node.yPos-parent.yPos)*node.diagonalExtra) + parent.G;
         }
-        int Hcost(node node)
+        int Hcost(Node node)
         {
             int dstX = Mathf.Abs(node.xPos - endNode.xPos);
             int dstY = Mathf.Abs(node.xPos - endNode.xPos);
@@ -182,7 +250,7 @@ public class Pathfinder
             return 14 * dstX + 10 * (dstY - dstX);
         }
     }
-    public static Vector2 getEscapeCord(Vector2 pos, Vector2 Enemy)
+    /*public static Vector2 getEscapeCord(Vector2 pos, Vector2 Enemy)
     {
         Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
         //Vector2Int enemy = (Vector2Int)TileManager._instance.tilemap.WorldToCell(Enemy) + new Vector2Int(tiles.GetLength(0) / 2, tiles.GetLength(1) / 2);
@@ -307,5 +375,5 @@ public class Pathfinder
         {
             return (Vector2)TileManager.instance.tilemap.CellToWorld(new Vector3Int(pos.x - tiles.GetLength(0) / 2, pos.y - tiles.GetLength(1) / 2, 0)) + new Vector2(0.5f, 0.5f);
         }
-    }
+    }*/
 }

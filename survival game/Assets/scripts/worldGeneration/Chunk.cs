@@ -8,10 +8,12 @@ public class Chunk
     private float[,] DPS;
     private float[,] Speed;
     public byte[,] tiles;
+    public Pathfinder.Node[,] nodes;
     public int x, y;
     public List<Item> items = new List<Item>();
     //public List<DestructibleObject> trees = new List<DestructibleObject>();
     public Dictionary<(int x, int y), StaticObject> staticObjects = new Dictionary<(int x, int y), StaticObject>();
+    public int minX, minY, maxX, maxY;
 
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
@@ -20,6 +22,22 @@ public class Chunk
         DPS = dps;
         Speed = speed;
         tiles = Tiles;
+    }
+    public void GenerateNodes()
+    {
+        int chunkSize = WorldGeneration.chunkSize;
+        nodes = new Pathfinder.Node[chunkSize, chunkSize];
+        for (int a = 0; a < chunkSize; a++)
+        {
+            for (int b = 0; b < chunkSize; b++)
+            {
+                nodes[a, b] = new Pathfinder.Node(x * chunkSize + a - chunkSize / 2, y * chunkSize + b - chunkSize / 2, Speed[a, b], DPS[a, b]);
+                if (Speed[a, b] == 0)
+                {
+                    Debug.Log(Speed[a, b]);
+                }
+            }
+        }
     }
 
     public float getDPS(Vector2 pos)

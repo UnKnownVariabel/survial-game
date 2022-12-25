@@ -11,7 +11,10 @@ public class Character : DestructibleObject
     public Rigidbody2D rb;
     public SpriteRenderer SpriteRenderer;
     //public SpriteRenderer FetherRenderer;
-    public Sprite[] sprites = new Sprite[4];
+    public Sprite[] sprites = new Sprite[4 * 3];
+    public float frameTime = 0.5f;
+    private float animState;
+    private int dir;
 
     protected override void Awake()
     {
@@ -28,11 +31,12 @@ public class Character : DestructibleObject
     // Update is called once per frame
     protected virtual void Update()
     {
-        float DPS = TileManager.instance.getDPS(transform.position);
+        /*float DPS = TileManager.instance.getDPS(transform.position);
         if (DPS != 0)
         {
             TakeDamage(Time.deltaTime * DPS);
-        }
+        }*/
+        anim();
     }
     public void Move(Vector2 movement)
     {
@@ -48,49 +52,36 @@ public class Character : DestructibleObject
         
         if (direction.y < -0.7)
         {
-            SpriteRenderer.sprite = sprites[0];
+            //SpriteRenderer.sprite = sprites[0];
+            dir = 0;
         }
         else if (direction.y > 0.7)
         {
-            SpriteRenderer.sprite = sprites[2];
+            //SpriteRenderer.sprite = sprites[2];
+            dir = 2;
         }
         else if (direction.x < -0.7)
         {
-            SpriteRenderer.sprite = sprites[1];
+            //SpriteRenderer.sprite = sprites[1];
+            dir = 1;
         }
         else
         {
-            SpriteRenderer.sprite = sprites[3];
+            //SpriteRenderer.sprite = sprites[3];
+            dir = 3;
         }
     }
-    /*public void PointTo(Vector3 target)
+    protected void anim()
     {
-        setDirection(((Vector2)(target - transform.position)).normalized);
-        Vector2 direction = ((Vector2)target- (Vector2)transform.position).normalized;
-        WeaponPos.up = direction;
-    }*/
-    /*public void Attack()
-    {
-        Weapon.attack();
-    }*/
-    /*protected override void die()
-    {
-        
-        if (GetComponent<soldierBotSCR>() != null)
+        if(rb.velocity == Vector2.zero)
         {
-            GetComponent<soldierBotSCR>().die();
+            SpriteRenderer.sprite = sprites[dir * 3];
         }
-        characterManagmentSCR.characters.Remove(this);
-        base.die();
-    }*/
-    /*public void createWeapon()
-    {
-        Weapon = Instantiate(WeaponPref, WeaponPos.position, WeaponPos.rotation).GetComponent<weapon>();
-        Weapon.transform.SetParent(WeaponPos);
-        Weapon.character = this;
-        if(gameObject.GetComponent<mainCharacterSCR>() != null)
+        else
         {
-            gameObject.GetComponent<mainCharacterSCR>().renderers.Add(Weapon.Renderer);
+            animState += Time.deltaTime;
+            animState = animState % (frameTime * 3);
+            SpriteRenderer.sprite = sprites[dir * 3 + Mathf.FloorToInt(animState / frameTime)];
         }
-    }*/
+    }
 }

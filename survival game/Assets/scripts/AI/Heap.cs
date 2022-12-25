@@ -8,14 +8,18 @@ public class Heap<T> where T : IHeapItem<T>
 	T[] items;
 	int currentItemCount;
 
-	public Heap(int maxHeapSize)
+	public Heap()
 	{
-		items = new T[maxHeapSize];
+		items = new T[32];
 	}
 
 	public void Add(T item)
 	{
 		item.HeapIndex = currentItemCount;
+		if(currentItemCount >= items.Length)
+        {
+			Array.Resize(ref items, items.Length * 2);
+        }
 		items[currentItemCount] = item;
 		SortUp(item);
 		currentItemCount++;

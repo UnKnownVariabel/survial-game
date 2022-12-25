@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class path
+public class Path
 {
-    private Vector2[] nodes;
+    public Vector2[] nodes { get; }
     public float cost;
     private int i = 0;
     public Vector2 current
@@ -14,7 +14,7 @@ public class path
             return nodes[i];
         }
     }
-    public path(Vector2[] Nodes, float Cost)
+    public Path(Vector2[] Nodes, float Cost)
     {
         nodes = Nodes;
         cost = Cost;

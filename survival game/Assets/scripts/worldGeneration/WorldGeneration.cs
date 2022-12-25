@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class WorldGeneration : MonoBehaviour
 {
-    public static Vector2 worldBounds = new Vector2(30, 30);
-    public float MinDistanceBetwenFlags = 4;
     [SerializeField] private TileBase grasTile;
     [SerializeField] private TileBase sandTile;
     [SerializeField] private Image mapImage;
@@ -133,6 +131,7 @@ public class WorldGeneration : MonoBehaviour
         }
         chunk.isSpawnd = true;
         Globals.chunks.Add((x, y), chunk);
+        chunk.GenerateNodes();
 
         void RedrawChunk(Chunk chunk)
         {

@@ -12,6 +12,8 @@ public class Player : Character
     public Transform handTransform;
     public BoxCollider2D HandCollider;
     public Animation toolAnimation;
+    public Crafting crafting;
+
     private DateTime lastSwing;
     private Vector2 direction;
 
@@ -46,6 +48,10 @@ public class Player : Character
         if (Input.GetKey(KeyCode.Q))
         {
             PickUpItems();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            crafting.gameObject.SetActive(!crafting.gameObject.activeSelf);
         }
 
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
@@ -114,6 +120,7 @@ public class Player : Character
                 }
             }
         }
+        base.Update();
     }
     void PickUpItems()
     {
