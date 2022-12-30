@@ -8,7 +8,7 @@ public class Chunk
     private float[,] DPS;
     private float[,] Speed;
     public byte[,] tiles;
-    public Pathfinder.Node[,] nodes;
+    public Node[,] nodes;
     public int x, y;
     public List<Item> items = new List<Item>();
     //public List<DestructibleObject> trees = new List<DestructibleObject>();
@@ -26,12 +26,12 @@ public class Chunk
     public void GenerateNodes()
     {
         int chunkSize = WorldGeneration.chunkSize;
-        nodes = new Pathfinder.Node[chunkSize, chunkSize];
+        nodes = new Node[chunkSize, chunkSize];
         for (int a = 0; a < chunkSize; a++)
         {
             for (int b = 0; b < chunkSize; b++)
             {
-                nodes[a, b] = new Pathfinder.Node(x * chunkSize + a - chunkSize / 2, y * chunkSize + b - chunkSize / 2, Speed[a, b], DPS[a, b]);
+                nodes[a, b] = new Node(x * chunkSize + a - chunkSize / 2, y * chunkSize + b - chunkSize / 2, Speed[a, b], DPS[a, b]);
                 if (Speed[a, b] == 0)
                 {
                     Debug.Log(Speed[a, b]);
@@ -54,5 +54,10 @@ public class Chunk
     {
         Vector2Int pos = (Vector2Int)TileManager.instance.tilemap.WorldToCell(position) + new Vector2Int(DPS.GetLength(0) / 2 - x * WorldGeneration.chunkSize, DPS.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return (pos.x, pos.y);
+    }
+    public void SettHealth(Vector2 pos, float health)
+    {
+        (int x, int y) key = TilePos(pos);
+        nodes[key.x, key.y].health = health;
     }
 }

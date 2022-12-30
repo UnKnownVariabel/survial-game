@@ -50,6 +50,10 @@ public class Heap<T> where T : IHeapItem<T>
 
 	public bool Contains(T item)
 	{
+		if(item.HeapIndex >= items.Length)
+		{
+			return false;
+        }
 		return Equals(items[item.HeapIndex], item);
 	}
 

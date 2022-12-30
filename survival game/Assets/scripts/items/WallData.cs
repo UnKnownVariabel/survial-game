@@ -13,9 +13,12 @@ public class WallData : PlacebleItemData
         base.placeItem(position);
         Vector3Int pos = Globals.wallTilemap.WorldToCell(position);
         Globals.wallTilemap.SetTile(pos, WallTile);
+        Globals.GetChunk(position).SettHealth(position, health);
     }
-    public override void RemoveItem(int x, int y)
+    public override void RemoveItem(Vector2 position)
     {
-        Globals.wallTilemap.SetTile(new Vector3Int(x, y, 0), null);
+        Globals.GetChunk(position).SettHealth(position, 0);
+        Vector3Int pos = Globals.wallTilemap.WorldToCell(position);
+        Globals.wallTilemap.SetTile(pos, null);
     }
 }

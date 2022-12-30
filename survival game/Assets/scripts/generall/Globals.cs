@@ -6,10 +6,11 @@ using UnityEngine.Tilemaps;
 public class Globals : MonoBehaviour
 {
     public static List<DestructibleObject> destructibleObjects;
-    public static List<Character> characters;
+    public static List<MovingObject> characters;
     public static Chunk currentChunk;
     public static Dictionary<(int, int), Chunk> chunks;
     public static Tilemap groundTilemap, decorationTilemap, wallTilemap;
+    public static Player player;
     public static Chunk GetChunk(Vector3 position)
     {
         (int x, int y) key = (Mathf.RoundToInt(position.x / (float)WorldGeneration.chunkSize), Mathf.RoundToInt(position.y / (float)WorldGeneration.chunkSize));

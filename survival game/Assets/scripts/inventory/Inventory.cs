@@ -1,0 +1,183 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Inventory : MonoBehaviour
+{
+    public SpriteRenderer holdingSprite;
+    [SerializeField] private InventorySpot[] spots = new InventorySpot[10];
+    public InventorySpot selectedInventorySpot
+    {
+        get
+        {
+            return _selectedInventorySpet;
+        }
+        set
+        {
+            if (value != null)
+            {
+                if (_selectedInventorySpet != null)
+                {
+                    _selectedInventorySpet.selected = false;
+                }
+                _selectedInventorySpet = value;
+                _selectedInventorySpet.selected = true;
+            }
+            else
+            {
+                Debug.LogError("value null rejected from SelectedInventorySpot");
+            }
+        }
+    }
+    private InventorySpot _selectedInventorySpet;
+    // Start is called before the first frame update
+    private void Awake()
+    {
+        for (int i = 0; i < spots.Length; i++)
+        {
+            spots[i].index = i;
+            spots[i].holdingSprite = holdingSprite;
+            spots[i].inventory = this;
+        }
+        selectedInventorySpot = spots[0];
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //arow navigation in inventory
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            int i = selectedInventorySpot.index - 1;
+            if (i < 0)
+            {
+                i = spots.Length - 1;
+            }
+            selectedInventorySpot = spots[i];
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            int i = selectedInventorySpot.index + 1;
+            if (i >= spots.Length)
+            {
+                i = 0;
+            }
+            selectedInventorySpot = spots[i];
+        }
+
+        //numpad navigation in inventory
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedInventorySpot = spots[0];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedInventorySpot = spots[1];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedInventorySpot = spots[2];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            selectedInventorySpot = spots[3];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            selectedInventorySpot = spots[4];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            selectedInventorySpot = spots[5];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            selectedInventorySpot = spots[6];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            selectedInventorySpot = spots[7];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            selectedInventorySpot = spots[8];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            selectedInventorySpot = spots[9];
+        }
+    }
+    public bool pickUpItem(ItemData data)
+    {
+        for (int i = 0; i < spots.Length; i++)
+        {
+            if (spots[i].item == data && spots[i].amount < data.stackSize)
+            {
+                spots[i].AddItem(data);
+                return true;
+            }
+        }
+        if (selectedInventorySpot.item == null || (selectedInventorySpot.item == data && selectedInventorySpot.amount < data.stackSize))
+        {
+            selectedInventorySpot.AddItem(data);
+            return true;
+        }
+        for (int i = 0; i < spots.Length; i++)
+        {
+            if (spots[i].item == null)
+            {
+                spots[i].AddItem(data);
+                return true;
+            }
+        }
+        return false;
+    }
+    public void tryFindSameItem(ItemData data)
+    {
+        for(int i = 0; i < spots.Length; i++)
+        {
+            if (spots[i].item == data && spots[i].amount > 0)
+            {
+                selectedInventorySpot = spots[i];
+                return;
+            }
+        }
+    }
+    public bool checkForIngredient(Ingredient ingredient)
+    {
+        int amount = 0;
+        for(int i = 0; i < spots.Length; i++)
+        {
+            if(ingredient.item == spots[i].item)
+            {
+                amount += spots[i].amount;
+                if(amount >= ingredient.amount)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public void RemoveIngredient(Ingredient ingredient)
+    {
+        for (int i = 0; i < spots.Length; i++)
+        {
+            if (ingredient.item == spots[i].item)
+            {
+                if(spots[i].amount >= ingredient.amount)
+                {
+                    spots[i].amount -= ingredient.amount - 1;
+                    spots[i].RemoveItem();
+                    return;
+                }
+                else
+                {
+                    ingredient.amount -= spots[i].amount;
+                    spots[i].amount = 1;
+                    spots[i].RemoveItem();
+                }
+            }
+        }
+    }
+}

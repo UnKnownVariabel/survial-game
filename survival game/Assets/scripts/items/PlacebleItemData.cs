@@ -18,7 +18,7 @@ public class PlacebleItemData : ItemData
     {
         return this;
     }
-    public virtual void RemoveItem(int x, int y)
+    public virtual void RemoveItem(Vector2 position)
     {
 
     }
