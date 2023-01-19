@@ -6,13 +6,12 @@ using System;
 public class Mob : MovingObject
 {
     public float attackRange;
+    public float minRange = 0.7f;
 
     protected int state;
     protected Path path;
     protected Vector2 direction;
 
-    private (bool x, bool y) Done_translate;
-    private Vector2 lastPos;
     private Vector2 lastDir;
 
     protected override void Start()
@@ -69,6 +68,10 @@ public class Mob : MovingObject
             {
                 SettPathTo(Globals.player.transform.position);
             }
+            else if(distance < attackRange)
+            {
+                state = 2;
+            }
         }
         else if (distance > attackRange)
         {
@@ -83,15 +86,21 @@ public class Mob : MovingObject
     protected void CloseUp()
     {
         direction = Globals.player.transform.position - transform.position;
-        if (direction.sqrMagnitude > attackRange * attackRange)
+        float distance = direction.magnitude;
+        direction.Normalize();
+        if (distance > attackRange)
         {
             state = 1;
         }
-        direction.Normalize();
+        else if(distance < minRange)
+        {
+            Debug.Log("is close upp");
+            direction = Vector2.zero;
+        }
         setDirection(direction);
         if ((DateTime.Now - lastSwing).TotalSeconds > baseSwingTime)
         {
-            attack();
+            attack(layerMask);
         }
     }
 
@@ -120,7 +129,6 @@ public class Mob : MovingObject
             return true;
         }
         lastDir = direction;
-        lastPos = transform.position;
         setDirection(direction);
         return false;
 

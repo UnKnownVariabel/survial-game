@@ -19,3 +19,6 @@ MonoBehaviour:
   isTool: 1
   damage: 20
   swingTime: 0.5
+  knockback: 5
+  size: {x: 0.9, y: 0.5}
+  offset: {x: 0.25, y: 0.5}

@@ -5,15 +5,18 @@ using System;
 
 public class MovingObject : DestructibleObject
 {
-    public float movementSpeed = 4;
+    public float maxSpeed = 4;
+    public float acceleration = 1;
     public Rigidbody2D rb;
     public SpriteRenderer SpriteRenderer;
     public Sprite[] sprites = new Sprite[4 * 3];
     public float frameTime = 0.5f;
     public Transform pivotTransform;
     public BoxCollider2D damageCollider;
+    public LayerMask layerMask;
     public float baseDamage = 2;
     public float baseSwingTime = 1;
+    public float baseKnockback = 10;
 
     protected DateTime lastSwing;
 
@@ -42,12 +45,21 @@ public class MovingObject : DestructibleObject
         {
             movement.Normalize();
         }
-        //Debug.Log(TileManager.instance.DPS[1, 1]);  
-        rb.velocity = movement * movementSpeed * Globals.GetChunk(transform.position).getSpeed(transform.position);
+        //Debug.Log(TileManager.instance.DPS[1, 1]);
+        Vector2 goal_velocity = movement * maxSpeed * Globals.GetChunk(transform.position).getSpeed(transform.position);
+        Vector2 acceleration_direction = (goal_velocity - rb.velocity).normalized;
+        rb.velocity = rb.velocity + acceleration_direction * acceleration * Time.deltaTime;
+        if((acceleration_direction.x < 0 && goal_velocity.x - rb.velocity.x > 0) || (acceleration_direction.x > 0 && goal_velocity.x - rb.velocity.x < 0) || (acceleration_direction.y < 0 && goal_velocity.y - rb.velocity.y > 0) || (acceleration_direction.y > 0 && goal_velocity.y - rb.velocity.y < 0))
+        {
+            rb.velocity = goal_velocity;
+        }
     }
     protected void setDirection(Vector2 direction)
     {
-        
+        if(direction == Vector2.zero)
+        {
+            return;
+        }
         if (direction.y < -0.7)
         {
             dir = 0;
@@ -79,12 +91,12 @@ public class MovingObject : DestructibleObject
             SpriteRenderer.sprite = sprites[dir * 3 + Mathf.FloorToInt(animState / frameTime)];
         }
     }
-    protected virtual void attack(float damage, Vector2 extraOffset)
+    protected virtual void attack(float damage, Vector2 extraOffset, LayerMask layerMask, float knockback)
     {
         Vector2 Direction = pivotTransform.right;
         Vector2 boxPos = Rotate(new Vector2(damageCollider.offset.x, damageCollider.offset.y * pivotTransform.localScale.y) + extraOffset, Direction) + (Vector2)pivotTransform.transform.position;
         lastSwing = DateTime.Now;
-        Collider2D[] enemys = Physics2D.OverlapBoxAll(boxPos, damageCollider.size, pivotTransform.eulerAngles.z);
+        Collider2D[] enemys = Physics2D.OverlapBoxAll(boxPos, damageCollider.size, pivotTransform.eulerAngles.z, layerMask);
 
         for (int i = 0; i < enemys.Length; i++)
         {
@@ -93,6 +105,15 @@ public class MovingObject : DestructibleObject
                 if (enemys[i].gameObject.TryGetComponent(out DestructibleObject Object))
                 {
                     Object.TakeDamage(damage);
+                    try
+                    {
+                        MovingObject movingObject = (MovingObject)Object;
+                        movingObject.Knockback(knockback * (Object.transform.position - transform.position).normalized);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
         }
@@ -101,8 +122,12 @@ public class MovingObject : DestructibleObject
             return new Vector2(rotation.x * vector.x - rotation.y * vector.y, rotation.y * vector.x + rotation.x * vector.y);
         }
     }
-    protected void attack()
+    protected void attack(LayerMask layerMask)
     {
-        attack(baseDamage, new Vector2(0, 0));
+        attack(baseDamage, new Vector2(0, 0), layerMask, baseKnockback);
+    }
+    public void Knockback(Vector2 dir)
+    {
+        rb.velocity += dir;
     }
 }

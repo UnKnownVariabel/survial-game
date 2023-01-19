@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7039134244732569579}
   - component: {fileID: 154526047052862712}
   - component: {fileID: 3574946519940193388}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: static object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,6 +139,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 356130169739427689}
     m_Modifications:
+    - target: {fileID: 35554226663502031, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 793139536798838828, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1770806842756728046, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
       propertyPath: m_Color.g
       value: 0.2982258
@@ -154,6 +162,10 @@ PrefabInstance:
     - target: {fileID: 2150464266652089103, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503887349801304995, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3693637584299838165, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
       propertyPath: m_Pivot.x
@@ -242,6 +254,10 @@ PrefabInstance:
     - target: {fileID: 5316723710247166706, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
       propertyPath: m_Name
       value: health bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316723710247166706, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8917680774430946597, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
       propertyPath: m_PresetInfoIsWorld

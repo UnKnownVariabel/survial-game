@@ -72,17 +72,17 @@ public class Player : MovingObject
                     ToolData tool = (ToolData)inventory.selectedInventorySpot.item;
                     if (time > tool.swingTime)
                     {
-                        attack(tool.damage, damageCollider.transform.localPosition, tool.swingTime);
+                        attack(tool.damage, damageCollider.transform.localPosition, tool.swingTime, tool.knockback);
                     }
                 }
                 else if(time > baseSwingTime)
                 {
-                    attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime);
+                    attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime, baseKnockback);
                 }
             }
             else if(time > baseSwingTime)
             {
-                attack(baseDamage, damageCollider.transform.localPosition);
+                attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback);
             }
         }
         else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null)
@@ -138,9 +138,9 @@ public class Player : MovingObject
             }
         }
     }
-    protected void attack(float damage, Vector2 extraOffset, float swingTime)
+    protected void attack(float damage, Vector2 extraOffset, float swingTime, float knockback)
     {
-        base.attack(damage, extraOffset);
+        base.attack(damage, extraOffset, layerMask, knockback);
         toolAnimation["tool"].speed = 1 / swingTime;
         toolAnimation.Rewind("tool");
         toolAnimation.Play("tool");

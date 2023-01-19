@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
     public Item itemPrefab;
     public ItemData itemType;
     public ItemData[] itemsToSpawn;
+    public Mob mob;
+    public float amountOfMobs;
     public Tilemap groundTilemap, decorationTilemap, wallTilemap;
     public float AmountSpawned;
+    public MobSpawner mobSpawner;
     private void Awake()
     {
         Globals.destructibleObjects = new List<DestructibleObject>();
@@ -30,6 +33,11 @@ public class GameManager : MonoBehaviour
         {
             Item item = Instantiate(itemPrefab, new Vector3( i * 0.5f - itemsToSpawn.Length / 2f, 3, -1), Quaternion.identity);
             item.data = itemsToSpawn[i];
+        }
+        for (int i = 0; i < amountOfMobs; i++)
+        {
+            mobSpawner.SpawnMob();
+            //Instantiate(mob, new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), -1), Quaternion.identity);
         }
     }
 }

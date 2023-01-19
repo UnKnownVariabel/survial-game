@@ -22,6 +22,19 @@ public class Inventory : MonoBehaviour
                 }
                 _selectedInventorySpet = value;
                 _selectedInventorySpet.selected = true;
+                if(selectedInventorySpot.item != null)
+                {
+                    try
+                    {
+                        ToolData toolData = (ToolData)selectedInventorySpot.item;
+                        Globals.player.damageCollider.offset = toolData.offset;
+                        Globals.player.damageCollider.size = toolData.size;
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
             else
             {
