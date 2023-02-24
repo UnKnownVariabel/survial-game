@@ -66,7 +66,7 @@ TextureImporter:
       213: 7357856807379776106
     second: survival-game-character_20
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -87,6 +87,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -125,6 +126,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -152,6 +154,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -616,6 +630,28 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      survival-game-character_0: -4868769416090750892
+      survival-game-character_1: -5716041409987542574
+      survival-game-character_10: 7107099198072390165
+      survival-game-character_11: -8847240327918294533
+      survival-game-character_12: -7444236609425899045
+      survival-game-character_13: 1869600335470529465
+      survival-game-character_14: 901867199775282655
+      survival-game-character_15: -4712732769650933232
+      survival-game-character_16: -2835036626678244753
+      survival-game-character_17: -2387863668182942968
+      survival-game-character_18: -4125508585883102495
+      survival-game-character_19: 7024030325728701112
+      survival-game-character_2: -414957007805166159
+      survival-game-character_20: 7357856807379776106
+      survival-game-character_3: 6403277587897968808
+      survival-game-character_4: -345105084052010732
+      survival-game-character_5: 5254736858674403433
+      survival-game-character_6: -5475667093050323731
+      survival-game-character_7: 640420151499821293
+      survival-game-character_8: -5533304680081964861
+      survival-game-character_9: -303763325648726077
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

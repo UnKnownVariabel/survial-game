@@ -57,7 +57,7 @@ TextureImporter:
       213: 5309218590840957693
     second: sandTiles_17
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -78,6 +78,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -116,6 +117,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -143,6 +145,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -544,6 +558,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      sandTiles_0: 3057626264662621555
+      sandTiles_1: -1682137690124019425
+      sandTiles_10: -4868333426210168875
+      sandTiles_11: -7158361358572542547
+      sandTiles_12: 8572796770698948194
+      sandTiles_13: -5754035707179303511
+      sandTiles_14: -971031092682443087
+      sandTiles_15: 3018522149993448037
+      sandTiles_16: 3263682245377036461
+      sandTiles_17: 5309218590840957693
+      sandTiles_2: -2790670043870209589
+      sandTiles_3: 4540232684705443812
+      sandTiles_4: 7635083516010830998
+      sandTiles_5: 5180698462876770449
+      sandTiles_6: 2348624866118628932
+      sandTiles_7: -8853381281236338590
+      sandTiles_8: 5646999419927614253
+      sandTiles_9: -3910543991330120037
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -57,7 +57,7 @@ TextureImporter:
       213: -7531720103620950053
     second: grasTiles_17
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -78,6 +78,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -116,6 +117,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -143,6 +145,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -544,6 +558,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      grasTiles_0: -71551877316742756
+      grasTiles_1: -493294550717374925
+      grasTiles_10: 6204668709813384817
+      grasTiles_11: -4477847883930581899
+      grasTiles_12: -54391711190514134
+      grasTiles_13: -3928845023567480280
+      grasTiles_14: -8360772823651435774
+      grasTiles_15: -7330933432141951480
+      grasTiles_16: -852305708212240769
+      grasTiles_17: -7531720103620950053
+      grasTiles_2: 1696930357730591666
+      grasTiles_3: 2368409802390085765
+      grasTiles_4: -1776290441325298629
+      grasTiles_5: 1215594355787077793
+      grasTiles_6: 6813144582045617550
+      grasTiles_7: -6312332366958898872
+      grasTiles_8: -4570060226777987258
+      grasTiles_9: 880582683214441663
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

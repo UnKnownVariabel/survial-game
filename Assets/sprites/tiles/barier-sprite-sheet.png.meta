@@ -51,7 +51,7 @@ TextureImporter:
       213: 6124911027230651869
     second: barier-sprite-sheet_15
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -72,6 +72,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -110,6 +111,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -137,6 +139,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -496,6 +510,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      barier-sprite-sheet_0: 8599754492218562273
+      barier-sprite-sheet_1: 8583150035329266909
+      barier-sprite-sheet_10: -2560887589919531775
+      barier-sprite-sheet_11: 7964025569942848243
+      barier-sprite-sheet_12: -5609610352527765482
+      barier-sprite-sheet_13: 7490568101196886813
+      barier-sprite-sheet_14: -4321048907072177725
+      barier-sprite-sheet_15: 6124911027230651869
+      barier-sprite-sheet_2: -8322437943705711756
+      barier-sprite-sheet_3: 2524413693550482899
+      barier-sprite-sheet_4: 7350733354058096652
+      barier-sprite-sheet_5: -2965266253687127730
+      barier-sprite-sheet_6: -201327862378641749
+      barier-sprite-sheet_7: 6679393785684379101
+      barier-sprite-sheet_8: -6722425134475770585
+      barier-sprite-sheet_9: 7310841685592672965
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
