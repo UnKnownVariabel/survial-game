@@ -7,6 +7,7 @@ public class Mob : MovingObject
 {
     public float attackRange;
     public float minRange = 0.7f;
+    public Fire fire;
 
     protected int state;
     protected Path path;
@@ -16,8 +17,15 @@ public class Mob : MovingObject
 
     protected override void Start()
     {
+        Globals.mobs.Add(this);
         state = 1;
         base.Start();
+    }
+
+    protected override void die()
+    {
+        Globals.mobs.Remove(this);
+        base.die();
     }
 
     protected override void Update()
@@ -64,11 +72,11 @@ public class Mob : MovingObject
                     state = 2;
                 }
             }
-            else if(distance < path.Length && path.Length > 1)
+            else if (distance < path.Length && path.Length > 1)
             {
                 SettPathTo(Globals.player.transform.position);
             }
-            else if(distance < attackRange)
+            else if (distance < attackRange)
             {
                 state = 2;
             }
@@ -92,9 +100,8 @@ public class Mob : MovingObject
         {
             state = 1;
         }
-        else if(distance < minRange)
+        else if (distance < minRange)
         {
-            Debug.Log("is close upp");
             direction = Vector2.zero;
         }
         setDirection(direction);
@@ -132,5 +139,10 @@ public class Mob : MovingObject
         setDirection(direction);
         return false;
 
+    }
+    public void Morning()
+    {
+        Fire newFire = Instantiate(fire, transform.position + new Vector3(0, 0, -1), Quaternion.identity, transform);
+        newFire.target = this;
     }
 }

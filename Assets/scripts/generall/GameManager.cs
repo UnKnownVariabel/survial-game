@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         Globals.groundTilemap = groundTilemap;
         Globals.decorationTilemap = decorationTilemap;
         Globals.wallTilemap = wallTilemap;
+        Globals.mobs = new List<Mob>();
     }
     private void Start()
     {

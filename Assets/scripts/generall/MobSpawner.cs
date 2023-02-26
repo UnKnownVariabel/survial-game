@@ -5,6 +5,9 @@ using UnityEngine;
 public class MobSpawner : MonoBehaviour
 {
     public Mob[] mobs;
+    public float BaseSpawnTime;
+    public float spawnOffsetMax;
+    private float timeTillSpawn;
 
     public void SpawnMob()
     {
@@ -14,4 +17,18 @@ public class MobSpawner : MonoBehaviour
         Vector2 position = new Vector2(Mathf.Sin(angle) * distance, Mathf.Cos(angle) * distance);
         Instantiate(mobs[0], position, Quaternion.identity);
     }
+    private void Update()
+    {
+        if (Globals.timeHandler.isNight())
+        {
+            timeTillSpawn -= Time.deltaTime;
+            if (timeTillSpawn < 0)
+            {
+                float spawnTime = BaseSpawnTime / Globals.timeHandler.day;
+                timeTillSpawn = spawnTime + Random.Range(-spawnTime * spawnOffsetMax, spawnTime * spawnOffsetMax);
+                SpawnMob();
+            }
+        }
+    }
+
 }
