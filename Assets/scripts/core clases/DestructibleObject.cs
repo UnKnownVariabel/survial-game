@@ -13,7 +13,6 @@ public class DestructibleObject : MonoBehaviour
         }
     }
     private float realHealth;
-    public int team;
     public int minVisDamage;
     private ParticleSystem particlesystem;
     public HealthBar healthBar;

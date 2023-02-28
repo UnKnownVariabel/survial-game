@@ -21,7 +21,10 @@ public class Tower : Building
         if(target != null)
         {
             pivotTransform.up = target.transform.position - pivotTransform.position;
-
+            if (isReady)
+            {
+                shoot();
+            }
         }
         else
         {
