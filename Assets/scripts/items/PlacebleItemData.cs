@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "new plable item", menuName = "placable item")]
 public class PlacebleItemData : ItemData
 {
     public Sprite placedSprite;

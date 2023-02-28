@@ -7,7 +7,6 @@ public class Tower : Building
     public float range;
     public float chargeTime;
     public float projectileSpeed;
-    public bool isReady = false;
     public Projectile projectile;
     public Transform pivotTransform;
     public Transform spawnPoint;
@@ -21,7 +20,7 @@ public class Tower : Building
         if(target != null)
         {
             pivotTransform.up = target.transform.position - pivotTransform.position;
-            if (isReady)
+            if (isLoaded)
             {
                 shoot();
             }
@@ -65,6 +64,5 @@ public class Tower : Building
     public void LoadingDone()
     {
         isLoaded = true;
-        shoot();
     }
 }

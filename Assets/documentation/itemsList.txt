@@ -1,0 +1,6 @@
+0. log
+1. log barier
+2. axe
+3. sword
+4. arrow
+5. crossbow tower

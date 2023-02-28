@@ -52,11 +52,6 @@ public class WorldGeneration : MonoBehaviour
             }
         }
         Globals.currentChunk = Globals.chunks[(0, 0)];
-        //GenerateGroundTiles();
-        //spawnFlags();
-        //GenerateDecorations();
-        //spawnBots();
-        //minimapSCR.instance.createFlags();
     }
 
     private void Update()
@@ -66,7 +61,6 @@ public class WorldGeneration : MonoBehaviour
             for (int i = -chunkBuffer.y; i <= chunkBuffer.y; i++)
             {
                 actions.Add(new Action(0, Globals.currentChunk.x - 1 - chunkBuffer.x, Globals.currentChunk.y + i));
-                //GenerateChunk(Globals.currentChunk.x - 1 - chunkBuffer.x, Globals.currentChunk.y + i);
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x - 1, Globals.currentChunk.y)];
             CheckUnnecessaryChunks();
@@ -77,7 +71,6 @@ public class WorldGeneration : MonoBehaviour
             for (int i = -chunkBuffer.y; i <= chunkBuffer.y; i++)
             {
                 actions.Add(new Action(0, Globals.currentChunk.x + 1 + chunkBuffer.x, Globals.currentChunk.y + i));
-                //GenerateChunk(Globals.currentChunk.x + 1 + chunkBuffer.x, Globals.currentChunk.y + i);
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x + 1, Globals.currentChunk.y)];
             CheckUnnecessaryChunks();
