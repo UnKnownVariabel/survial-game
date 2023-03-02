@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         WorldGeneration.instance.startGame();
+        Map.instance.DrawMap();
         for(int i = 0; i < AmountSpawned; i++)
         {
             Item item = Instantiate(itemPrefab, new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), -1), Quaternion.identity);

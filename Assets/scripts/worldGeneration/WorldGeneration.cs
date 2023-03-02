@@ -64,7 +64,7 @@ public class WorldGeneration : MonoBehaviour
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x - 1, Globals.currentChunk.y)];
             CheckUnnecessaryChunks();
-
+            actions.Add(new Action(2));
         }
         else if (player.position.x > Globals.currentChunk.x * chunkSize + chunkSize / 2)
         {
@@ -74,6 +74,7 @@ public class WorldGeneration : MonoBehaviour
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x + 1, Globals.currentChunk.y)];
             CheckUnnecessaryChunks();
+            actions.Add(new Action(2));
         }
         if (player.position.y < Globals.currentChunk.y * chunkSize - chunkSize / 2)
         {
@@ -83,6 +84,7 @@ public class WorldGeneration : MonoBehaviour
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x, Globals.currentChunk.y - 1)];
             CheckUnnecessaryChunks();
+            actions.Add(new Action(2));
         }
         else if (player.position.y > Globals.currentChunk.y * chunkSize + chunkSize / 2)
         {
@@ -92,6 +94,7 @@ public class WorldGeneration : MonoBehaviour
             }
             Globals.currentChunk = Globals.chunks[(Globals.currentChunk.x, Globals.currentChunk.y + 1)];
             CheckUnnecessaryChunks();
+            actions.Add(new Action(2));
         }
         CheckForActions();
     }
@@ -259,6 +262,9 @@ public class WorldGeneration : MonoBehaviour
                     break;
                 case 1:
                     HideChunk(action.x, action.y);
+                    break;
+                case 2:
+                    Map.instance.DrawMap();
                     break;
                 default:
                     Debug.Log("this action type dose not exsist: " + action.type.ToString());

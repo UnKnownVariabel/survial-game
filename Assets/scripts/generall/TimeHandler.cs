@@ -14,6 +14,8 @@ public class TimeHandler : MonoBehaviour
     public float time;
     private float last_time;
     public int day = 1;
+    public Transform minuteArm;
+    public Transform hourArm;
 
     private void Awake()
     {
@@ -31,6 +33,8 @@ public class TimeHandler : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime * multiplier / 3600;
+        minuteArm.localEulerAngles = new Vector3(0, 0, -360 * (time - Mathf.Floor(time)));
+        hourArm.localEulerAngles = new Vector3(0, 0, -360 * time / 12);
         if (time > 24)
         {
             day++;
