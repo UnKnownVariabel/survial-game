@@ -6,9 +6,10 @@ using UnityEngine.Rendering.PostProcessing;
 public class TimeHandler : MonoBehaviour
 {
     public PostProcessVolume postProcessVolume;
-    public Color color;
     public Gradient colorGradient;
     private ColorGrading colorGrading;
+    public Gradient vignetteGradient;
+    private Vignette vignette;
 
     public float multiplier;
     public float time;
@@ -26,7 +27,7 @@ public class TimeHandler : MonoBehaviour
     void Start()
     {
         postProcessVolume.profile.TryGetSettings(out colorGrading);
-        colorGrading.colorFilter.value = color;
+        postProcessVolume.profile.TryGetSettings(out vignette);
     }
 
     // Update is called once per frame
@@ -43,10 +44,12 @@ public class TimeHandler : MonoBehaviour
         if(time < 12)
         {
             colorGrading.colorFilter.value = colorGradient.Evaluate(time / 12);
+            vignette.intensity.value = 1 - vignetteGradient.Evaluate(time / 12).grayscale;
         }
         else
         {
             colorGrading.colorFilter.value = colorGradient.Evaluate((24 - time) / 12);
+            vignette.intensity.value = 1 - vignetteGradient.Evaluate((24 - time) / 12).grayscale;
         }
         if(last_time < 6 && time >= 6)
         {

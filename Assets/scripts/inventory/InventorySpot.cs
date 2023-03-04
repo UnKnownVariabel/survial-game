@@ -24,6 +24,15 @@ public class InventorySpot : MonoBehaviour
                 if (item != null)
                 {
                     holdingSprite.sprite = item.sprite;
+                    try
+                    {
+                        ToolData toolData = (ToolData)item;
+                        holdingSprite.transform.localScale = new Vector3 (1, 1, 0);
+                    }
+                    catch
+                    {
+                        holdingSprite.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+                    }
                 }
                 else
                 {
@@ -64,6 +73,15 @@ public class InventorySpot : MonoBehaviour
         if (selected)
         {
             holdingSprite.sprite = item.sprite;
+            try
+            {
+                ToolData toolData = (ToolData)item;
+                holdingSprite.transform.localScale = new Vector3(1, 1, 0);
+            }
+            catch
+            {
+                holdingSprite.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+            }
         }
     }
     public void RemoveItem()

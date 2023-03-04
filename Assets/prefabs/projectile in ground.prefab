@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4296487586791577858}
   - component: {fileID: 1457115599465851982}
   - component: {fileID: 4649490958675677914}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: projectile in ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

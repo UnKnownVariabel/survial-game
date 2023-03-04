@@ -68,7 +68,7 @@ public class DestructibleObject : MonoBehaviour
     {
         for(int i = 0; i < itemDrops.Length; i++)
         {
-            Item itemInstance = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            Item itemInstance = Instantiate(itemPrefab, transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
             itemInstance.data = itemDrops[i];
         }
         if(Corpse != null)

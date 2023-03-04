@@ -16,6 +16,8 @@ public class WorldGeneration : MonoBehaviour
     public Tile treeTile;
     public StaticObject treePrefab;
     public StaticObject stumpPrefab;
+    public StaticObject crossbowPrefab;
+    public StaticObject stonePrefab;
     public PlacebleItemData wall;
     public Tilemap groundMap;
     public Tilemap decorationMap;
@@ -162,6 +164,14 @@ public class WorldGeneration : MonoBehaviour
                         case 4:
                             wall.placeItem(new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0));
                             break;
+                        case 5:
+                            StaticObject crossbow = Instantiate(crossbowPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            crossbow.chunk = chunk;
+                            break;
+                        case 6:
+                            StaticObject stone = Instantiate(stonePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            stone.chunk = chunk;
+                            break;
                     }
                 }
             }
@@ -184,13 +194,18 @@ public class WorldGeneration : MonoBehaviour
                     StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
                     tree.chunk = chunk;
                     //adding 00010000 to byte to indicate tree for redrawing chunk
-                    tiles[x - startX, y - startY] += 16;
+                    //tiles[x - startX, y - startY] += 16;
+                }
+                else if(Random.value < 0.3f)
+                {
+                    StaticObject stone = Instantiate(stonePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                    stone.chunk = chunk;
                 }
                 else if(Random.value < 0.1f)
                 {
                     decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
                     //adding 00100000 to byte to indicate stone for redrawing chunk
-                    tiles[x - startX, y - startY] += 32;
+                    //tiles[x - startX, y - startY] += 32;
                 }
                 
             }

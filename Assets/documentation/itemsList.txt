@@ -4,3 +4,4 @@
 3. sword
 4. arrow
 5. crossbow tower
+6. stone
