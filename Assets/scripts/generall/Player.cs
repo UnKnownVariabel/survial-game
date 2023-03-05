@@ -52,14 +52,6 @@ public class Player : MovingObject
         }
 
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-        if (Direction.x < 0)
-        {
-            pivotTransform.localScale = new Vector3(1, -1);
-        }
-        else
-        {
-            pivotTransform.localScale = new Vector3(1, 1);
-        }
         setDirection(Direction);
 
         if (Input.GetMouseButton(0))
@@ -72,17 +64,17 @@ public class Player : MovingObject
                     ToolData tool = (ToolData)inventory.selectedInventorySpot.item;
                     if (time > tool.swingTime)
                     {
-                        attack(tool.damage, damageCollider.transform.localPosition, tool.swingTime, tool.knockback);
+                        attack(tool.damage, damageCollider.transform.localPosition, tool.swingTime, tool.knockback, tool.multipliers);
                     }
                 }
                 else if(time > baseSwingTime)
                 {
-                    attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime, baseKnockback);
+                    attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime, baseKnockback, Multipliers.One);
                 }
             }
             else if(time > baseSwingTime)
             {
-                attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback);
+                attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
             }
         }
         else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null)
@@ -101,6 +93,29 @@ public class Player : MovingObject
             }
         }
         base.Update();
+    }
+
+    protected override void setDirection(Vector2 direction)
+    {
+        if (direction.x < 0)
+        {
+            pivotTransform.localScale = new Vector3(1, -1);
+        }
+        else
+        {
+            pivotTransform.localScale = new Vector3(1, 1);
+        }
+        base.setDirection(direction);
+        if (dir == 2)
+        {
+            pivotTransform.localPosition = new Vector3(pivotTransform.localPosition.x, pivotTransform.localPosition.y, 0.1f);
+        }
+        else
+        {
+            pivotTransform.localPosition = new Vector3(pivotTransform.localPosition.x, pivotTransform.localPosition.y, -0.1f);
+
+        }
+
     }
     void PickUpItems()
     {
@@ -138,9 +153,9 @@ public class Player : MovingObject
             }
         }
     }
-    protected void attack(float damage, Vector2 extraOffset, float swingTime, float knockback)
+    protected void attack(float damage, Vector2 extraOffset, float swingTime, float knockback, Multipliers multipliers)
     {
-        base.attack(damage, extraOffset, layerMask, knockback);
+        base.attack(damage, extraOffset, layerMask, knockback, multipliers);
         toolAnimation["tool"].speed = 1 / swingTime;
         toolAnimation.Rewind("tool");
         toolAnimation.Play("tool");

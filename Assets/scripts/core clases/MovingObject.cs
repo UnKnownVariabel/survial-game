@@ -22,7 +22,7 @@ public class MovingObject : DestructibleObject
 
 
     private float animState;
-    private int dir;
+    protected int dir;
 
     protected override void Awake()
     {
@@ -54,7 +54,7 @@ public class MovingObject : DestructibleObject
             rb.velocity = goal_velocity;
         }
     }
-    protected void setDirection(Vector2 direction)
+    protected virtual void setDirection(Vector2 direction)
     {
         if(direction == Vector2.zero)
         {
@@ -91,7 +91,7 @@ public class MovingObject : DestructibleObject
             SpriteRenderer.sprite = sprites[dir * 3 + Mathf.FloorToInt(animState / frameTime)];
         }
     }
-    protected virtual void attack(float damage, Vector2 extraOffset, LayerMask layerMask, float knockback)
+    protected virtual void attack(float damage, Vector2 extraOffset, LayerMask layerMask, float knockback, Multipliers multipliers)
     {
         Vector2 Direction = pivotTransform.right;
         Vector2 boxPos = Rotate(new Vector2(damageCollider.offset.x, damageCollider.offset.y * pivotTransform.localScale.y) + extraOffset, Direction) + (Vector2)pivotTransform.transform.position;
@@ -104,7 +104,19 @@ public class MovingObject : DestructibleObject
             {
                 if (enemys[i].gameObject.TryGetComponent(out DestructibleObject Object))
                 {
-                    Object.TakeDamage(damage);
+                    switch (Object.type)
+                    {
+                        case 0:
+                            Object.TakeDamage(damage * multipliers.mob);
+                            break;
+                        case 1:
+                            Object.TakeDamage(damage * multipliers.wood); 
+                            break;
+                        case 2:
+                            Object.TakeDamage(damage * multipliers.stone);
+                            break;
+                    }
+                    
                     try
                     {
                         MovingObject movingObject = (MovingObject)Object;
@@ -124,7 +136,7 @@ public class MovingObject : DestructibleObject
     }
     protected void attack(LayerMask layerMask)
     {
-        attack(baseDamage, new Vector2(0, 0), layerMask, baseKnockback);
+        attack(baseDamage, new Vector2(0, 0), layerMask, baseKnockback, Multipliers.One);
     }
     public void Knockback(Vector2 dir)
     {

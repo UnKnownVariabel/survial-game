@@ -5,3 +5,4 @@
 4. arrow
 5. crossbow tower
 6. stone
+7. pickaxe

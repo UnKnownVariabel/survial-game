@@ -160,13 +160,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 40
-  team: 0
   minVisDamage: 10
   healthBar: {fileID: 4329940707889067895}
   isDead: 0
   itemPrefab: {fileID: 0}
   itemDrops: []
   Corpse: {fileID: 0}
+  type: 0
   maxSpeed: 2
   acceleration: 10
   rb: {fileID: 4630593959030652197}

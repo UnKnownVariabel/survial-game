@@ -21,6 +21,7 @@ public class DestructibleObject : MonoBehaviour
     public ItemData[] itemDrops;
     public DestructibleObject Corpse;
     public Chunk chunk;
+    public int type;
     //public byte staticIndex;
     // Start is called before the first frame update
     protected virtual void Awake()
