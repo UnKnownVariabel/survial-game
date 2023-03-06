@@ -11,6 +11,7 @@ public class Player : MovingObject
     public float pickUpDistance = 0.5f;
     public Animation toolAnimation;
     public Crafting crafting;
+
     private Vector2 direction;
 
     protected override void Awake()
@@ -49,6 +50,14 @@ public class Player : MovingObject
         if (Input.GetKeyDown(KeyCode.E))
         {
             crafting.gameObject.SetActive(!crafting.gameObject.activeSelf);
+            if (crafting.gameObject.activeSelf)
+            {
+                crafting.UpdatePotentialValues();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            inventory.DropItem();
         }
 
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;

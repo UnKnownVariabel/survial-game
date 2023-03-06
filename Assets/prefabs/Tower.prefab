@@ -211,37 +211,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7703416742846007263, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
   m_PrefabInstance: {fileID: 1014479167352060699}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4970833803382047711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7276743715839786180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68142fd03d4fb9d4d92ee3020ba3b4fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 200
-  minVisDamage: 10
-  healthBar: {fileID: 5305664597259308789}
-  isDead: 0
-  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
-  itemDrops: []
-  Corpse: {fileID: 0}
-  ObjectIndex: 5
-  itemData: {fileID: 0}
-  range: 3
-  chargeTime: 2
-  projectileSpeed: 4
-  isReady: 0
-  projectile: {fileID: 5454877613755228592, guid: 868969b8b12b6504d8af3b997e0c27d8, type: 3}
-  pivotTransform: {fileID: 1940173075127919705}
-  spawnPoint: {fileID: 1052686443844108252}
-  isLoaded: 0
-  animator: {fileID: 2998252659992871204}
-  target: {fileID: 0}
 --- !u!95 &2998252659992871204
 Animator:
   serializedVersion: 5
@@ -262,3 +231,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4970833803382047711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276743715839786180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68142fd03d4fb9d4d92ee3020ba3b4fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 200
+  minVisDamage: 10
+  healthBar: {fileID: 5305664597259308789}
+  isDead: 0
+  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
+  itemDrops: []
+  Corpse: {fileID: 0}
+  type: 0
+  ObjectIndex: 5
+  itemData: {fileID: 11400000, guid: 123d2fa4102f7854ab82d9710d0ea058, type: 2}
+  range: 3
+  chargeTime: 2
+  projectileSpeed: 4
+  projectile: {fileID: 5454877613755228592, guid: 868969b8b12b6504d8af3b997e0c27d8, type: 3}
+  pivotTransform: {fileID: 1940173075127919705}
+  spawnPoint: {fileID: 1052686443844108252}
+  isLoaded: 0
+  animator: {fileID: 2998252659992871204}
+  target: {fileID: 0}

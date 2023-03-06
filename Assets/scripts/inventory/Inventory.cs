@@ -5,7 +5,8 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public SpriteRenderer holdingSprite;
-    [SerializeField] private InventorySpot[] spots = new InventorySpot[10];
+    public Crafting crafting;
+    [SerializeField] public InventorySpot[] spots = new InventorySpot[10];
     public InventorySpot selectedInventorySpot
     {
         get
@@ -127,12 +128,14 @@ public class Inventory : MonoBehaviour
             if (spots[i].item == data && spots[i].amount < data.stackSize)
             {
                 spots[i].AddItem(data);
+                callFunc();
                 return true;
             }
         }
         if (selectedInventorySpot.item == null || (selectedInventorySpot.item == data && selectedInventorySpot.amount < data.stackSize))
         {
             selectedInventorySpot.AddItem(data);
+            callFunc();
             return true;
         }
         for (int i = 0; i < spots.Length; i++)
@@ -140,10 +143,18 @@ public class Inventory : MonoBehaviour
             if (spots[i].item == null)
             {
                 spots[i].AddItem(data);
+                callFunc();
                 return true;
             }
         }
         return false;
+        void callFunc()
+        {
+            if (crafting.gameObject.activeSelf)
+            {
+                crafting.UpdatePotentialValues();
+            }
+        }
     }
     public void tryFindSameItem(ItemData data)
     {
@@ -192,5 +203,14 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+    public void DropItem()
+    {
+        if(selectedInventorySpot.item != null)
+        {
+            Item item = Instantiate(crafting.itemPrefab, crafting.player.transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
+            item.data = selectedInventorySpot.item;
+            selectedInventorySpot.RemoveItem();
+        }   
     }
 }
