@@ -251,6 +251,7 @@ MonoBehaviour:
   itemDrops: []
   Corpse: {fileID: 0}
   type: 0
+  targetDesirebility: 10
   ObjectIndex: 5
   itemData: {fileID: 11400000, guid: 123d2fa4102f7854ab82d9710d0ea058, type: 2}
   range: 3

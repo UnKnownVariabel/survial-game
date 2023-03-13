@@ -7,5 +7,6 @@ public class ToolData : ItemData
 {
     public float damage, swingTime, knockback;
     public Multipliers multipliers;
+    public LayerMask layerMask;
     public Vector2 size, offset;
 }

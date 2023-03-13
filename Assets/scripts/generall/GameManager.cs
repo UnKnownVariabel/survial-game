@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
         Globals.decorationTilemap = decorationTilemap;
         Globals.wallTilemap = wallTilemap;
         Globals.mobs = new List<Mob>();
+        Globals.targets = new List<DestructibleObject>();
+        Globals.walls = new Dictionary<(int, int), Building>();
     }
     private void Start()
     {

@@ -6,7 +6,7 @@ using System;
 
 public class Pathfinder
 { 
-    public static Path createPath(Vector2 position, Vector2 goal, float speed, float health)
+    public static Path createPath(Vector2 position, Vector2 goal, float speed, float health, DestructibleObject target, float dps)
     {
         //DateTime startTime = System.DateTime.Now;
 
@@ -25,7 +25,7 @@ public class Pathfinder
         Node endNode = GetClosestNode(goal);
         if (startNode == endNode)
         {
-            return new Path(new Vector2[] { goal }, new Node[] { startNode  });
+            return new Path(new Vector2[] { goal }, new Node[] { startNode  }, target);
         }
         Heap<Node> openSet = new Heap<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -84,7 +84,7 @@ public class Pathfinder
             nodes[pathLength] = node;
         }
         //Debug.Log("milliseconds to run A*: " + (System.DateTime.Now - startTime).TotalMilliseconds.ToString());
-        return new Path(Path, nodes);
+        return new Path(Path, nodes, target);
 
         List<Node> getNeighbours(Node node)
         {
@@ -102,10 +102,7 @@ public class Pathfinder
                     Node new_node = GetNode(checkX, checkY);
                     if (new_node != null)
                     {
-                        if (new_node.health <= 0)
-                        {
-                            neighbours.Add(new_node);
-                        }
+                        neighbours.Add(new_node);
                     }
                 }
             }
@@ -113,7 +110,12 @@ public class Pathfinder
         }
         int Gcost(Node node, Node parent)
         {
-            return node.travelDamage * dpsMultiplier + node.travelCost + Mathf.Abs((node.xPos - parent.xPos) * (node.yPos - parent.yPos) * node.diagonalExtra) + parent.G;
+            int cost = node.travelDamage * dpsMultiplier + node.travelCost + Mathf.Abs((node.xPos - parent.xPos) * (node.yPos - parent.yPos) * node.diagonalExtra) + parent.G;
+            if (node.health > 0)
+            {
+                cost += (int)(2 * node.health / dps);
+            }
+            return cost;
         }
         int Hcost(Node node)
         {

@@ -22,6 +22,7 @@ public class DestructibleObject : MonoBehaviour
     public DestructibleObject Corpse;
     public Chunk chunk;
     public int type;
+    public float targetDesirebility;
     //public byte staticIndex;
     // Start is called before the first frame update
     protected virtual void Awake()
@@ -32,6 +33,10 @@ public class DestructibleObject : MonoBehaviour
     protected virtual void Start()
     {
         Globals.destructibleObjects.Add(this);
+        if(targetDesirebility > 0)
+        {
+            Globals.targets.Add(this);
+        }
         particlesystem = GetComponent<ParticleSystem>();
         if(particlesystem == null)
         {
@@ -78,6 +83,10 @@ public class DestructibleObject : MonoBehaviour
             corpse.chunk = chunk;
         }
         Globals.destructibleObjects.Remove(this);
+        if (targetDesirebility > 0)
+        {
+            Globals.targets.Remove(this);
+        }
         Destroy(gameObject);
     }
 }

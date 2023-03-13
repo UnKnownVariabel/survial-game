@@ -167,6 +167,7 @@ MonoBehaviour:
   itemDrops: []
   Corpse: {fileID: 0}
   type: 0
+  targetDesirebility: 0
   maxSpeed: 2
   acceleration: 10
   rb: {fileID: 4630593959030652197}
@@ -196,6 +197,8 @@ MonoBehaviour:
   attackRange: 1
   minRange: 0.7
   fire: {fileID: 7831527425511481733, guid: 7c7191e1b42b1a74a8329de13353021b, type: 3}
+  target: {fileID: 0}
+  targetIsStatic: 0
 --- !u!50 &4630593959030652197
 Rigidbody2D:
   serializedVersion: 4
@@ -227,7 +230,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

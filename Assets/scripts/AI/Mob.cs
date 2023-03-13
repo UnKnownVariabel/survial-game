@@ -8,6 +8,8 @@ public class Mob : MovingObject
     public float attackRange;
     public float minRange = 0.7f;
     public Fire fire;
+    public DestructibleObject target;
+    public bool targetIsStatic;
 
     protected int state;
     protected Path path;
@@ -37,7 +39,7 @@ public class Mob : MovingObject
                 Idle();
                 break;
             case 1:
-                ToPlayer();
+                ToTarget();
                 break;
             case 2:
                 CloseUp();
@@ -55,47 +57,67 @@ public class Mob : MovingObject
 
     }
 
-    protected void ToPlayer()
+    protected void ToTarget()
     {
-        float distance = Vector2.Distance(transform.position, Globals.player.transform.position);
-        if (path != null)
+        if(target != null)
         {
-            if (FollowPath())
+            float distance = Vector2.Distance(transform.position, target.transform.position);
+            if (path != null)
             {
-                if (distance > attackRange)
+                if (FollowPath())
                 {
-                    SettPathTo(Globals.player.transform.position);
+                    if (distance > attackRange)
+                    {
+                        SettPathTo(target.transform.position);
+                    }
+                    else
+                    {
+                        path = null;
+                        state = 2;
+                    }
                 }
-                else
+                else if (distance < path.Length * 1.5 && path.Length > 1)
                 {
-                    path = null;
+                    Debug.Log("this happens often");
+                    SettPathTo(target.transform.position);
+                }
+                else if (distance < attackRange)
+                {
                     state = 2;
                 }
             }
-            else if (distance < path.Length && path.Length > 1)
+            else if (distance > attackRange)
             {
-                SettPathTo(Globals.player.transform.position);
+                FindTarget();
             }
-            else if (distance < attackRange)
+            else
             {
                 state = 2;
             }
         }
-        else if (distance > attackRange)
-        {
-            SettPathTo(Globals.player.transform.position);
-        }
         else
         {
-            state = 2;
+            FindTarget();
         }
     }
-
     protected void CloseUp()
     {
-        direction = Globals.player.transform.position - transform.position;
+        if (target == null)
+        {
+            if (!path.complete)
+            {
+                target = path.nextTarget();
+                if (target != null)
+                {
+                    state = 1;
+                    return;
+                }
+            }
+        }
+        direction = target.transform.position - transform.position;
         float distance = direction.magnitude;
         direction.Normalize();
+        setDirection(direction);
         if (distance > attackRange)
         {
             state = 1;
@@ -104,12 +126,13 @@ public class Mob : MovingObject
         {
             direction = Vector2.zero;
         }
-        setDirection(direction);
         if ((DateTime.Now - lastSwing).TotalSeconds > baseSwingTime)
         {
             attack(layerMask);
-        }
+        } 
     }
+
+
 
     protected bool FollowPath()
     {
@@ -123,7 +146,7 @@ public class Mob : MovingObject
 
     protected void SettPathTo(Vector2 goal)
     {
-        path = Pathfinder.createPath(transform.position, goal, 20, 1000);
+        path = Pathfinder.createPath(transform.position, goal, 20, 1000, target, baseDamage / baseSwingTime);
         lastDir = Vector2.zero;
     }
 
@@ -144,5 +167,35 @@ public class Mob : MovingObject
     {
         Fire newFire = Instantiate(fire, transform.position + new Vector3(0, 0, -1), Quaternion.identity, transform);
         newFire.target = this;
+    }
+    // finds target and path to target
+    public void FindTarget()
+    {
+        float bestScore = 0;
+        DestructibleObject bestTarget = null;
+        foreach(DestructibleObject target in Globals.targets)
+        {
+            float score = target.targetDesirebility / Vector2.Distance(target.transform.position, transform.position);
+            if(score > bestScore)
+            {
+                bestScore = score;
+                bestTarget = target;
+            }
+        }
+        target = bestTarget;
+        SettPathTo(target.transform.position);
+        if(path.intermedietTarget != null)
+        {
+            target = path.intermedietTarget;
+        }
+        try
+        {
+            StaticObject temp = (StaticObject)target;
+            targetIsStatic = true;
+        }
+        catch
+        {
+            targetIsStatic = false;
+        }
     }
 }

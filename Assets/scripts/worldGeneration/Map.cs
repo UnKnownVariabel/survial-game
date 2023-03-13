@@ -11,6 +11,7 @@ public class Map : MonoBehaviour
     public float chunkSize = 100f;
     public Transform mapPos;
     public Vector3 offset;
+    public Transform point;
 
     public static Map instance;
 
@@ -22,7 +23,7 @@ public class Map : MonoBehaviour
     private void LateUpdate()
     {
         mapPos.localPosition = -(Globals.player.transform.position - offset) * chunkSize / WorldGeneration.chunkSize;
-
+        point.eulerAngles = Globals.player.pivotTransform.eulerAngles + new Vector3(0, 0, -90);
     }
 
     public void DrawMap()
