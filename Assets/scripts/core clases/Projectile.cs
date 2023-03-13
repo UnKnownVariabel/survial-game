@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float damage = 20;
+    public float knockback;
     public LayerMask layerMask;
     public GameObject projectileInGround;
     private float startSpeed;
@@ -31,6 +32,15 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.TryGetComponent<DestructibleObject>(out DestructibleObject target))
             {
                 target.TakeDamage(damage);
+                try
+                {
+                    MovingObject movingObject = (MovingObject)target;
+                    movingObject.Knockback(knockback * (target.transform.position - transform.position).normalized);
+                }
+                catch
+                {
+
+                }
                 Destroy(gameObject);
             }
         }
