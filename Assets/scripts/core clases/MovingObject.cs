@@ -53,6 +53,10 @@ public class MovingObject : DestructibleObject
         {
             rb.velocity = goal_velocity;
         }
+        if(Globals.GetChunk(transform.position).getDPS(transform.position) > 0)
+        {
+            TakeDamage(Globals.GetChunk(transform.position).getDPS(transform.position) * Time.deltaTime);
+        }
     }
     protected virtual void setDirection(Vector2 direction)
     {

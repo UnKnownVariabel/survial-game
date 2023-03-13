@@ -5,8 +5,8 @@ using UnityEngine;
 public class Chunk
 {
     public bool isSpawnd;
-    private float[,] DPS;
-    private float[,] Speed;
+    public float[,] DPS;
+    public float[,] Speed;
     public byte[,] tiles;
     public Node[,] nodes;
     public int x, y;

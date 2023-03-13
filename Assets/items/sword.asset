@@ -20,5 +20,12 @@ MonoBehaviour:
   damage: 30
   swingTime: 0.35
   knockback: 3
+  multipliers:
+    mob: 1
+    wood: 0.5
+    stone: 0.2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 384
   size: {x: 0.7, y: 0.8}
   offset: {x: 0.1, y: 0.3}

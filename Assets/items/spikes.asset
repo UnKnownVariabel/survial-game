@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 716aa25f3fb98407f8269dcef052bd29, type: 3}
-  m_Name: stone
+  m_Script: {fileID: 11500000, guid: 76393d263e0d649cc8cd7b8cd8f2e8af, type: 3}
+  m_Name: spikes
   m_EditorClassIdentifier: 
-  sprite: {fileID: -4462472414479213358, guid: 1b799eb27ca0f406aac9aa6a0f7c5f86, type: 3}
-  ItemIndex: 6
+  sprite: {fileID: 21300000, guid: ae2dcd872a6be154298da281fd4b725b, type: 3}
+  ItemIndex: 8
   stackSize: 10
-  isPlaceble: 0
+  isPlaceble: 1
   isTool: 0
+  prefab: {fileID: 3902148597279618282, guid: 196ed2b4b47d5a94cad02eb1ba940240, type: 3}

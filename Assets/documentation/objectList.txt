@@ -4,3 +4,4 @@
 4. birch log barier
 5. crossbow tower
 6. stone
+7. spikes

@@ -96,7 +96,8 @@ public class Player : MovingObject
                 (int x, int y) key = chunk.TilePos(pos);
                 if (!chunk.staticObjects.ContainsKey(key))
                 {
-                    ((PlacebleItemData)inventory.selectedInventorySpot.item).placeItem(pos);
+                    Building building = ((PlacebleItemData)inventory.selectedInventorySpot.item).placeItem(pos);
+                    building.chunk = chunk;
                     inventory.selectedInventorySpot.RemoveItem();
                 }
             }

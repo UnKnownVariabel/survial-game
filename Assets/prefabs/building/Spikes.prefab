@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3163451134604354038
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1484419591663894285, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 390768529be16c14e81e416734be7a3d, type: 2}
+    - target: {fileID: 2753524460412646789, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2753524460412646789, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3243798147092312221, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ae2dcd872a6be154298da281fd4b725b, type: 3}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703416742846007263, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_Name
+      value: Spikes
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1484419591663894285, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+--- !u!1 &4687929166614767145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7703416742846007263, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+  m_PrefabInstance: {fileID: 3163451134604354038}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3902148597279618282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687929166614767145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c000786b0d6696f4c9c554832c12c5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  minVisDamage: 10
+  healthBar: {fileID: 7805706486376191000}
+  isDead: 0
+  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
+  itemDrops: []
+  Corpse: {fileID: 0}
+  type: 1
+  targetDesirebility: 50
+  ObjectIndex: 7
+  itemData: {fileID: 0}
+  DPS: 20
+  speed: 0.4
+--- !u!114 &7805706486376191000 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5167219468275578350, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+  m_PrefabInstance: {fileID: 3163451134604354038}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd96033a1c6e4b2695fa6f7a387338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

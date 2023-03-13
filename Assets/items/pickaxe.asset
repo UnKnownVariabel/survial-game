@@ -12,13 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5047af28506488f9b904d6b09300b4, type: 3}
   m_Name: pickaxe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  ItemIndex: 0
-  stackSize: 0
+  sprite: {fileID: 21300000, guid: 53460e728f420534a818283fd8dda720, type: 3}
+  ItemIndex: 7
+  stackSize: 1
   isPlaceble: 0
-  isTool: 0
-  damage: 0
-  swingTime: 0
-  knockback: 0
-  size: {x: 0, y: 0}
-  offset: {x: 0, y: 0}
+  isTool: 1
+  damage: 40
+  swingTime: 0.5
+  knockback: 4
+  multipliers:
+    mob: 0.5
+    wood: 0.2
+    stone: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 896
+  size: {x: 0.9, y: 0.5}
+  offset: {x: 0.25, y: 0.5}

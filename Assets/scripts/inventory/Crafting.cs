@@ -8,8 +8,8 @@ public class Crafting : MonoBehaviour
     public Inventory inventory;
     public Player player;
     public Item itemPrefab;
-    public int[] resources = new int[8];
-    public CraftingRecipe[] recipes = new CraftingRecipe[6];
+    public int[] resources;
+    public CraftingRecipe[] recipes;
     public Text[] texts = new Text[6];
 
     public void UpdatePotentialValues()

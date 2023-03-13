@@ -14,7 +14,7 @@ public class WallData : PlacebleItemData
         Building building = base.placeItem(position);
         Vector3Int pos = Globals.wallTilemap.WorldToCell(position);
         Globals.wallTilemap.SetTile(pos, WallTile);
-        Globals.GetChunk(position).SettHealth(position, health);
+        Globals.GetChunk(position).SettHealth(position, prefab.maxHealth);
         (int, int) key = ((int)position.x, (int)position.y);
         if(!Globals.walls.ContainsKey(key))
         {

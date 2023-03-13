@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9b9083884944dd99bf662e7309ccb, type: 3}
   m_Name: stone pickaxe
   m_EditorClassIdentifier: 
-  input: []
-  output: []
+  input:
+  - {fileID: 11400000, guid: 796c59a228244472da175f698622d6bd, type: 2}
+  - {fileID: 11400000, guid: 143c244cd4999184e9c34dcd98933eba, type: 2}
+  output:
+  - {fileID: 11400000, guid: 505d5934ee2ee4242bfed6de466b3adf, type: 2}

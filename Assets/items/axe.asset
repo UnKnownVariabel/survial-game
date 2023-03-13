@@ -17,8 +17,15 @@ MonoBehaviour:
   stackSize: 1
   isPlaceble: 0
   isTool: 1
-  damage: 20
+  damage: 40
   swingTime: 0.5
   knockback: 5
+  multipliers:
+    mob: 0.7
+    wood: 1
+    stone: 0.2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 896
   size: {x: 0.9, y: 0.5}
   offset: {x: 0.25, y: 0.5}

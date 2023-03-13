@@ -76,7 +76,7 @@ public class Mob : MovingObject
                         state = 2;
                     }
                 }
-                else if (distance < path.Length * 1.5 && path.Length > 1)
+                else if (distance * 1.5 < path.Length && path.Length > 1)
                 {
                     Debug.Log("this happens often");
                     SettPathTo(target.transform.position);
