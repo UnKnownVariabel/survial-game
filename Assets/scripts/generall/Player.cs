@@ -11,6 +11,7 @@ public class Player : MovingObject
     public float pickUpDistance = 0.5f;
     public Animation toolAnimation;
     public Crafting crafting;
+    public DeathScreen deathScreen;
 
     private Vector2 direction;
 
@@ -170,4 +171,9 @@ public class Player : MovingObject
         toolAnimation.Rewind("tool");
         toolAnimation.Play("tool");
     }
+    protected override void die()
+    {
+        deathScreen.gameObject.SetActive(true);
+    }
 }
+
