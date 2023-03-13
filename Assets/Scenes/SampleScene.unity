@@ -885,18 +885,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
   itemType: {fileID: 11400000, guid: 59a53c0964ca94c09a451c5b8714a6b8, type: 2}
-  itemsToSpawn:
-  - {fileID: 11400000, guid: b0c28ad5429d24c0b82a029a2ca1253d, type: 2}
-  - {fileID: 11400000, guid: d5fc0728801d64d6f8ff438db1cc3133, type: 2}
-  - {fileID: 11400000, guid: 123d2fa4102f7854ab82d9710d0ea058, type: 2}
-  - {fileID: 11400000, guid: 505d5934ee2ee4242bfed6de466b3adf, type: 2}
-  - {fileID: 11400000, guid: 390768529be16c14e81e416734be7a3d, type: 2}
+  itemsToSpawn: []
   mob: {fileID: 4630593959030652199, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
   amountOfMobs: 0
   groundTilemap: {fileID: 581638844}
   decorationTilemap: {fileID: 481974423}
   wallTilemap: {fileID: 1157967186}
-  AmountSpawned: 10
+  AmountSpawned: 0
   mobSpawner: {fileID: 447833185}
 --- !u!4 &447833183
 Transform:
@@ -1028,8 +1023,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  multiplier: 250
-  time: 14
+  multiplier: 800
+  time: 6
   day: 1
   minuteArm: {fileID: 1628103269}
   hourArm: {fileID: 2006724951}
@@ -1700,7 +1695,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   isDead: 0
   itemPrefab: {fileID: 0}
-  itemDrops: []
+  drops: []
   Corpse: {fileID: 0}
   type: 0
   targetDesirebility: 0
@@ -2364,12 +2359,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6b1a6e5be3242c9b62a84a085c3bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10000
+  maxHealth: 500
   minVisDamage: 3
   healthBar: {fileID: 827537818}
   isDead: 0
   itemPrefab: {fileID: 0}
-  itemDrops: []
+  drops: []
   Corpse: {fileID: 0}
   type: 0
   targetDesirebility: 50
@@ -2396,7 +2391,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 896
-  baseDamage: 5
+  baseDamage: 10
   baseSwingTime: 1
   baseKnockback: 5
   inventory: {fileID: 1598869205}

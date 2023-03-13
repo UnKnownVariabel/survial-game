@@ -249,9 +249,10 @@ MonoBehaviour:
   isDead: 0
   itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
   itemDrops: []
+  drops: []
   Corpse: {fileID: 0}
   type: 0
-  targetDesirebility: 10
+  targetDesirebility: 40
   ObjectIndex: 5
   itemData: {fileID: 11400000, guid: 123d2fa4102f7854ab82d9710d0ea058, type: 2}
   range: 3

@@ -1,9 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class DestructibleObject : MonoBehaviour
 {
+    [System.Serializable]
+    public struct Drop
+    {
+        public ItemData item;
+        public float probability;
+        Drop(ItemData item, float probability)
+        {
+            this.item = item;
+            this.probability = probability;
+        }
+    }
+
+
     public float maxHealth;
     public float health
     {
@@ -18,7 +32,7 @@ public class DestructibleObject : MonoBehaviour
     public HealthBar healthBar;
     public bool isDead;
     public Item itemPrefab;
-    public ItemData[] itemDrops;
+    [SerializeField] public Drop[] drops;
     public DestructibleObject Corpse;
     public Chunk chunk;
     public int type;
@@ -72,10 +86,13 @@ public class DestructibleObject : MonoBehaviour
     }
     protected virtual void die()
     {
-        for(int i = 0; i < itemDrops.Length; i++)
+        for (int i = 0; i < drops.Length; i++)
         {
-            Item itemInstance = Instantiate(itemPrefab, transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
-            itemInstance.data = itemDrops[i];
+            if (Random.Range(0f, 1f) <= drops[i].probability)
+            {
+                Item itemInstance = Instantiate(itemPrefab, transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
+                itemInstance.data = drops[i].item;
+            }
         }
         if(Corpse != null)
         {

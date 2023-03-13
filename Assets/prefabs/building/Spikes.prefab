@@ -99,7 +99,7 @@ MonoBehaviour:
   itemDrops: []
   Corpse: {fileID: 0}
   type: 1
-  targetDesirebility: 50
+  targetDesirebility: 20
   ObjectIndex: 7
   itemData: {fileID: 0}
   DPS: 20

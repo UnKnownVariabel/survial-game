@@ -107,11 +107,16 @@ public class Mob : MovingObject
             if (!path.complete)
             {
                 target = path.nextTarget();
-                if (target != null)
+                if (target == null)
                 {
                     state = 1;
                     return;
                 }
+            }
+            else
+            {
+                state = 1;
+                return;
             }
         }
         direction = target.transform.position - transform.position;
