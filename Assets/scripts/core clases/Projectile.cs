@@ -24,11 +24,11 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if((layerMask.value & (1 << collision.transform.gameObject.layer)) > 0)
+        if ((layerMask.value & (1 << collision.transform.gameObject.layer)) > 0)
         {
-            if(collision.gameObject.TryGetComponent<DestructibleObject>(out DestructibleObject target))
+            if (collision.gameObject.TryGetComponent<DestructibleObject>(out DestructibleObject target))
             {
                 target.TakeDamage(damage);
                 Destroy(gameObject);
