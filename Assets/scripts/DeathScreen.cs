@@ -11,7 +11,7 @@ public class DeathScreen : MonoBehaviour
     {
         Time.timeScale = 0f;
         float result = Globals.timeHandler.day + Globals.timeHandler.time / 24 - 1.25f;
-        text.text = "you survived: " + Mathf.Floor(result) + " days and " + Mathf.Round(((result % 1) * 24)).ToString() + "houres";
+        text.text = "you survived: " + Mathf.Floor(result) + " days and " + Mathf.Round(((result % 1) * 24)).ToString() + " hours";
     }
 
     public void Retry()

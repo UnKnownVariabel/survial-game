@@ -6,7 +6,7 @@ public class Chunk
 {
     public bool isSpawnd;
     public float[,] DPS;
-    public float[,] Speed;
+    public float[,] speed;
     public byte[,] tiles;
     public Node[,] nodes;
     public int x, y;
@@ -20,7 +20,7 @@ public class Chunk
         x = X;
         y = Y;
         DPS = dps;
-        Speed = speed;
+        this.speed = speed;
         tiles = Tiles;
     }
     public void GenerateNodes()
@@ -31,24 +31,24 @@ public class Chunk
         {
             for (int b = 0; b < chunkSize; b++)
             {
-                nodes[a, b] = new Node(x * chunkSize + a - chunkSize / 2, y * chunkSize + b - chunkSize / 2, Speed[a, b], DPS[a, b]);
-                if (Speed[a, b] == 0)
+                nodes[a, b] = new Node(x * chunkSize + a - chunkSize / 2, y * chunkSize + b - chunkSize / 2, speed[a, b], DPS[a, b]);
+                if (speed[a, b] == 0)
                 {
-                    Debug.Log(Speed[a, b]);
+                    Debug.Log(speed[a, b]);
                 }
             }
         }
     }
 
-    public float getDPS(Vector2 pos)
+    public float GetDPS(Vector2 pos)
     {
         Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(DPS.GetLength(0) / 2 - x * WorldGeneration.chunkSize, DPS.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return DPS[position.x, position.y];
     }
-    public float getSpeed(Vector2 pos)
+    public float GetSpeed(Vector2 pos)
     {
-        Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(Speed.GetLength(0) / 2 - x * WorldGeneration.chunkSize, Speed.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
-        return Speed[position.x, position.y];
+        Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(speed.GetLength(0) / 2 - x * WorldGeneration.chunkSize, speed.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
+        return speed[position.x, position.y];
     }
     public (int, int) TilePos(Vector3 position)
     {

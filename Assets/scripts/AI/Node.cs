@@ -30,17 +30,16 @@ public class Node : IHeapItem<Node>
         DPS = dps;
         travelCost = (int)(10 / Speed);
         diagonalExtra = (int)(4 / Speed);
-        //diagonalExtra = 4;
         travelDamage = (int)(dps / Speed);
     }
-    public void addToSpeed(float value)
+    public void AddToSpeed(float value)
     {
         speed *= value;
         travelCost = (int)(10 / speed);
         diagonalExtra = (int)(4 / speed);
         travelDamage = (int)(DPS / speed);
     }
-    public void addToDPS(float value)
+    public void AddToDPS(float value)
     {
         DPS += value;
         travelDamage = (int)(DPS / speed);

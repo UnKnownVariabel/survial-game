@@ -189,7 +189,7 @@ public class WorldGeneration : MonoBehaviour
                 data = TileManager.instance.getData(grasTile);
                 //setting byte to 00000010 to indicate gras for redrawing chunk
                 tiles[x - startX, y - startY] = 2;
-                if (Random.value * data.plantsurviveplantSurvivability < 0.3f)
+                if (Random.value * data.plantSurvivability < 0.3f)
                 {
                     StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
                     tree.chunk = chunk;

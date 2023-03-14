@@ -10,7 +10,7 @@ public class Crafting : MonoBehaviour
     public Item itemPrefab;
     public int[] resources;
     public CraftingRecipe[] recipes;
-    public Text[] texts = new Text[6];
+    public Text[] texts;
 
     public void UpdatePotentialValues()
     {
@@ -47,7 +47,7 @@ public class Crafting : MonoBehaviour
         List<Ingredient> ingredients = GetIngridients(recipe);
         foreach(Ingredient ingredient in ingredients)
         {
-            if (!inventory.checkForIngredient(ingredient))
+            if (!inventory.CheckForIngredient(ingredient))
             {
                 return;
             }
@@ -58,7 +58,7 @@ public class Crafting : MonoBehaviour
         }
         for (int i = 0; i < recipe.output.Length; i++)
         {
-            if (!inventory.pickUpItem(recipe.output[i]))
+            if (!inventory.PickUpItem(recipe.output[i]))
             {
                 Item item = Instantiate(itemPrefab, player.transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
                 item.data = recipe.output[i];

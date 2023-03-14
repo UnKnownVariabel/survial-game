@@ -5,7 +5,7 @@ using UnityEngine;
 public class MobSpawner : MonoBehaviour
 {
     public Mob[] mobs;
-    public float BaseSpawnTime;
+    public float baseSpawnTime;
     public float spawnOffsetMax;
     private float timeTillSpawn;
 
@@ -24,7 +24,7 @@ public class MobSpawner : MonoBehaviour
             timeTillSpawn -= Time.deltaTime;
             if (timeTillSpawn < 0)
             {
-                float spawnTime = BaseSpawnTime / Globals.timeHandler.day;
+                float spawnTime = baseSpawnTime / Globals.timeHandler.day;
                 timeTillSpawn = spawnTime + Random.Range(-spawnTime * spawnOffsetMax, spawnTime * spawnOffsetMax);
                 SpawnMob();
             }

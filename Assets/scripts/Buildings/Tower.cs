@@ -22,16 +22,16 @@ public class Tower : Building
             pivotTransform.up = target.transform.position - pivotTransform.position;
             if (isLoaded)
             {
-                shoot();
+                Shoot();
             }
         }
         else
         {
-            target = aquireTarget();
+            target = AquireTarget();
         }
     }
 
-    private Mob aquireTarget()
+    private Mob AquireTarget()
     {
         float shortestDistanceSqr = Mathf.Infinity;
         float distanceSqr;
@@ -51,12 +51,12 @@ public class Tower : Building
         }
         return null;
     }
-    private void shoot()
+    private void Shoot()
     {
         animator.SetTrigger("shoot");
         isLoaded = false;
     }
-    public void spawnProjectile()
+    public void SpawnProjectile()
     {
         Projectile proj = Instantiate(projectile, spawnPoint.position, pivotTransform.rotation);
         proj.rb.velocity = pivotTransform.up * projectileSpeed;

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public Mob mob;
     public float amountOfMobs;
     public Tilemap groundTilemap, decorationTilemap, wallTilemap;
-    public float AmountSpawned;
+    public float amountSpawned;
     public MobSpawner mobSpawner;
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     {
         WorldGeneration.instance.startGame();
         Map.instance.DrawMap();
-        for(int i = 0; i < AmountSpawned; i++)
+        for(int i = 0; i < amountSpawned; i++)
         {
             Item item = Instantiate(itemPrefab, new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), -1), Quaternion.identity);
             item.data = itemType;

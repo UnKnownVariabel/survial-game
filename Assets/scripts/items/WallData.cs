@@ -7,13 +7,13 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "new wall item", menuName = "wall")]
 public class WallData : PlacebleItemData
 {
-    [SerializeField] private TileBase WallTile;
+    [SerializeField] private TileBase wallTile;
 
     public override Building placeItem(Vector3 position)
     {
         Building building = base.placeItem(position);
         Vector3Int pos = Globals.wallTilemap.WorldToCell(position);
-        Globals.wallTilemap.SetTile(pos, WallTile);
+        Globals.wallTilemap.SetTile(pos, wallTile);
         Globals.GetChunk(position).SettHealth(position, prefab.maxHealth);
         (int, int) key = ((int)position.x, (int)position.y);
         if(!Globals.walls.ContainsKey(key))

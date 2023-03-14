@@ -6,7 +6,7 @@ public class Inventory : MonoBehaviour
 {
     public SpriteRenderer holdingSprite;
     public Crafting crafting;
-    [SerializeField] public InventorySpot[] spots = new InventorySpot[10];
+    [SerializeField] public InventorySpot[] spots;
     public InventorySpot selectedInventorySpot
     {
         get
@@ -121,21 +121,21 @@ public class Inventory : MonoBehaviour
             selectedInventorySpot = spots[9];
         }
     }
-    public bool pickUpItem(ItemData data)
+    public bool PickUpItem(ItemData data)
     {
         for (int i = 0; i < spots.Length; i++)
         {
             if (spots[i].item == data && spots[i].amount < data.stackSize)
             {
                 spots[i].AddItem(data);
-                callFunc();
+                CallUpdatePotentialValues();
                 return true;
             }
         }
         if (selectedInventorySpot.item == null || (selectedInventorySpot.item == data && selectedInventorySpot.amount < data.stackSize))
         {
             selectedInventorySpot.AddItem(data);
-            callFunc();
+            CallUpdatePotentialValues();
             return true;
         }
         for (int i = 0; i < spots.Length; i++)
@@ -143,12 +143,12 @@ public class Inventory : MonoBehaviour
             if (spots[i].item == null)
             {
                 spots[i].AddItem(data);
-                callFunc();
+                CallUpdatePotentialValues();
                 return true;
             }
         }
         return false;
-        void callFunc()
+        void CallUpdatePotentialValues()
         {
             if (crafting.gameObject.activeSelf)
             {
@@ -156,7 +156,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    public void tryFindSameItem(ItemData data)
+    public void TryFindSameItem(ItemData data)
     {
         for(int i = 0; i < spots.Length; i++)
         {
@@ -167,7 +167,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    public bool checkForIngredient(Ingredient ingredient)
+    public bool CheckForIngredient(Ingredient ingredient)
     {
         int amount = 0;
         for(int i = 0; i < spots.Length; i++)

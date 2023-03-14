@@ -12,10 +12,6 @@ public class PlacebleItemData : ItemData
         Building building = Instantiate(prefab, realPos, Quaternion.identity);
         return building;
     }
-    public override dynamic ReturnFullClass()
-    {
-        return this;
-    }
     public virtual void RemoveItem(Vector2 position)
     {
 

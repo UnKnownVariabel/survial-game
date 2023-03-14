@@ -10,15 +10,20 @@ public class DestructibleObject : MonoBehaviour
     {
         public ItemData item;
         public float probability;
-        Drop(ItemData item, float probability)
-        {
-            this.item = item;
-            this.probability = probability;
-        }
     }
 
+    public float maxHealth;    
+    public int minVisDamage;    
+    public HealthBar healthBar;
+    public bool isDead;
+    public Item itemPrefab;
+    public DestructibleObject Corpse;
+    public Chunk chunk;
+    public int type;
+    public float targetDesirebility;
 
-    public float maxHealth;
+    [SerializeField] private Drop[] drops;
+    private ParticleSystem particlesystem;
     public float health
     {
         get
@@ -27,21 +32,9 @@ public class DestructibleObject : MonoBehaviour
         }
     }
     private float realHealth;
-    public int minVisDamage;
-    private ParticleSystem particlesystem;
-    public HealthBar healthBar;
-    public bool isDead;
-    public Item itemPrefab;
-    [SerializeField] public Drop[] drops;
-    public DestructibleObject Corpse;
-    public Chunk chunk;
-    public int type;
-    public float targetDesirebility;
-    //public byte staticIndex;
-    // Start is called before the first frame update
     protected virtual void Awake()
     {
-        setHealth();
+        SetHealth();
     }
 
     protected virtual void Start()
@@ -57,7 +50,7 @@ public class DestructibleObject : MonoBehaviour
             //Debug.Log("particle system not found");
         }
     }
-    public void setHealth()
+    public void SetHealth()
     {
         realHealth = maxHealth;
     }
@@ -67,7 +60,7 @@ public class DestructibleObject : MonoBehaviour
         realHealth -= damage;
         if (realHealth <= 0)
         {
-            die();
+            Die();
         }
         else
         {
@@ -84,7 +77,7 @@ public class DestructibleObject : MonoBehaviour
             }
         }
     }
-    protected virtual void die()
+    protected virtual void Die()
     {
         for (int i = 0; i < drops.Length; i++)
         {

@@ -13,16 +13,16 @@ public class Spikes : Building
         base.Start();
         (int x, int y) pos = chunk.TilePos(transform.position);
         chunk.DPS[pos.x, pos.y] = DPS;
-        baseSpeed = chunk.Speed[pos.x, pos.y];
-        chunk.Speed[pos.x, pos.y] = 1 / (1 / baseSpeed + 1 / speed);
+        baseSpeed = chunk.speed[pos.x, pos.y];
+        chunk.speed[pos.x, pos.y] = 1 / (1 / baseSpeed + 1 / speed);
     }
 
-    protected override void die()
+    protected override void Die()
     {
         (int x, int y) pos = chunk.TilePos(transform.position);
         chunk.DPS[pos.x, pos.y] = 0;
-        chunk.Speed[pos.x, pos.y] = baseSpeed;
-        base.die();
+        chunk.speed[pos.x, pos.y] = baseSpeed;
+        base.Die();
     }
 
     // Update is called once per frame

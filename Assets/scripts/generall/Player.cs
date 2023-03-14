@@ -18,7 +18,7 @@ public class Player : MovingObject
     protected override void Awake()
     {
         base.Awake();
-        lastSwing = DateTime.Now;
+        lastSwing = Time.time;
         Globals.player = this;
     }
 
@@ -62,11 +62,11 @@ public class Player : MovingObject
         }
 
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-        setDirection(Direction);
+        SetDirection(Direction);
 
         if (Input.GetMouseButton(0))
         {
-            double time = (DateTime.Now - lastSwing).TotalSeconds;
+            float time = Time.time - lastSwing;
             if (inventory.selectedInventorySpot.item != null)
             {
                 if (inventory.selectedInventorySpot.item.isTool)
@@ -74,17 +74,17 @@ public class Player : MovingObject
                     ToolData tool = (ToolData)inventory.selectedInventorySpot.item;
                     if (time > tool.swingTime)
                     {
-                        attack(tool.damage, damageCollider.transform.localPosition, tool.swingTime, tool.knockback, tool.multipliers, tool.layerMask);
+                        Attack(tool.damage, damageCollider.transform.localPosition, tool.swingTime, tool.knockback, tool.multipliers, tool.layerMask);
                     }
                 }
                 else if(time > baseSwingTime)
                 {
-                    attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
+                    Attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
                 }
             }
             else if(time > baseSwingTime)
             {
-                attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
+                Attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
             }
         }
         else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null)
@@ -106,7 +106,7 @@ public class Player : MovingObject
         base.Update();
     }
 
-    protected override void setDirection(Vector2 direction)
+    protected override void SetDirection(Vector2 direction)
     {
         if (direction.x < 0)
         {
@@ -116,7 +116,7 @@ public class Player : MovingObject
         {
             pivotTransform.localScale = new Vector3(1, 1);
         }
-        base.setDirection(direction);
+        base.SetDirection(direction);
         if (dir == 2)
         {
             pivotTransform.localPosition = new Vector3(pivotTransform.localPosition.x, pivotTransform.localPosition.y, 0.1f);
@@ -154,7 +154,7 @@ public class Player : MovingObject
             {
                 if (Vector2.Distance(item.transform.position, transform.position) < pickUpDistance)
                 {
-                    if (inventory.pickUpItem(item.data))
+                    if (inventory.PickUpItem(item.data))
                     {
                         chunk.items.Remove(item);
                         Destroy(item.gameObject);
@@ -164,14 +164,14 @@ public class Player : MovingObject
             }
         }
     }
-    protected void attack(float damage, Vector2 extraOffset, float swingTime, float knockback, Multipliers multipliers, LayerMask layerMask)
+    protected void Attack(float damage, Vector2 extraOffset, float swingTime, float knockback, Multipliers multipliers, LayerMask layerMask)
     {
-        base.attack(damage, extraOffset, layerMask, knockback, multipliers);
+        base.Attack(damage, extraOffset, layerMask, knockback, multipliers);
         toolAnimation["tool"].speed = 1 / swingTime;
         toolAnimation.Rewind("tool");
         toolAnimation.Play("tool");
     }
-    protected override void die()
+    protected override void Die()
     {
         deathScreen.gameObject.SetActive(true);
     }

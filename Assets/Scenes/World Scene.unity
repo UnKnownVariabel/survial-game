@@ -1844,11 +1844,11 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   isDead: 0
   itemPrefab: {fileID: 0}
-  drops: []
   Corpse: {fileID: 0}
   type: 0
   targetDesirebility: 0
-  ObjectIndex: 0
+  drops: []
+  objectIndex: 0
   itemData: {fileID: 0}
 --- !u!212 &681227663
 SpriteRenderer:
@@ -2518,14 +2518,14 @@ MonoBehaviour:
   healthBar: {fileID: 827537818}
   isDead: 0
   itemPrefab: {fileID: 0}
-  drops: []
   Corpse: {fileID: 0}
   type: 0
   targetDesirebility: 50
+  drops: []
   maxSpeed: 4
   acceleration: 30
   rb: {fileID: 1063572728}
-  SpriteRenderer: {fileID: 1063572730}
+  spriteRenderer: {fileID: 1063572730}
   sprites:
   - {fileID: -4868769416090750892, guid: 54061fba004e64cc78379008d06044c5, type: 3}
   - {fileID: -5716041409987542574, guid: 54061fba004e64cc78379008d06044c5, type: 3}

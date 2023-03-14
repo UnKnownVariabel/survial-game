@@ -24,10 +24,10 @@ public class Mob : MovingObject
         base.Start();
     }
 
-    protected override void die()
+    protected override void Die()
     {
         Globals.mobs.Remove(this);
-        base.die();
+        base.Die();
     }
 
     protected override void Update()
@@ -76,9 +76,8 @@ public class Mob : MovingObject
                         state = 2;
                     }
                 }
-                else if (distance * 1.5 < path.Length && path.Length > 1)
+                else if (distance * 1.5 < path.length && path.length > 1)
                 {
-                    Debug.Log("this happens often");
                     SettPathTo(target.transform.position);
                 }
                 else if (distance < attackRange)
@@ -106,7 +105,7 @@ public class Mob : MovingObject
         {
             if (!path.complete)
             {
-                target = path.nextTarget();
+                target = path.NextTarget();
                 if (target == null)
                 {
                     state = 1;
@@ -122,7 +121,7 @@ public class Mob : MovingObject
         direction = target.transform.position - transform.position;
         float distance = direction.magnitude;
         direction.Normalize();
-        setDirection(direction);
+        SetDirection(direction);
         if (distance > attackRange)
         {
             state = 1;
@@ -131,9 +130,9 @@ public class Mob : MovingObject
         {
             direction = Vector2.zero;
         }
-        if ((DateTime.Now - lastSwing).TotalSeconds > baseSwingTime)
+        if (Time.time - lastSwing > baseSwingTime)
         {
-            attack(layerMask);
+            Attack(layerMask);
         } 
     }
 
@@ -144,14 +143,14 @@ public class Mob : MovingObject
         if (moveToStaticPoint(path.current))
         {
             lastDir = Vector2.zero;
-            return !path.getNext();
+            return !path.GetNext();
         }
         return false;
     }
 
     protected void SettPathTo(Vector2 goal)
     {
-        path = Pathfinder.createPath(transform.position, goal, 20, 1000, target, baseDamage / baseSwingTime);
+        path = Pathfinder.CreatePath(transform.position, goal, 20, 1000, target, baseDamage / baseSwingTime);
         lastDir = Vector2.zero;
     }
 
@@ -164,7 +163,7 @@ public class Mob : MovingObject
             return true;
         }
         lastDir = direction;
-        setDirection(direction);
+        SetDirection(direction);
         return false;
 
     }

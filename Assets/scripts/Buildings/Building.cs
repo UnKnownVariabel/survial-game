@@ -5,10 +5,10 @@ using UnityEngine;
 public class Building : StaticObject
 {
     public PlacebleItemData itemData;
-    protected override void die()
+    protected override void Die()
     {
         Vector3Int pos = Globals.wallTilemap.WorldToCell(transform.position);
         itemData.RemoveItem(transform.position);
-        base.die();
+        base.Die();
     }
 }

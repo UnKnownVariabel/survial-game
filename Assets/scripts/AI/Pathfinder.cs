@@ -6,7 +6,7 @@ using System;
 
 public class Pathfinder
 { 
-    public static Path createPath(Vector2 position, Vector2 goal, float speed, float health, DestructibleObject target, float dps)
+    public static Path CreatePath(Vector2 position, Vector2 goal, float speed, float health, DestructibleObject target, float dps)
     {
         //DateTime startTime = System.DateTime.Now;
 
@@ -38,7 +38,7 @@ public class Pathfinder
             {
                 break;
             }
-            foreach (Node neighbour in getNeighbours(currentNode))
+            foreach (Node neighbour in GetNeighbours(currentNode))
             {
                 if (closedSet.Contains(neighbour))
                 {
@@ -86,7 +86,7 @@ public class Pathfinder
         //Debug.Log("milliseconds to run A*: " + (System.DateTime.Now - startTime).TotalMilliseconds.ToString());
         return new Path(Path, nodes, target);
 
-        List<Node> getNeighbours(Node node)
+        List<Node> GetNeighbours(Node node)
         {
             List<Node> neighbours = new List<Node>();
             for (int x = -1; x <= 1; x++)

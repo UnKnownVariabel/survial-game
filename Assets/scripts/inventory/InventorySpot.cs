@@ -95,7 +95,7 @@ public class InventorySpot : MonoBehaviour
                 image.enabled = false;
                 if (selected)
                 {
-                    inventory.tryFindSameItem(item);
+                    inventory.TryFindSameItem(item);
                     holdingSprite.sprite = null;
                 }
                 item = null;
@@ -107,7 +107,7 @@ public class InventorySpot : MonoBehaviour
             text.text = amount.ToString();
         }
     }
-    public void clicked()
+    public void Clicked()
     {
         inventory.selectedInventorySpot = this;
     }

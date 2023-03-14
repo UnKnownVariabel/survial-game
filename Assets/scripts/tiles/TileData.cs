@@ -6,5 +6,5 @@ using UnityEngine.Tilemaps;
 public class TileData : ScriptableObject
 {
     public TileBase[] tiles;
-    public float DPS, speed, plantsurviveplantSurvivability;
+    public float DPS, speed, plantSurvivability;
 }

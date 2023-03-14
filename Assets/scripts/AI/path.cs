@@ -9,7 +9,7 @@ public class Path
     public DestructibleObject intermedietTarget;
     public DestructibleObject target;
     // returns lenght of the remaining path;
-    public int Length
+    public int length
     {
         get
         {
@@ -20,7 +20,7 @@ public class Path
     {
         get 
         {
-            return Length <= 0;
+            return length <= 0;
         }
     }
     public Vector2 current
@@ -78,7 +78,7 @@ public class Path
 
         this.target = target;
     }
-    public bool getNext()
+    public bool GetNext()
     {
         // checks if i+1 is before stop and returns false otherwise which indicates the path is complete
         if (i+1 < nextStop)
@@ -90,7 +90,7 @@ public class Path
         return false;
     }
     //returns target if there is one left in the path
-    public DestructibleObject nextTarget()
+    public DestructibleObject NextTarget()
     {
         intermedietTarget = null;
         for (int i = nextStop; i < nodes.Length; i++)

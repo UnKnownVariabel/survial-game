@@ -164,14 +164,14 @@ MonoBehaviour:
   healthBar: {fileID: 4329940707889067895}
   isDead: 0
   itemPrefab: {fileID: 0}
-  itemDrops: []
   Corpse: {fileID: 0}
   type: 0
   targetDesirebility: 0
+  drops: []
   maxSpeed: 2
   acceleration: 10
   rb: {fileID: 4630593959030652197}
-  SpriteRenderer: {fileID: 4630593959030652192}
+  spriteRenderer: {fileID: 4630593959030652192}
   sprites:
   - {fileID: -5782521184205631276, guid: 3e4d5315266404ec9addb1939b812571, type: 3}
   - {fileID: 7424166911509628443, guid: 3e4d5315266404ec9addb1939b812571, type: 3}

@@ -16,4 +16,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b200a90461088455b8ff3a5d6323869e, type: 2}
   DPS: 0
   speed: 1
-  plantsurviveplantSurvivability: 1
+  plantSurvivability: 1
