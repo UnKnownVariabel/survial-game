@@ -55,6 +55,14 @@ PrefabInstance:
       propertyPath: drops.Array.data[2].probability
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2753524460412646789, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2753524460412646789, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3243798147092312221, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_Sprite
       value: 

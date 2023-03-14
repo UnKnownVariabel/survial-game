@@ -43,7 +43,7 @@ public class WorldGeneration : MonoBehaviour
         offset = new Vector2Int(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
         chunkBuffer = new Vector2Int(2, 1);
     }
-    public void startGame()
+    public void StartGame()
     {
         Time.timeScale = 1;
         for(int Y = -chunkBuffer.y; Y <= chunkBuffer.y; Y++)
@@ -124,7 +124,7 @@ public class WorldGeneration : MonoBehaviour
         {
             for(int X = 0; X < chunkSize; X++)
             {
-                drawTile(startX + X, startY + Y);
+                DrawTile(startX + X, startY + Y);
             }
         }
         chunk.isSpawnd = true;
@@ -178,7 +178,7 @@ public class WorldGeneration : MonoBehaviour
             chunk.isSpawnd = true;
         }
 
-        void drawTile(int x, int y)
+        void DrawTile(int x, int y)
         {
             float magnification = 10;
             float noise = Mathf.PerlinNoise((x + offset.x) / magnification, (y + offset.y) / magnification);
@@ -186,7 +186,7 @@ public class WorldGeneration : MonoBehaviour
             if (noise > 0.45)
             {
                 groundMap.SetTile(new Vector3Int(x, y, 0), grasTile);
-                data = TileManager.instance.getData(grasTile);
+                data = TileManager.instance.GetData(grasTile);
                 //setting byte to 00000010 to indicate gras for redrawing chunk
                 tiles[x - startX, y - startY] = 2;
                 if (Random.value * data.plantSurvivability < 0.3f)
@@ -212,7 +212,7 @@ public class WorldGeneration : MonoBehaviour
             else if (noise > 0.3)
             {
                 groundMap.SetTile(new Vector3Int(x, y, 0), sandTile);
-                data = TileManager.instance.getData(sandTile);
+                data = TileManager.instance.GetData(sandTile);
                 //setting byte to 00000001 to indicate sand for redrawing chunk
                 tiles[x - startX, y - startY] = 1;
                 if (Random.value < 0.1f)
@@ -224,7 +224,7 @@ public class WorldGeneration : MonoBehaviour
             }
             else
             {
-                data = TileManager.instance.getData(null);
+                data = TileManager.instance.GetData(null);
                 //setting byte to 00000000 to indicate water for redrawing chunk
                 tiles[x - startX, y - startY] = 0;
             }

@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        WorldGeneration.instance.startGame();
+        WorldGeneration.instance.StartGame();
         Map.instance.DrawMap();
         for(int i = 0; i < amountSpawned; i++)
         {
