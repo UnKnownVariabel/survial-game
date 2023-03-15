@@ -6,18 +6,19 @@ using UnityEngine.Rendering.PostProcessing;
 public class TimeHandler : MonoBehaviour
 {
     public PostProcessVolume postProcessVolume;
-    public Gradient colorGradient;
-    private ColorGrading colorGrading;
-    public Gradient vignetteGradient;
-    private Vignette vignette;
-
+    public Gradient colorGradient;   
+    public Gradient vignetteGradient;  
     public float multiplier;
-    public float time;
-    private float last_time;
+    public float time;   
     public int day = 1;
     public Transform minuteArm;
     public Transform hourArm;
 
+    [SerializeField] private float nightLenght;
+
+    private float last_time;
+    private Vignette vignette;
+    private ColorGrading colorGrading;
     private void Awake()
     {
         Globals.timeHandler = this;
@@ -51,7 +52,7 @@ public class TimeHandler : MonoBehaviour
             colorGrading.colorFilter.value = colorGradient.Evaluate((24 - time) / 12);
             vignette.intensity.value = 1 - vignetteGradient.Evaluate((24 - time) / 12).grayscale;
         }
-        if(last_time < 6 && time >= 6)
+        if(last_time < nightLenght / 2 && time >= nightLenght / 2)
         {
             foreach(Mob mob in Globals.mobs)
             {
@@ -62,6 +63,6 @@ public class TimeHandler : MonoBehaviour
     }
     public bool isNight()
     {
-        return time < 6 || time > 18;
+        return time < nightLenght / 2 || time > 24 - nightLenght / 2;
     }
 }

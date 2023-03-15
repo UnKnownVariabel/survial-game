@@ -891,7 +891,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 581638844}
   decorationTilemap: {fileID: 481974423}
   wallTilemap: {fileID: 1157967186}
-  AmountSpawned: 0
+  amountSpawned: 0
   mobSpawner: {fileID: 447833185}
 --- !u!4 &447833183
 Transform:
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobs:
   - {fileID: 4630593959030652199, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
-  BaseSpawnTime: 4
+  baseSpawnTime: 7
   spawnOffsetMax: 0.4
 --- !u!114 &447833186
 MonoBehaviour:
@@ -5686,6 +5686,10 @@ PrefabInstance:
     - target: {fileID: 165704713179335834, guid: cf3bcc01aa674479dacc9b525b6b3bba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932205219539399878, guid: cf3bcc01aa674479dacc9b525b6b3bba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Clicked
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3bcc01aa674479dacc9b525b6b3bba, type: 3}
