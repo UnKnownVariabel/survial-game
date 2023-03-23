@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
 
 public class DestructibleObject : MonoBehaviour
@@ -15,13 +12,13 @@ public class DestructibleObject : MonoBehaviour
     public float maxHealth;    
     public int minVisDamage;    
     public HealthBar healthBar;
-    public bool isDead;
-    public Item itemPrefab;
-    public DestructibleObject Corpse;
     public Chunk chunk;
     public int type;
     public float targetDesirebility;
 
+    [SerializeField] protected Item itemPrefab;
+
+    [SerializeField] private DestructibleObject Corpse;
     [SerializeField] private Drop[] drops;
     private ParticleSystem particlesystem;
     public float health
@@ -53,6 +50,18 @@ public class DestructibleObject : MonoBehaviour
     public void SetHealth()
     {
         realHealth = maxHealth;
+    }
+    protected void AddHealth(float value)
+    {
+        realHealth += value;
+        if(realHealth > maxHealth)
+        {
+            realHealth = maxHealth;
+        }
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(realHealth / maxHealth);
+        }
     }
     public void TakeDamage(float damage)
     {

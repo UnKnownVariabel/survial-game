@@ -72,6 +72,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4630593959030652199, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
+      propertyPath: baseKnockback
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630593959030652199, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
       propertyPath: sprites.Array.data[0]
       value: 
       objectReference: {fileID: -654903682, guid: d30fbce79cb14214e821c6e74f7492f2, type: 3}

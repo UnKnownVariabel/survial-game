@@ -20,8 +20,7 @@ public class MovingObject : DestructibleObject
 
     protected float lastSwing;
     protected int dir;
-
-    private float animState;
+    protected float animState;
     
 
     protected override void Awake()
@@ -82,7 +81,7 @@ public class MovingObject : DestructibleObject
         }
         pivotTransform.right = direction;
     }
-    protected void Anim()
+    protected virtual void Anim()
     {
         if(rb.velocity == Vector2.zero)
         {

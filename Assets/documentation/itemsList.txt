@@ -7,3 +7,4 @@
 6. stone
 7. pickaxe
 8. spikes
+9. heart

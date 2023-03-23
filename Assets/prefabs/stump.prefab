@@ -88,8 +88,24 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3574946519940193388, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574946519940193388, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773512545440660607, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.81960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773512545440660607, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.81960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773512545440660607, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.81960785
       objectReference: {fileID: 0}
     - target: {fileID: 4906567982897132329, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -99,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7116803479557278393, guid: 1e9f22dff90d746a4b1712aca4cb3369, type: 3}
+    - target: {fileID: 7039134244732569579, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8807500056695086074, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: maxHealth
       value: 50

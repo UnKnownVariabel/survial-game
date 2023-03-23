@@ -14,6 +14,7 @@ public class Player : MovingObject
     public DeathScreen deathScreen;
 
     private Vector2 direction;
+    private bool handsOut = false;
 
     protected override void Awake()
     {
@@ -61,6 +62,15 @@ public class Player : MovingObject
             inventory.DropItem();
         }
 
+        if(inventory.selectedInventorySpot.item != null)
+        {
+            handsOut = true;
+        }
+        else
+        {
+            handsOut = false;
+        }
+
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
         SetDirection(Direction);
 
@@ -79,12 +89,12 @@ public class Player : MovingObject
                 }
                 else if(time > baseSwingTime)
                 {
-                    Attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
+                    Attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime,  baseKnockback, Multipliers.One, layerMask);
                 }
             }
             else if(time > baseSwingTime)
             {
-                Attack(baseDamage, damageCollider.transform.localPosition, layerMask, baseKnockback, Multipliers.One);
+                Attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime, baseKnockback, Multipliers.One, layerMask);
             }
         }
         else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null)
@@ -102,8 +112,38 @@ public class Player : MovingObject
                     inventory.selectedInventorySpot.RemoveItem();
                 }
             }
+            else if (inventory.selectedInventorySpot.item.isEdible)
+            {
+                if(health < maxHealth)
+                {
+                    EdibleItem item = (EdibleItem)inventory.selectedInventorySpot.item;
+                    AddHealth(item.health);
+                    inventory.selectedInventorySpot.RemoveItem();
+                }
+            }
         }
         base.Update();
+    }
+
+    protected override void Anim()
+    {
+        if (handsOut)
+        {
+            if (rb.velocity == Vector2.zero)
+            {
+                spriteRenderer.sprite = sprites[12 + dir * 3];
+            }
+            else
+            {
+                animState += Time.deltaTime;
+                animState = animState % (frameTime * 3);
+                spriteRenderer.sprite = sprites[12 + dir * 3 + Mathf.FloorToInt(animState / frameTime)];
+            }
+        }
+        else
+        {
+            base.Anim();
+        }
     }
 
     protected override void SetDirection(Vector2 direction)
@@ -166,6 +206,7 @@ public class Player : MovingObject
     }
     protected void Attack(float damage, Vector2 extraOffset, float swingTime, float knockback, Multipliers multipliers, LayerMask layerMask)
     {
+        handsOut = true;
         base.Attack(damage, extraOffset, layerMask, knockback, multipliers);
         toolAnimation["tool"].speed = 1 / swingTime;
         toolAnimation.Rewind("tool");

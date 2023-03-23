@@ -204,13 +204,33 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3574946519940193388, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574946519940193388, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773512545440660607, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773512545440660607, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773512545440660607, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 7039134244732569579, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -552164004233896955, guid: 1e9f22dff90d746a4b1712aca4cb3369, type: 3}
+    - target: {fileID: 7039134244732569579, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7674755671474946803, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
