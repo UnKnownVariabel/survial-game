@@ -12,6 +12,8 @@ public class Crafting : MonoBehaviour
     public CraftingRecipe[] recipes;
     public Text[] texts;
 
+    [SerializeField] private Transform recipeSheet;
+
     public void UpdatePotentialValues()
     {
         UpdateResources();
@@ -67,7 +69,7 @@ public class Crafting : MonoBehaviour
         UpdatePotentialValues();
     }
 
-    private List<Ingredient> GetIngridients(CraftingRecipe recipe)
+    public List<Ingredient> GetIngridients(CraftingRecipe recipe)
     {
         List<Ingredient> ingredients = new List<Ingredient>();
         for (int i = 0; i < recipe.input.Length; i++)
@@ -86,4 +88,5 @@ public class Crafting : MonoBehaviour
         }
         return ingredients;
     }
+    
 }
