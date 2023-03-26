@@ -27,7 +27,7 @@ public class WorldGeneration : MonoBehaviour
     public const int chunkSize = 16;
     public static Vector2Int chunkBuffer;
     public static WorldGeneration instance { get; private set; }
-    private List<Action> actions = new List<Action>();
+    public List<Action> actions = new List<Action>();
 
     private void Awake()
     {

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,6 +48,10 @@ public class Map : MonoBehaviour
                 Color color = colors[chunk.tiles[x, y] % 16];
                 texture.SetPixel(x, y, color);
             }
+        }
+        foreach((int x, int y) key in chunk.buildings.Keys)
+        {
+            texture.SetPixel(key.x, key.y, colors[3]);
         }
         texture.Apply();
         texture.filterMode = FilterMode.Point;

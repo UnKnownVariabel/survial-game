@@ -13,6 +13,7 @@ public class Chunk
     public List<Item> items = new List<Item>();
     //public List<DestructibleObject> trees = new List<DestructibleObject>();
     public Dictionary<(int x, int y), StaticObject> staticObjects = new Dictionary<(int x, int y), StaticObject>();
+    public Dictionary<(int x, int y), Building> buildings = new Dictionary<(int x, int y), Building> ();
     public int minX, minY, maxX, maxY;
 
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)

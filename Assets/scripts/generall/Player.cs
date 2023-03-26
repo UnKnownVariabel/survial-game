@@ -6,12 +6,17 @@ using UnityEngine.Tilemaps;
 
 public class Player : MovingObject
 {
-    public Inventory inventory;
-    public SpriteRenderer holdingSprite;
-    public float pickUpDistance = 0.5f;
-    public Animation toolAnimation;
-    public Crafting crafting;
-    public DeathScreen deathScreen;
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private SpriteRenderer holdingSprite;
+    [SerializeField] private float pickUpDistance = 0.5f;
+    [SerializeField] private Animation toolAnimation;
+    [SerializeField] private Crafting crafting;
+    [SerializeField] private DeathScreen deathScreen;
+    [SerializeField] private Transform previewPos;
+    [SerializeField] private SpriteRenderer previewSprite;
+    [SerializeField] private Color cantPlaceColor;
+    [SerializeField] private Color canPlaceColor;
+
 
     private Vector2 direction;
     private bool handsOut = false;
@@ -105,7 +110,7 @@ public class Player : MovingObject
                 Vector3Int mousePos = Globals.wallTilemap.WorldToCell(pos);
                 Chunk chunk = Globals.GetChunk(pos);
                 (int x, int y) key = chunk.TilePos(pos);
-                if (!chunk.staticObjects.ContainsKey(key))
+                if (CanPlace(key, chunk))
                 {
                     Building building = ((PlacebleItemData)inventory.selectedInventorySpot.item).placeItem(pos);
                     building.chunk = chunk;
@@ -114,7 +119,7 @@ public class Player : MovingObject
             }
             else if (inventory.selectedInventorySpot.item.isEdible)
             {
-                if(health < maxHealth)
+                if(health < maxHealth && Input.GetMouseButtonDown(1))
                 {
                     EdibleItem item = (EdibleItem)inventory.selectedInventorySpot.item;
                     AddHealth(item.health);
@@ -122,7 +127,40 @@ public class Player : MovingObject
                 }
             }
         }
+        if(inventory.selectedInventorySpot.item != null)
+        {
+            if (inventory.selectedInventorySpot.item.isPlaceble)
+            {
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                previewPos.position = Globals.wallTilemap.WorldToCell(pos) + new Vector3(0.5f, 0.5f, 0f);
+                Chunk chunk = Globals.GetChunk(pos);
+                (int x, int y) key = chunk.TilePos(pos);
+                if (CanPlace(key, chunk))
+                {
+                    previewSprite.color = canPlaceColor;
+                }
+                else
+                {
+                    previewSprite.color = cantPlaceColor;
+                }
+                previewSprite.sprite = inventory.selectedInventorySpot.item.sprite;
+                previewSprite.enabled = true;
+            }
+            else
+            {
+                previewSprite.enabled = false;
+            }
+        }
+        else
+        {
+            previewSprite.enabled = false;
+        }
         base.Update();
+    }
+
+    private bool CanPlace((int x, int y) key, Chunk chunk)
+    {
+        return !chunk.staticObjects.ContainsKey(key) && chunk.tiles[key.x, key.y] % 16 != 0;
     }
 
     protected override void Anim()
