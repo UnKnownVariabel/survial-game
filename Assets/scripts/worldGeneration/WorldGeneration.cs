@@ -12,12 +12,13 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private Color grasColor;
     [SerializeField] private Color sandColor;
     [SerializeField] private Color waterColor;
-    public Tile stonesTile;
-    public Tile treeTile;
-    public StaticObject treePrefab;
-    public StaticObject stumpPrefab;
-    public StaticObject crossbowPrefab;
-    public StaticObject stonePrefab;
+    [SerializeField] private Tile stonesTile;
+    [SerializeField] private Tile treeTile;
+    [SerializeField] private StaticObject treePrefab;
+    [SerializeField] private StaticObject stumpPrefab;
+    [SerializeField] private StaticObject crossbowPrefab;
+    [SerializeField] private StaticObject stonePrefab;
+    [SerializeField] private StaticObject spikesPrefab;
     public PlacebleItemData wall;
     public Tilemap groundMap;
     public Tilemap decorationMap;
@@ -171,6 +172,10 @@ public class WorldGeneration : MonoBehaviour
                         case 6:
                             StaticObject stone = Instantiate(stonePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
                             stone.chunk = chunk;
+                            break;
+                        case 7:
+                            StaticObject spikes = Instantiate(spikesPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            spikes.chunk = chunk;
                             break;
                     }
                 }

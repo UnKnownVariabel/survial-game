@@ -79,7 +79,7 @@ public class Player : MovingObject
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
         SetDirection(Direction);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !MouseInputUIBlocker.BlockedByUI)
         {
             float time = Time.time - lastSwing;
             if (inventory.selectedInventorySpot.item != null)
@@ -102,7 +102,7 @@ public class Player : MovingObject
                 Attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime, baseKnockback, Multipliers.One, layerMask);
             }
         }
-        else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null)
+        else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null && !MouseInputUIBlocker.BlockedByUI)
         {
             if (inventory.selectedInventorySpot.item.isPlaceble)
             {

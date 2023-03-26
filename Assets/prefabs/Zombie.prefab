@@ -171,8 +171,8 @@ MonoBehaviour:
   drops:
   - item: {fileID: 11400000, guid: 394bf3bba87c20542bc21926da077978, type: 2}
     probability: 0.1
-  maxSpeed: 2
-  acceleration: 10
+  maxSpeed: 1
+  acceleration: 8
   rb: {fileID: 4630593959030652197}
   spriteRenderer: {fileID: 4630593959030652192}
   sprites:

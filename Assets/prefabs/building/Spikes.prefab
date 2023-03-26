@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ae2dcd872a6be154298da281fd4b725b, type: 3}
+    - target: {fileID: 3243798147092312221, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -71,6 +75,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 9018612863154957082, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018612863154957082, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1484419591663894285, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
@@ -94,13 +106,12 @@ MonoBehaviour:
   maxHealth: 100
   minVisDamage: 10
   healthBar: {fileID: 7805706486376191000}
-  isDead: 0
-  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
-  itemDrops: []
-  Corpse: {fileID: 0}
   type: 1
   targetDesirebility: 20
-  ObjectIndex: 7
+  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
+  Corpse: {fileID: 0}
+  drops: []
+  objectIndex: 7
   itemData: {fileID: 0}
   DPS: 20
   speed: 0.4

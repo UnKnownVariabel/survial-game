@@ -11,7 +11,7 @@ public class StaticObject : DestructibleObject
         (int x, int y) pos = chunk.TilePos(transform.position);
         int rest = chunk.tiles[pos.x, pos.y] % 16;
         chunk.tiles[pos.x, pos.y] = (byte)(objectIndex * 16 + rest);
-        chunk.staticObjects.Add(pos, this);
+        chunk.staticObjects[pos] = this;
     }
     protected override void Die()
     {

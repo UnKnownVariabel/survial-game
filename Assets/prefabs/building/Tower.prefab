@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 05b15e6a081b4074d9e4ec2f85ed468b, type: 3}
+    - target: {fileID: 3243798147092312221, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -182,6 +186,10 @@ PrefabInstance:
     - target: {fileID: 7703416742846007263, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_Name
       value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018612863154957082, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9018612863154957082, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
@@ -246,14 +254,12 @@ MonoBehaviour:
   maxHealth: 200
   minVisDamage: 10
   healthBar: {fileID: 5305664597259308789}
-  isDead: 0
-  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
-  itemDrops: []
-  drops: []
-  Corpse: {fileID: 0}
   type: 0
   targetDesirebility: 40
-  ObjectIndex: 5
+  itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
+  Corpse: {fileID: 0}
+  drops: []
+  objectIndex: 5
   itemData: {fileID: 11400000, guid: 123d2fa4102f7854ab82d9710d0ea058, type: 2}
   range: 3
   chargeTime: 2

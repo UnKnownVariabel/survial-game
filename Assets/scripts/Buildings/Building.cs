@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Building : StaticObject
 {
@@ -9,7 +6,7 @@ public class Building : StaticObject
     protected override void Start()
     {
         (int x, int y) pos = chunk.TilePos(transform.position);
-        chunk.buildings.Add(pos, this);
+        chunk.staticObjects[pos] = this;
         WorldGeneration.instance.actions.Add(new Action(2));
         base.Start();
     }

@@ -101,11 +101,14 @@ public class DestructibleObject : MonoBehaviour
             DestructibleObject corpse = Instantiate(Corpse, transform.position, Quaternion.identity);
             corpse.chunk = chunk;
         }
+        Destroy(gameObject);
+    }
+    protected virtual void OnDestroy()
+    {
         Globals.destructibleObjects.Remove(this);
         if (targetDesirebility > 0)
         {
             Globals.targets.Remove(this);
         }
-        Destroy(gameObject);
     }
 }
