@@ -6,7 +6,7 @@ public class Building : StaticObject
     protected override void Start()
     {
         (int x, int y) pos = chunk.TilePos(transform.position);
-        chunk.staticObjects[pos] = this;
+        chunk.buildings[pos] = this;
         WorldGeneration.instance.actions.Add(new Action(2));
         base.Start();
     }

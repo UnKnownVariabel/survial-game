@@ -16,6 +16,27 @@ public class Globals : MonoBehaviour
     public static Tilemap groundTilemap, decorationTilemap, wallTilemap;
     public static Player player;
     public static TimeHandler timeHandler;
+
+    private static bool _isPaused;
+    public static bool pause
+    {
+        get 
+        { 
+            return _isPaused;
+        }
+        set
+        {
+            _isPaused = value;
+            if (value)
+            {
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+        }
+    }
     public static Chunk GetChunk(Vector3 position)
     {
         (int x, int y) key = (Mathf.RoundToInt(position.x / (float)WorldGeneration.chunkSize), Mathf.RoundToInt(position.y / (float)WorldGeneration.chunkSize));
@@ -28,4 +49,5 @@ public class Globals : MonoBehaviour
             return null;
         }
     }
+
 }

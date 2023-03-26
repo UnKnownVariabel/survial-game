@@ -30,6 +30,10 @@ public class Player : MovingObject
 
     protected override void Update()
     {
+        if (Globals.pause)
+        {
+            return;
+        }
         // movement
         direction = Vector2.zero;
         if (Input.GetKey(KeyCode.W))

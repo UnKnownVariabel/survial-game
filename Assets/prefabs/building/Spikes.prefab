@@ -112,7 +112,7 @@ MonoBehaviour:
   Corpse: {fileID: 0}
   drops: []
   objectIndex: 7
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 390768529be16c14e81e416734be7a3d, type: 2}
   DPS: 20
   speed: 0.4
 --- !u!114 &7805706486376191000 stripped

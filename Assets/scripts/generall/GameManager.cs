@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public Tilemap groundTilemap, decorationTilemap, wallTilemap;
     public float amountSpawned;
     public MobSpawner mobSpawner;
+
+    [SerializeField] private GameObject pauseMenu;
     private void Awake()
     {
         Globals.destructibleObjects = new List<DestructibleObject>();
@@ -41,7 +43,13 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < amountOfMobs; i++)
         {
             mobSpawner.SpawnMob();
-            //Instantiate(mob, new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), -1), Quaternion.identity);
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
         }
     }
 }

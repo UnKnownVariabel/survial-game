@@ -9,7 +9,7 @@ public class DeathScreen : MonoBehaviour
     [SerializeField]TMP_Text text;
     private void OnEnable()
     {
-        Time.timeScale = 0f;
+        Globals.pause = true;
         float result = Globals.timeHandler.day + Globals.timeHandler.time / 24 - 1.25f;
         text.text = "you survived: " + Mathf.Floor(result) + " days and " + Mathf.Round(((result % 1) * 24)).ToString() + " hours";
     }
