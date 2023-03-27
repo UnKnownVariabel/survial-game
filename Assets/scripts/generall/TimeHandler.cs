@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -52,17 +50,32 @@ public class TimeHandler : MonoBehaviour
             colorGrading.colorFilter.value = colorGradient.Evaluate((24 - time) / 12);
             vignette.intensity.value = 1 - vignetteGradient.Evaluate((24 - time) / 12).grayscale;
         }
-        if(last_time < nightLenght / 2 && time >= nightLenght / 2)
+        if (last_time < nightLenght / 2 && time >= nightLenght / 2)
         {
-            foreach(Mob mob in Globals.mobs)
-            {
-                mob.Morning();
-            }
+            NightToDay();
+        }
+        if (last_time < 24 - nightLenght / 2 && time >= 24 - nightLenght / 2)
+        {
+            DayToNight();
         }
         last_time = time;
     }
     public bool isNight()
     {
         return time < nightLenght / 2 || time > 24 - nightLenght / 2;
+    }
+
+    private void NightToDay()
+    {
+        foreach (Mob mob in Globals.mobs)
+        {
+            mob.Morning();
+        }
+        SongManager.instance.mood = 0;
+    }
+
+    private void DayToNight()
+    {
+        SongManager.instance.mood = 1;
     }
 }
