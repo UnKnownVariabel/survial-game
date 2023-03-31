@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6542529988572452547}
   m_RootOrder: 1
@@ -102,6 +103,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2150464266652089103}
   - {fileID: 8918213879314794535}
@@ -192,6 +194,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6542529988572452547}
   m_RootOrder: 0
@@ -270,6 +273,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6542529988572452547}
   m_Father: {fileID: 0}
@@ -355,6 +359,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 6365434815445875979}
   barAnimation: {fileID: 13947674771462160}
+  alwaysVisible: 0
+  background: {fileID: 1770806842756728046}
+  border: {fileID: 8893731012405119750}
 --- !u!111 &13947674771462160
 Animation:
   m_ObjectHideFlags: 0

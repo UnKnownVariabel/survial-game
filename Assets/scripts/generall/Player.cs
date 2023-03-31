@@ -249,7 +249,11 @@ public class Player : MovingObject
     protected void Attack(float damage, Vector2 extraOffset, float swingTime, float knockback, Multipliers multipliers, LayerMask layerMask)
     {
         handsOut = true;
-        base.Attack(damage, extraOffset, layerMask, knockback, multipliers);
+        int? type = base.Attack(damage, extraOffset, layerMask, knockback, multipliers);
+        if(type!= null)
+        {
+            soundEffectHandler.PlayClip((int)type + 1);
+        }
         toolAnimation["tool"].speed = 1 / swingTime;
         toolAnimation.Rewind("tool");
         toolAnimation.Play("tool");

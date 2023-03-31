@@ -9,7 +9,7 @@ public class SoundEffectHandler : MonoBehaviour
     [SerializeField] private AudioClip[] triggerdClips;
     [SerializeField] private float timeBetweenClips;
     [SerializeField] private float randomOffset;
-
+    
     private IEnumerator coroutine;
 
     public void PlayClip(int i)
@@ -27,11 +27,18 @@ public class SoundEffectHandler : MonoBehaviour
 
     IEnumerator PlayRandom()
     {
-        yield return new WaitForSeconds(timeBetweenClips + Random.Range(0, randomOffset));
-        audioSource.clip = randomClips[Random.Range(0, randomClips.Length)];
-        audioSource.Play();
-        yield return new WaitForSeconds(audioSource.clip.length);
-        StartCoroutine(coroutine);
+        if(randomClips.Length > 0)
+        {
+            yield return new WaitForSeconds(timeBetweenClips + Random.Range(0, randomOffset));
+            audioSource.clip = randomClips[Random.Range(0, randomClips.Length)];
+            audioSource.Play();
+            yield return new WaitForSeconds(audioSource.clip.length);
+            StartCoroutine(coroutine);
+        }
+        else
+        {
+            yield break;
+        }
     }
 
     IEnumerator PlayClipRoutine(int i)

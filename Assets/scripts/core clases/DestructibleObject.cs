@@ -15,9 +15,10 @@ public class DestructibleObject : MonoBehaviour
     public int type;
     public float targetDesirebility;
 
-    [SerializeField] private SoundEffectHandler soundEffectHandler;
+    [SerializeField] protected SoundEffectHandler soundEffectHandler;
     [SerializeField] protected Item itemPrefab;
-    [SerializeField] HealthBar healthBar;
+
+    [SerializeField] private HealthBar healthBar;
     [SerializeField] private DestructibleObject Corpse;
     [SerializeField] private Drop[] drops;
     private ParticleSystem particlesystem;

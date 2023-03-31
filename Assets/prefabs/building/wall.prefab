@@ -20,6 +20,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1484419591663894285, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: objectIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1484419591663894285, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: drops.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -70,6 +74,10 @@ PrefabInstance:
     - target: {fileID: 3243798147092312221, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3243798147092312221, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5207697144740136991, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
       propertyPath: m_RootOrder

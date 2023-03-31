@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class WorldGeneration : MonoBehaviour
 {
-    [SerializeField] private TileBase grasTile;
-    [SerializeField] private TileBase sandTile;
+    public PlacebleItemData wall;
+    public Tilemap groundMap;
+    public Tilemap decorationMap;
+    public Transform player;
+    public TileBase grasTile;
+    public TileBase sandTile;
+    public bool isCreating;
+
     [SerializeField] private Image mapImage;
     [SerializeField] private Color grasColor;
     [SerializeField] private Color sandColor;
@@ -19,12 +26,9 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private StaticObject crossbowPrefab;
     [SerializeField] private StaticObject stonePrefab;
     [SerializeField] private StaticObject spikesPrefab;
-    public PlacebleItemData wall;
-    public Tilemap groundMap;
-    public Tilemap decorationMap;
-    public Transform player;
+    
 
-    Vector2Int offset;
+    public Vector2Int offset;
     public const int chunkSize = 16;
     public static Vector2Int chunkBuffer;
     public static WorldGeneration instance { get; private set; }
@@ -40,12 +44,19 @@ public class WorldGeneration : MonoBehaviour
         {
             instance = this;
         }
-        Globals.chunks = new Dictionary<(int, int), Chunk>();
-        offset = new Vector2Int(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
         chunkBuffer = new Vector2Int(2, 1);
     }
+
     public void StartGame()
     {
+        if (isCreating)
+        {
+            CreateWorld();
+        }
+        else
+        {
+            Save.instance.LoadGame();
+        }
         Time.timeScale = 1;
         for(int Y = -chunkBuffer.y; Y <= chunkBuffer.y; Y++)
         {
@@ -55,6 +66,15 @@ public class WorldGeneration : MonoBehaviour
             }
         }
         Globals.currentChunk = Globals.chunks[(0, 0)];
+    }
+
+
+    public void CreateWorld()
+    {
+        Globals.worldData = new WorldData();
+        offset = new Vector2Int(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
+        Globals.worldData.offset = offset;
+        Globals.chunks = new Dictionary<(int, int), Chunk>();
     }
 
     private void Update()
@@ -107,6 +127,7 @@ public class WorldGeneration : MonoBehaviour
         Chunk chunk;
         int startX = x * chunkSize - chunkSize / 2;
         int startY = y * chunkSize - chunkSize / 2;
+
         if (Globals.chunks.ContainsKey((x, y)))
         {
             chunk = Globals.chunks[(x, y)];
@@ -116,11 +137,14 @@ public class WorldGeneration : MonoBehaviour
             }
             return;
         }
+
         float[,] DPS = new float[chunkSize, chunkSize];
         float[,] Speed = new float[chunkSize, chunkSize];
         byte[,] tiles = new byte[chunkSize, chunkSize];
+
         Random.InitState(offset.x - x - y);
         chunk = new Chunk(x, y, DPS, Speed, tiles);
+
         for (int Y = 0; Y < chunkSize; Y++)
         {
             for(int X = 0; X < chunkSize; X++)
@@ -131,6 +155,56 @@ public class WorldGeneration : MonoBehaviour
         chunk.isSpawnd = true;
         Globals.chunks.Add((x, y), chunk);
         chunk.GenerateNodes();
+
+        void DrawTile(int x, int y)
+        {
+            float magnification = 10;
+            float noise = Mathf.PerlinNoise((x + offset.x) / magnification, (y + offset.y) / magnification);
+            TileData data;
+            if (noise > 0.45)
+            {
+                groundMap.SetTile(new Vector3Int(x, y, 0), grasTile);
+                data = TileManager.instance.GetData(grasTile);
+                //setting byte to 00000010 to indicate gras for redrawing chunk
+                tiles[x - startX, y - startY] = 2;
+                if (Random.value * data.plantSurvivability < 0.3f)
+                {
+                    StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                    tree.chunk = chunk;
+                }
+                else if(Random.value < 0.3f)
+                {
+                    StaticObject stone = Instantiate(stonePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                    stone.chunk = chunk;
+                }
+                else if(Random.value < 0.1f)
+                {
+                    decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
+                }
+                
+            }
+            else if (noise > 0.3)
+            {
+                groundMap.SetTile(new Vector3Int(x, y, 0), sandTile);
+                data = TileManager.instance.GetData(sandTile);
+                //setting byte to 00000001 to indicate sand for redrawing chunk
+                tiles[x - startX, y - startY] = 1;
+                if (Random.value < 0.1f)
+                {
+                    decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
+                    //adding 00100000 to byte to indicate stone for redrawing chunk
+                    tiles[x - startX, y - startY] += 32;
+                }
+            }
+            else
+            {
+                data = TileManager.instance.GetData(null);
+                //setting byte to 00000000 to indicate water for redrawing chunk
+                tiles[x - startX, y - startY] = 0;
+            }
+            DPS[x - startX, y - startY] = data.DPS;
+            Speed[x - startX, y - startY] = data.speed;
+        }
 
         void RedrawChunk(Chunk chunk)
         {
@@ -181,60 +255,6 @@ public class WorldGeneration : MonoBehaviour
                 }
             }
             chunk.isSpawnd = true;
-        }
-
-        void DrawTile(int x, int y)
-        {
-            float magnification = 10;
-            float noise = Mathf.PerlinNoise((x + offset.x) / magnification, (y + offset.y) / magnification);
-            TileData data;
-            if (noise > 0.45)
-            {
-                groundMap.SetTile(new Vector3Int(x, y, 0), grasTile);
-                data = TileManager.instance.GetData(grasTile);
-                //setting byte to 00000010 to indicate gras for redrawing chunk
-                tiles[x - startX, y - startY] = 2;
-                if (Random.value * data.plantSurvivability < 0.3f)
-                {
-                    StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
-                    tree.chunk = chunk;
-                    //adding 00010000 to byte to indicate tree for redrawing chunk
-                    //tiles[x - startX, y - startY] += 16;
-                }
-                else if(Random.value < 0.3f)
-                {
-                    StaticObject stone = Instantiate(stonePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
-                    stone.chunk = chunk;
-                }
-                else if(Random.value < 0.1f)
-                {
-                    decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
-                    //adding 00100000 to byte to indicate stone for redrawing chunk
-                    //tiles[x - startX, y - startY] += 32;
-                }
-                
-            }
-            else if (noise > 0.3)
-            {
-                groundMap.SetTile(new Vector3Int(x, y, 0), sandTile);
-                data = TileManager.instance.GetData(sandTile);
-                //setting byte to 00000001 to indicate sand for redrawing chunk
-                tiles[x - startX, y - startY] = 1;
-                if (Random.value < 0.1f)
-                {
-                    decorationMap.SetTile(new Vector3Int(x, y, 0), stonesTile);
-                    //adding 00100000 to byte to indicate stone for redrawing chunk
-                    tiles[x - startX, y - startY] += 32;
-                }
-            }
-            else
-            {
-                data = TileManager.instance.GetData(null);
-                //setting byte to 00000000 to indicate water for redrawing chunk
-                tiles[x - startX, y - startY] = 0;
-            }
-            DPS[x - startX, y - startY] = data.DPS;
-            Speed[x - startX, y - startY] = data.speed;
         }
     }
 

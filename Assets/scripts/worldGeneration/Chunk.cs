@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[Serializable]
 public class Chunk
 {
     public bool isSpawnd;
@@ -23,6 +24,41 @@ public class Chunk
         DPS = dps;
         this.speed = speed;
         tiles = Tiles;
+    }
+
+    public Chunk(ChunkData data)
+    {
+        x = data.x; 
+        y = data.y;
+        DPS = new float[WorldGeneration.chunkSize, WorldGeneration.chunkSize];
+        speed = new float[WorldGeneration.chunkSize, WorldGeneration.chunkSize];
+        tiles = new byte[WorldGeneration.chunkSize, WorldGeneration.chunkSize];
+        TileData waterData = TileManager.instance.GetData(null);
+        TileData sandData = TileManager.instance.GetData(WorldGeneration.instance.sandTile);
+        TileData grasData = TileManager.instance.GetData(WorldGeneration.instance.grasTile);
+        for(int Y =  0; Y < WorldGeneration.chunkSize; Y++)
+        {
+            for(int X = 0; X < WorldGeneration.chunkSize; X++)
+            {
+                tiles[X, Y] = data.tiles[Y * WorldGeneration.chunkSize + X];
+                switch (tiles[X, Y] % 16)
+                {
+                    case 0:
+                        DPS[X, Y] = waterData.DPS;
+                        speed[X, Y] = waterData.speed;
+                        break;
+                    case 1:
+                        DPS[X, Y] = sandData.DPS;
+                        speed[X, Y] = sandData.speed;
+                        break;
+                    case 2:
+                        DPS[X, Y] = grasData.DPS;
+                        speed[X, Y] = grasData.speed;
+                        break;
+                }
+            }
+        }
+        GenerateNodes();
     }
     public void GenerateNodes()
     {

@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Globals : MonoBehaviour
 {
+    public static WorldData worldData;
     public static List<DestructibleObject> destructibleObjects;
     public static List<MovingObject> characters;
     public static List<Mob> mobs;

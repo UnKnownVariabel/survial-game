@@ -94,12 +94,13 @@ public class MovingObject : DestructibleObject
             spriteRenderer.sprite = sprites[dir * 3 + Mathf.FloorToInt(animState / frameTime)];
         }
     }
-    protected virtual void Attack(float damage, Vector2 extraOffset, LayerMask layerMask, float knockback, Multipliers multipliers)
+    protected virtual int? Attack(float damage, Vector2 extraOffset, LayerMask layerMask, float knockback, Multipliers multipliers)
     {
         Vector2 Direction = pivotTransform.right;
         Vector2 boxPos = Rotate(new Vector2(damageCollider.offset.x, damageCollider.offset.y * pivotTransform.localScale.y) + extraOffset, Direction) + (Vector2)pivotTransform.transform.position;
         lastSwing = Time.time;
         Collider2D[] enemys = Physics2D.OverlapBoxAll(boxPos, damageCollider.size, pivotTransform.eulerAngles.z, layerMask);
+        int? type = null;
 
         for (int i = 0; i < enemys.Length; i++)
         {
@@ -107,6 +108,7 @@ public class MovingObject : DestructibleObject
             {
                 if (enemys[i].gameObject.TryGetComponent(out DestructibleObject Object))
                 {
+                    type = Object.type;
                     switch (Object.type)
                     {
                         case 0:
@@ -132,14 +134,15 @@ public class MovingObject : DestructibleObject
                 }
             }
         }
+        return type;
         Vector2 Rotate(Vector2 vector, Vector2 rotation)
         {
             return new Vector2(rotation.x * vector.x - rotation.y * vector.y, rotation.y * vector.x + rotation.x * vector.y);
         }
     }
-    protected void Attack(LayerMask layerMask)
+    protected int? Attack(LayerMask layerMask)
     {
-        Attack(baseDamage, new Vector2(0, 0), layerMask, baseKnockback, Multipliers.One);
+        return Attack(baseDamage, new Vector2(0, 0), layerMask, baseKnockback, Multipliers.One);
     }
     public void Knockback(Vector2 dir)
     {
