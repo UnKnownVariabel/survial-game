@@ -6,14 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] TMP_Text loadText;
     public void NewWorld()
     {
+        WorldGeneration.isCreating = true;
         SceneManager.LoadScene("World Scene");
     }
     
     public void LoadWorld()
     {
-        loadText.text = "LOL";
+        WorldGeneration.isCreating = false;
+        SceneManager.LoadScene("World Scene");
     }
 }

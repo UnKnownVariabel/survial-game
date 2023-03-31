@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public SpriteRenderer holdingSprite;
     public Crafting crafting;
     [SerializeField] public InventorySpot[] spots;
+    public static Inventory instance;
     public InventorySpot selectedInventorySpot
     {
         get
@@ -47,6 +48,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        instance = this;
         for (int i = 0; i < spots.Length; i++)
         {
             spots[i].index = i;

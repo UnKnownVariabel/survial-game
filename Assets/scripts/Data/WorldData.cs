@@ -11,4 +11,6 @@ public class WorldData
     public ChunkData[] chunks;
     public float time;
     public int day;
+    public int[] inventoryTypes;
+    public int[] inventoryAmounts;
 }

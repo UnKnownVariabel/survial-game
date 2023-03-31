@@ -51,7 +51,7 @@ public class InventorySpot : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private Image selecitonImage;
 
-    private void Start()
+    private void Awake()
     {
         image.enabled = false;
     }
@@ -107,6 +107,43 @@ public class InventorySpot : MonoBehaviour
             text.text = amount.ToString();
         }
     }
+
+    public void Set(ItemData item, int amount)
+    {
+        this.item = item;
+        this.amount = amount;
+        if (amount > 1)
+        {
+            text.text = amount.ToString();
+        }
+        else
+        {
+            text.text = "";
+        }
+        if(item != null)
+        {
+            image.sprite = item.sprite;
+            image.enabled = true;
+        }
+        else
+        {
+            image.enabled = false;
+        }
+        if (selected && item != null)
+        {
+            holdingSprite.sprite = item.sprite;
+            try
+            {
+                ToolData toolData = (ToolData)item;
+                holdingSprite.transform.localScale = new Vector3(1, 1, 0);
+            }
+            catch
+            {
+                holdingSprite.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+            }
+        }
+    }
+
     public void Clicked()
     {
         inventory.selectedInventorySpot = this;

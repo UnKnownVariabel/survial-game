@@ -13,7 +13,7 @@ public class WorldGeneration : MonoBehaviour
     public Transform player;
     public TileBase grasTile;
     public TileBase sandTile;
-    public bool isCreating;
+    public static bool isCreating;
 
     [SerializeField] private Image mapImage;
     [SerializeField] private Color grasColor;
