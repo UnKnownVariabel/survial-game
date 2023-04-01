@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class WorldData
 {
+    public static string current_name;
     public string name;
     public Vector2Int offset;
     public ChunkData[] chunks;

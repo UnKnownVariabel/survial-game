@@ -8,6 +8,7 @@ public class StaticObject : DestructibleObject
     protected override void Start()
     {
         base.Start();
+        chunk = Globals.GetChunk(transform.position);
         (int x, int y) pos = chunk.TilePos(transform.position);
         int rest = chunk.tiles[pos.x, pos.y] % 16;
         chunk.tiles[pos.x, pos.y] = (byte)(objectIndex * 16 + rest);

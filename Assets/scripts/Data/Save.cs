@@ -1,30 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 public class Save : MonoBehaviour
 {
     public static Save instance;
+    public static string loadPath;
 
     private void Awake()
     {
         instance = this;
-    }
-    void Start()
-    {     
-        string persistentDataPath = Application.persistentDataPath;
-        string filePath = persistentDataPath + "/data.txt";
-        string data = "Hello, world! saved data";
-
-        // Write data to a file in the persistent data path
-        //System.IO.File.WriteAllText(filePath, data);
-
-        // Read data from a file in the persistent data path
-        string loadedData = System.IO.File.ReadAllText(filePath);
-        Debug.Log(loadedData);
-        Test();
-
-
     }
 
     private void Test()
@@ -66,9 +49,14 @@ public class Save : MonoBehaviour
             Globals.worldData.inventoryTypes[i] = ItemHandler.ItemTopIndex(Inventory.instance.spots[i].item);
             Globals.worldData.inventoryAmounts[i] = Inventory.instance.spots[i].amount;
         }
+        Globals.worldData.name = WorldData.current_name;
 
         string persistentDataPath = Application.persistentDataPath;
-        string filePath = persistentDataPath + "/worldData.json";
+        if(!System.IO.Directory.Exists(persistentDataPath + "/saves"))
+        {
+            System.IO.Directory.CreateDirectory(persistentDataPath + "/saves");
+        }
+        string filePath = persistentDataPath + "/saves/" + Globals.worldData.name + ".json";
         string data = JsonUtility.ToJson(Globals.worldData);
 
         System.IO.File.WriteAllText(filePath, data);
@@ -77,12 +65,9 @@ public class Save : MonoBehaviour
 
     public void LoadGame()
     {
-        string persistentDataPath = Application.persistentDataPath;
-        string filePath = persistentDataPath + "/worldData.json";
-        Debug.Log(filePath);
-
-        string loadedData = System.IO.File.ReadAllText(filePath);
+        string loadedData = System.IO.File.ReadAllText(loadPath);
         WorldData worldData = JsonUtility.FromJson<WorldData>(loadedData);
+        WorldData.current_name = worldData.name;
         WorldGeneration.instance.offset = worldData.offset;
         Globals.worldData = worldData;
         Globals.chunks = new Dictionary<(int, int), Chunk>();
