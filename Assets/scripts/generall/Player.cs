@@ -234,11 +234,12 @@ public class Player : MovingObject
         {
             foreach (Item item in chunk.items)
             {
+                if(item == null) { Debug.Log(item); }
                 if (Vector2.Distance(item.transform.position, transform.position) < pickUpDistance)
                 {
                     if (inventory.PickUpItem(item.data))
                     {
-                        chunk.items.Remove(item);
+                        chunk.RemoveItem(item);
                         Destroy(item.gameObject);
                     }
                     break;

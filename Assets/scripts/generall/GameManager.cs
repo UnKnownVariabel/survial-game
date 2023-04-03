@@ -30,19 +30,22 @@ public class GameManager : MonoBehaviour
     {
         WorldGeneration.instance.StartGame();
         Map.instance.DrawMap();
-        for(int i = 0; i < amountSpawned; i++)
+        if (WorldGeneration.isCreating)
         {
-            Item item = Instantiate(itemPrefab, new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), -1), Quaternion.identity);
-            item.data = itemType;
-        }
-        for(int i = 0; i < itemsToSpawn.Length; i++)
-        {
-            Item item = Instantiate(itemPrefab, new Vector3( i * 0.5f - itemsToSpawn.Length / 2f, 3, -1), Quaternion.identity);
-            item.data = itemsToSpawn[i];
-        }
-        for (int i = 0; i < amountOfMobs; i++)
-        {
-            mobSpawner.SpawnMob();
+            for (int i = 0; i < amountSpawned; i++)
+            {
+                Item item = Instantiate(itemPrefab, new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), -1), Quaternion.identity);
+                item.data = itemType;
+            }
+            for (int i = 0; i < itemsToSpawn.Length; i++)
+            {
+                Item item = Instantiate(itemPrefab, new Vector3(i * 0.5f - itemsToSpawn.Length / 2f, 3, -1), Quaternion.identity);
+                item.data = itemsToSpawn[i];
+            }
+            for (int i = 0; i < amountOfMobs; i++)
+            {
+                mobSpawner.SpawnMob();
+            }
         }
     }
     private void Update()

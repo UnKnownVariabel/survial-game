@@ -17,6 +17,7 @@ public class MovingObject : DestructibleObject
     public float baseDamage = 2;
     public float baseSwingTime = 1;
     public float baseKnockback = 10;
+    public int mobType;
 
     protected float lastSwing;
     protected int dir;

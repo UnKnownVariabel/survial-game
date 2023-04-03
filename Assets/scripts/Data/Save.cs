@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 public class Save : MonoBehaviour
 {
@@ -10,47 +11,36 @@ public class Save : MonoBehaviour
         instance = this;
     }
 
-    private void Test()
-    {
-        string persistentDataPath = Application.persistentDataPath;
-        string filePath = persistentDataPath + "/testData.json";
-
-        WorldData worldData = new WorldData();
-        worldData.time = 0;
-        worldData.day = 0;
-        worldData.offset = new Vector2Int(3, 5);
-        worldData.name = "test123";
-
-        string data = JsonUtility.ToJson(worldData);
-        System.IO.File.WriteAllText(filePath, data);
-
-        string loadedData = System.IO.File.ReadAllText(filePath);
-        WorldData worldData1 = JsonUtility.FromJson<WorldData>(loadedData);
-        Debug.Log(worldData1.name);
-    }
-
     public void SaveGame()
     {
         Globals.worldData.chunks = new ChunkData[Globals.chunks.Values.Count];
-        int i = 0;
-        foreach (Chunk chunk in Globals.chunks.Values)
+        foreach ((Chunk chunk, int i) in Globals.chunks.Values.Select((value, i) => (value, i)))
         {
             Globals.worldData.chunks[i] = new ChunkData(chunk);
-            i++;
         }
+
+        Globals.worldData.name = WorldData.current_name;
         Globals.worldData.time = Globals.timeHandler.time;
         Globals.worldData.day = Globals.timeHandler.day;
 
         //convert inventory to inventory information stored in WorldData
         Globals.worldData.inventoryTypes = new int[Inventory.instance.spots.Length];
         Globals.worldData.inventoryAmounts = new int[Inventory.instance.spots.Length];
-        for(i = 0; i < Inventory.instance.spots.Length; i++)
+        for(int i = 0; i < Inventory.instance.spots.Length; i++)
         {
             Globals.worldData.inventoryTypes[i] = ItemHandler.ItemTopIndex(Inventory.instance.spots[i].item);
             Globals.worldData.inventoryAmounts[i] = Inventory.instance.spots[i].amount;
         }
-        Globals.worldData.name = WorldData.current_name;
 
+        //Saving mob positions
+        Globals.worldData.mobs = new MobData[Globals.mobs.Count];
+        for(int i = 0; i < Globals.worldData.mobs.Length; i++)
+        {
+            Globals.worldData.mobs[i] = new MobData(Globals.mobs[i]);
+        }
+        Globals.worldData.player = new MobData(Globals.player);
+        
+        //converting data to json and saving it to file;
         string persistentDataPath = Application.persistentDataPath;
         if(!System.IO.Directory.Exists(persistentDataPath + "/saves"))
         {
@@ -84,5 +74,13 @@ public class Save : MonoBehaviour
         {
             Inventory.instance.spots[i].Set(ItemHandler.IndexToItem(worldData.inventoryTypes[i]), worldData.inventoryAmounts[i]);
         }
+
+        // spawning mobs
+        for(int i = 0; i < worldData.mobs.Length; i++)
+        {
+            MobSpawner.instance.SpawnMob(worldData.mobs[i].type, worldData.mobs[i].position, worldData.mobs[i].health);
+        }
+        Globals.player.SetHealth(worldData.player.health);
+        Globals.player.transform.position = worldData.player.position;
     }
 }

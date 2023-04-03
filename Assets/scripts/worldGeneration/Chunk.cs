@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -17,6 +18,9 @@ public class Chunk
     public Dictionary<(int x, int y), Building> buildings = new Dictionary<(int x, int y), Building> ();
     public int minX, minY, maxX, maxY;
 
+    public List<int> itemIndexes { get; private set; }
+    public List<Vector2> itemPositions { get; private set; } 
+
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
         x = X;
@@ -24,6 +28,8 @@ public class Chunk
         DPS = dps;
         this.speed = speed;
         tiles = Tiles;
+        itemIndexes = new List<int>();
+        itemPositions = new List<Vector2>();
     }
 
     public Chunk(ChunkData data)
@@ -58,6 +64,8 @@ public class Chunk
                 }
             }
         }
+        itemIndexes = data.items.ToList();
+        itemPositions = data.itemPositions.ToList();
         GenerateNodes();
     }
     public void GenerateNodes()
@@ -96,5 +104,20 @@ public class Chunk
     {
         (int x, int y) key = TilePos(pos);
         nodes[key.x, key.y].health = health;
+    }
+
+    public void AddItem(Item item)
+    {
+        items.Add(item);
+        itemIndexes.Add(item.data.ItemIndex);
+        itemPositions.Add(item.transform.position);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        int i = items.IndexOf(item);
+        items.RemoveAt(i);
+        itemIndexes.RemoveAt(i);
+        itemPositions.RemoveAt(i);
     }
 }

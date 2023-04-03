@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class MobSpawner : MonoBehaviour
 {
+    public static MobSpawner instance;
+
     public Mob[] mobs;
     public float baseSpawnTime;
     public float spawnOffsetMax;
 
     private float timeTillSpawn;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void SpawnMob()
     {
@@ -26,6 +33,12 @@ public class MobSpawner : MonoBehaviour
             Instantiate(mobs[1], position, Quaternion.identity);
         }
     }
+
+    public void SpawnMob(int i, Vector2 position, float health)
+    {
+        Mob mob = Instantiate(mobs[i - 1], position, Quaternion.identity);
+        mob.SetHealth(health);
+    }
     private void Update()
     {
         if (Globals.timeHandler.isNight())
@@ -39,5 +52,4 @@ public class MobSpawner : MonoBehaviour
             }
         }
     }
-
 }

@@ -60,6 +60,10 @@ PrefabInstance:
       value: Wolf
       objectReference: {fileID: 0}
     - target: {fileID: 4630593959030652199, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
+      propertyPath: mobType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630593959030652199, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
       propertyPath: maxSpeed
       value: 4.2
       objectReference: {fileID: 0}

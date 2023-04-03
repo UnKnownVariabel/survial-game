@@ -26,6 +26,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private StaticObject crossbowPrefab;
     [SerializeField] private StaticObject stonePrefab;
     [SerializeField] private StaticObject spikesPrefab;
+    [SerializeField] private Item itemPref;
     
 
     public Vector2Int offset;
@@ -254,6 +255,12 @@ public class WorldGeneration : MonoBehaviour
                     }
                 }
             }
+            for(int i = 0; i < chunk.itemPositions.Count; i++)
+            {
+                Item item = Instantiate(itemPref, chunk.itemPositions[i], Quaternion.identity);
+                item.data = ItemHandler.IndexToItem(chunk.itemIndexes[i]);
+                chunk.items.Add(item);
+            }
             chunk.isSpawnd = true;
         }
     }
@@ -331,5 +338,11 @@ public class WorldGeneration : MonoBehaviour
             Destroy(staticObject.gameObject);
         }
         Globals.chunks[(x, y)].staticObjects = new Dictionary<(int x, int y), StaticObject>();
+
+        foreach(Item item in Globals.chunks[(x, y)].items)
+        {
+            Destroy(item.gameObject);
+        }
+        Globals.chunks[(x, y)].items = new List<Item>();
     }
 }

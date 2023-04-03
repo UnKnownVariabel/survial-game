@@ -14,4 +14,6 @@ public class WorldData
     public int day;
     public int[] inventoryTypes;
     public int[] inventoryAmounts;
+    public MobData[] mobs;
+    public MobData player;
 }

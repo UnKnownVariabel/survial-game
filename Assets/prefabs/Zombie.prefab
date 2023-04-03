@@ -165,6 +165,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   minVisDamage: 10
+  chunk:
+    isSpawnd: 0
+    x: 0
+    y: 0
+    items: []
+    minX: 0
+    minY: 0
+    maxX: 0
+    maxY: 0
   type: 0
   targetDesirebility: 0
   soundEffectHandler: {fileID: 5154427899376574155}
@@ -200,6 +209,7 @@ MonoBehaviour:
   baseDamage: 10
   baseSwingTime: 0.5
   baseKnockback: 2
+  mobType: 1
   attackRange: 1
   minRange: 0.7
   fire: {fileID: 7831527425511481733, guid: 7c7191e1b42b1a74a8329de13353021b, type: 3}

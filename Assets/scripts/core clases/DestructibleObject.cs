@@ -32,7 +32,7 @@ public class DestructibleObject : MonoBehaviour
     private float realHealth;
     protected virtual void Awake()
     {
-        SetHealth();
+        SetHealth(maxHealth);
     }
 
     protected virtual void Start()
@@ -48,9 +48,16 @@ public class DestructibleObject : MonoBehaviour
             //Debug.Log("particle system not found");
         }
     }
-    public void SetHealth()
+    public void SetHealth(float health)
     {
-        realHealth = maxHealth;
+        if(health <= maxHealth)
+        {
+            realHealth = health;
+        }
+        else
+        {
+            realHealth = maxHealth;
+        }
     }
     protected void AddHealth(float value)
     {
