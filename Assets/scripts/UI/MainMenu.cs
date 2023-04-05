@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private TMP_InputField field;
     [SerializeField] private Transform saves;
     [SerializeField] private GameObject options;
+    [SerializeField] private TMP_Text warningText;
 
     private void Start()
     {
@@ -55,6 +56,35 @@ public class MainMenu : MonoBehaviour
     }
     public void CreateWorld()
     {
+        // checking length of name
+        if(field.text.Length > 9)
+        {
+            warningText.enabled = true;
+            warningText.text = "name has to be less than 10 characters";
+            return;
+        }
+        if(field.text.Length < 1)
+        {
+            warningText.enabled = true;
+            warningText.text = "name field is empty";
+            return;
+        }
+
+        // checking if name is already used in for other world
+        var info = new DirectoryInfo(Application.persistentDataPath + "/saves");
+        var fileInfo = info.GetFiles();
+        foreach (FileInfo file in fileInfo)
+        {
+            string name = file.Name;
+            name = name.Remove(name.Length - 5);
+            if (name == field.text)
+            {
+                warningText.enabled = true;
+                warningText.text = "name is already used";
+                return;
+            }
+        }
+
         WorldGeneration.isCreating = true;
         WorldData.current_name = field.text;
         SceneManager.LoadScene("World Scene");

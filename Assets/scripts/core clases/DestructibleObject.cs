@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class DestructibleObject : MonoBehaviour
 {
@@ -104,9 +105,9 @@ public class DestructibleObject : MonoBehaviour
         {
             if (Random.Range(0f, 1f) <= drops[i].probability)
             {
-                Item itemInstance = Instantiate(itemPrefab, transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
-                itemInstance.data = drops[i].item;
-                chunk.AddItem(itemInstance);
+                Item item = Instantiate(itemPrefab, transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
+                item.data = drops[i].item;
+                Globals.chunks[(Mathf.RoundToInt(item.transform.position.x / 16), Mathf.RoundToInt(item.transform.position.y / 16))].AddItem(item);
             }
         }
         if(Corpse != null)

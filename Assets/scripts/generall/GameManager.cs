@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
             {
                 Item item = Instantiate(itemPrefab, new Vector3(i * 0.5f - itemsToSpawn.Length / 2f, 3, -1), Quaternion.identity);
                 item.data = itemsToSpawn[i];
+                Globals.chunks[(Mathf.RoundToInt(item.transform.position.x / 16), Mathf.RoundToInt(item.transform.position.y / 16))].AddItem(item);
             }
             for (int i = 0; i < amountOfMobs; i++)
             {

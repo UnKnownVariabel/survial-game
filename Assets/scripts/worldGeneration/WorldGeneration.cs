@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class WorldGeneration : MonoBehaviour
 {
+    public static bool isCreating = true;
+
     public PlacebleItemData wall;
     public Tilemap groundMap;
     public Tilemap decorationMap;
     public Transform player;
     public TileBase grasTile;
     public TileBase sandTile;
-    public static bool isCreating;
 
     [SerializeField] private Image mapImage;
     [SerializeField] private Color grasColor;
@@ -340,7 +341,7 @@ public class WorldGeneration : MonoBehaviour
         }
         Globals.chunks[(x, y)].staticObjects = new Dictionary<(int x, int y), StaticObject>();
 
-        Debug.Log("destoying items");
+        //Debug.Log("destoying items");
         foreach(Item item in Globals.chunks[(x, y)].items)
         {
             Destroy(item.gameObject);
