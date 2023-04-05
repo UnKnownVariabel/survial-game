@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using TMPro;
 
 public class TimeHandler : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class TimeHandler : MonoBehaviour
     public int day = 1;
     public Transform minuteArm;
     public Transform hourArm;
+    public TMP_Text dayText;
 
     [SerializeField] private float nightLenght;
 
@@ -27,6 +29,7 @@ public class TimeHandler : MonoBehaviour
     {
         postProcessVolume.profile.TryGetSettings(out colorGrading);
         postProcessVolume.profile.TryGetSettings(out vignette);
+        dayText.text = "day " + day.ToString();
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public class TimeHandler : MonoBehaviour
         if (time > 24)
         {
             day++;
+            dayText.text = "day " + day.ToString();
             time = 0;
         }
         if(time < 12)

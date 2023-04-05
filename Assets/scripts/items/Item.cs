@@ -11,6 +11,5 @@ public class Item : MonoBehaviour
     void Start()
     {
         spriteRenderer.sprite = data.sprite;
-        Globals.chunks[(Mathf.RoundToInt(transform.position.x / 16), Mathf.RoundToInt(transform.position.y / 16))].AddItem(this);
     }
 }

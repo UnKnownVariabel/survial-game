@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class SoundEffectHandler : MonoBehaviour
 {
+    public static List<SoundEffectHandler> instances;
+
+    public float volume
+    {
+        get
+        {
+            return audioSource.volume;
+        }
+        set
+        {
+            audioSource.volume = value;
+        }
+    }
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] randomClips;
     [SerializeField] private AudioClip[] triggerdClips;
@@ -21,8 +34,19 @@ public class SoundEffectHandler : MonoBehaviour
 
     private void Start()
     {
+        if(instances == null)
+        {
+            instances = new List<SoundEffectHandler>();
+        }
+        instances.Add(this);
+        volume = PlayerPrefs.GetFloat("effects volume");
         coroutine = PlayRandom();
         StartCoroutine(coroutine);
+    }
+
+    private void OnDestroy()
+    {
+        instances.Remove(this);
     }
 
     IEnumerator PlayRandom()

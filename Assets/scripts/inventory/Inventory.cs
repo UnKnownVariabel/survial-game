@@ -212,6 +212,8 @@ public class Inventory : MonoBehaviour
         {
             Item item = Instantiate(crafting.itemPrefab, crafting.player.transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
             item.data = selectedInventorySpot.item;
+            Globals.chunks[(Mathf.RoundToInt(item.transform.position.x / 16), Mathf.RoundToInt(item.transform.position.y / 16))].AddItem(item);
+
             selectedInventorySpot.RemoveItem();
         }   
     }

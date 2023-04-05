@@ -255,6 +255,7 @@ public class WorldGeneration : MonoBehaviour
                     }
                 }
             }
+            chunk.items = new List<Item>();
             for(int i = 0; i < chunk.itemPositions.Count; i++)
             {
                 Item item = Instantiate(itemPref, chunk.itemPositions[i], Quaternion.identity);
@@ -339,6 +340,7 @@ public class WorldGeneration : MonoBehaviour
         }
         Globals.chunks[(x, y)].staticObjects = new Dictionary<(int x, int y), StaticObject>();
 
+        Debug.Log("destoying items");
         foreach(Item item in Globals.chunks[(x, y)].items)
         {
             Destroy(item.gameObject);

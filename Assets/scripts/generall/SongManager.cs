@@ -59,7 +59,7 @@ public class SongManager : MonoBehaviour
         audioSource.loop = true;
         //StartCoroutine(coroutine);
         mood = 0;
-        volume = 0.3f;
+        volume = PlayerPrefs.GetFloat("music volume");
     }
 
     IEnumerator PlaySong()

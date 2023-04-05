@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject loadMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject createMenu;
+    [SerializeField] private GameObject settingsMenu;
     [SerializeField] private OpenSave buttonPref;
     [SerializeField] private TMP_InputField field;
     [SerializeField] private Transform saves;
@@ -64,10 +65,17 @@ public class MainMenu : MonoBehaviour
         loadMenu.SetActive(true);
         mainMenu.SetActive(false);
     }
+
+    public void OpenSettings()
+    {
+        settingsMenu.SetActive(true);
+        mainMenu.SetActive(false);
+    }
     public void Back()
     {
         createMenu.SetActive(false);
         loadMenu.SetActive(false);
+        settingsMenu.SetActive(false);
         mainMenu.SetActive(true);
     }
     

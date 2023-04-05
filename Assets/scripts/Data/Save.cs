@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class Save : MonoBehaviour
 
     public void SaveGame()
     {
+        DateTime start = DateTime.Now;
         Globals.worldData.chunks = new ChunkData[Globals.chunks.Values.Count];
         foreach ((Chunk chunk, int i) in Globals.chunks.Values.Select((value, i) => (value, i)))
         {
@@ -50,7 +52,7 @@ public class Save : MonoBehaviour
         string data = JsonUtility.ToJson(Globals.worldData);
 
         System.IO.File.WriteAllText(filePath, data);
-        Debug.Log("saved world");
+        Debug.Log("saved world in: " + (DateTime.Now - start).TotalMilliseconds.ToString() + " milliseconds");
     }
 
     public void LoadGame()
@@ -61,7 +63,7 @@ public class Save : MonoBehaviour
         WorldGeneration.instance.offset = worldData.offset;
         Globals.worldData = worldData;
         Globals.chunks = new Dictionary<(int, int), Chunk>();
-        Debug.Log(worldData.chunks.Length);
+
         for (int i = 0; i < worldData.chunks.Length; i++)
         {
             Globals.chunks.Add((Globals.worldData.chunks[i].x, Globals.worldData.chunks[i].y), new Chunk(worldData.chunks[i]));
@@ -69,7 +71,6 @@ public class Save : MonoBehaviour
         Globals.timeHandler.time = worldData.time;
         Globals.timeHandler.day = worldData.day;
 
-        Debug.Log(worldData.inventoryAmounts);
         for (int i = 0; i < Inventory.instance.spots.Length; i++)
         {
             Inventory.instance.spots[i].Set(ItemHandler.IndexToItem(worldData.inventoryTypes[i]), worldData.inventoryAmounts[i]);

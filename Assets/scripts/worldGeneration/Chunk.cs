@@ -116,7 +116,7 @@ public class Chunk
     public void RemoveItem(Item item)
     {
         int i = items.IndexOf(item);
-        items.RemoveAt(i);
+        items.Remove(item);
         itemIndexes.RemoveAt(i);
         itemPositions.RemoveAt(i);
     }
