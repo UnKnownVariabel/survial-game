@@ -6,12 +6,10 @@ using UnityEngine.Tilemaps;
 public class GameManager : MonoBehaviour
 {
     public Item itemPrefab;
-    public ItemData itemType;
     public ItemData[] itemsToSpawn;
     public Mob mob;
     public float amountOfMobs;
     public Tilemap groundTilemap, decorationTilemap, wallTilemap;
-    public float amountSpawned;
     public MobSpawner mobSpawner;
 
     [SerializeField] private GameObject pauseMenu;
@@ -32,11 +30,6 @@ public class GameManager : MonoBehaviour
         Map.instance.DrawMap();
         if (WorldGeneration.isCreating)
         {
-            for (int i = 0; i < amountSpawned; i++)
-            {
-                Item item = Instantiate(itemPrefab, new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), -1), Quaternion.identity);
-                item.data = itemType;
-            }
             for (int i = 0; i < itemsToSpawn.Length; i++)
             {
                 Item item = Instantiate(itemPrefab, new Vector3(i * 0.5f - itemsToSpawn.Length / 2f, 3, -1), Quaternion.identity);

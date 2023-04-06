@@ -64,6 +64,7 @@ public class Crafting : MonoBehaviour
             {
                 Item item = Instantiate(itemPrefab, player.transform.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)), Quaternion.identity);
                 item.data = recipe.output[i];
+                Globals.chunks[(Mathf.RoundToInt(item.transform.position.x / 16), Mathf.RoundToInt(item.transform.position.y / 16))].AddItem(item);
             }
         }
         UpdatePotentialValues();

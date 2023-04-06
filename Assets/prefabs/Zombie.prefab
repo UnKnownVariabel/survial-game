@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f956d07c2562464d8ee0ca6a75860eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 80
   minVisDamage: 10
   chunk:
     isSpawnd: 0

@@ -939,7 +939,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 650062819}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147483647
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -2711,8 +2711,8 @@ Canvas:
   m_GameObject: {fileID: 1763744125}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 650062818}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

@@ -68,6 +68,20 @@ public class WorldGeneration : MonoBehaviour
             }
         }
         Globals.currentChunk = Globals.chunks[(0, 0)];
+        if (isCreating)
+        {
+            Vector2 pos = new Vector2(0, 0);
+            for (int i = 0; i < 100; i++)
+            {
+                pos = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+                if (Globals.currentChunk.GetDPS(pos) <= 0)
+                {
+                    player.transform.position = pos;
+                    break;
+                }
+            }
+
+        }
     }
 
 
