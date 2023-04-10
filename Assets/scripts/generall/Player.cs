@@ -16,6 +16,7 @@ public class Player : MovingObject
     [SerializeField] private SpriteRenderer previewSprite;
     [SerializeField] private Color cantPlaceColor;
     [SerializeField] private Color canPlaceColor;
+    [SerializeField] private ParticleSystem heartEmitter;
 
 
     private Vector2 direction;
@@ -128,6 +129,7 @@ public class Player : MovingObject
                     EdibleItem item = (EdibleItem)inventory.selectedInventorySpot.item;
                     AddHealth(item.health);
                     inventory.selectedInventorySpot.RemoveItem();
+                    heartEmitter.Play();
                 }
             }
         }

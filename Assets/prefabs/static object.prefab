@@ -103,13 +103,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   minVisDamage: 10
-  healthBar: {fileID: 793170973273555608}
-  isDead: 0
-  itemPrefab: {fileID: 0}
-  Corpse: {fileID: 0}
+  chunk:
+    isSpawnd: 0
+    x: 0
+    y: 0
+    items: []
+    minX: 0
+    minY: 0
+    maxX: 0
+    maxY: 0
   type: 0
   targetDesirebility: 0
+  soundEffectHandler: {fileID: 0}
+  itemPrefab: {fileID: 0}
+  healthBar: {fileID: 793170973273555608}
+  Corpse: {fileID: 0}
   drops: []
+  particlesystem: {fileID: 3773512545440660607}
   objectIndex: 0
 --- !u!61 &3574946519940193388
 BoxCollider2D:

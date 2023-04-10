@@ -253,12 +253,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 200
   minVisDamage: 10
-  healthBar: {fileID: 5305664597259308789}
+  chunk:
+    isSpawnd: 0
+    x: 0
+    y: 0
+    items: []
+    minX: 0
+    minY: 0
+    maxX: 0
+    maxY: 0
   type: 0
   targetDesirebility: 40
+  soundEffectHandler: {fileID: 0}
   itemPrefab: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
+  healthBar: {fileID: 5305664597259308789}
   Corpse: {fileID: 0}
   drops: []
+  particlesystem: {fileID: 8574392659184365586}
   objectIndex: 5
   itemData: {fileID: 11400000, guid: 123d2fa4102f7854ab82d9710d0ea058, type: 2}
   range: 3
@@ -270,3 +281,8 @@ MonoBehaviour:
   isLoaded: 0
   animator: {fileID: 2998252659992871204}
   target: {fileID: 0}
+--- !u!198 &8574392659184365586 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8712912615089310473, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+  m_PrefabInstance: {fileID: 1014479167352060699}
+  m_PrefabAsset: {fileID: 0}

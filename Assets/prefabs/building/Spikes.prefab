@@ -121,10 +121,16 @@ MonoBehaviour:
   healthBar: {fileID: 7805706486376191000}
   Corpse: {fileID: 0}
   drops: []
+  particlesystem: {fileID: 5984349146265234175}
   objectIndex: 7
   itemData: {fileID: 11400000, guid: 390768529be16c14e81e416734be7a3d, type: 2}
   DPS: 20
   speed: 0.4
+--- !u!198 &5984349146265234175 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8712912615089310473, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}
+  m_PrefabInstance: {fileID: 3163451134604354038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7805706486376191000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5167219468275578350, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}

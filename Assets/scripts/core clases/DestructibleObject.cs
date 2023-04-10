@@ -22,7 +22,7 @@ public class DestructibleObject : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private DestructibleObject Corpse;
     [SerializeField] private Drop[] drops;
-    private ParticleSystem particlesystem;
+    [SerializeField] private ParticleSystem particlesystem;
     public float health
     {
         get
@@ -42,11 +42,6 @@ public class DestructibleObject : MonoBehaviour
         if(targetDesirebility > 0)
         {
             Globals.targets.Add(this);
-        }
-        particlesystem = GetComponent<ParticleSystem>();
-        if(particlesystem == null)
-        {
-            //Debug.Log("particle system not found");
         }
     }
     public void SetHealth(float health)

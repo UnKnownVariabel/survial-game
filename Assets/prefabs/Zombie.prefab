@@ -183,6 +183,7 @@ MonoBehaviour:
   drops:
   - item: {fileID: 11400000, guid: 394bf3bba87c20542bc21926da077978, type: 2}
     probability: 0.1
+  particlesystem: {fileID: 6706198047745696477}
   maxSpeed: 1
   acceleration: 8
   rb: {fileID: 4630593959030652197}
