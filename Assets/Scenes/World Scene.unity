@@ -915,8 +915,8 @@ MonoBehaviour:
   groundMap: {fileID: 581638844}
   decorationMap: {fileID: 481974423}
   player: {fileID: 1063572732}
-  grasTile: {fileID: 11400000, guid: b200a90461088455b8ff3a5d6323869e, type: 2}
-  sandTile: {fileID: 11400000, guid: 50540354aa8dc452aaffede5d4a7c3e1, type: 2}
+  grasTile: {fileID: 11400000, guid: 60e5e13d279fe2f40a30733e471343e5, type: 2}
+  sandTile: {fileID: 11400000, guid: a93d263b6e4d0eb429cf9c8108dfdd70, type: 2}
   mapImage: {fileID: 0}
   grasColor: {r: 0, g: 1, b: 0, a: 0}
   sandColor: {r: 1, g: 0.9497953, b: 0.08018869, a: 0}
@@ -1387,7 +1387,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.51442814, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.27058825, g: 0.63529414, b: 0.8705883, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

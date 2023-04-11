@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: gras
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: b200a90461088455b8ff3a5d6323869e, type: 2}
+  - {fileID: 11400000, guid: 60e5e13d279fe2f40a30733e471343e5, type: 2}
   DPS: 0
   speed: 1
   plantSurvivability: 1
