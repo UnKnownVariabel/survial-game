@@ -130,6 +130,7 @@ public class Player : MovingObject
                     AddHealth(item.health);
                     inventory.selectedInventorySpot.RemoveItem();
                     heartEmitter.Play();
+                    soundEffectHandler.PlayClip(4);
                 }
             }
         }

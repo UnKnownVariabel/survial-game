@@ -137,15 +137,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5154427899376574155, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
       propertyPath: randomClips.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5154427899376574155, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
       propertyPath: randomClips.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 744b13641197e3946b681507fad87348, type: 3}
     - target: {fileID: 5154427899376574155, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
-      propertyPath: triggerdClips.Array.data[0]
+      propertyPath: randomClips.Array.data[1]
       value: 
       objectReference: {fileID: 8300000, guid: 3dcc47684b4d0294bae077472c397d45, type: 3}
+    - target: {fileID: 5154427899376574155, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}
+      propertyPath: triggerdClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 59afa230f6e4b2a41826b52fef7234e2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e28905c7278774c0aaaa6f219fcb3133, type: 3}

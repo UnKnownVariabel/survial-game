@@ -603,5 +603,5 @@ MonoBehaviour:
     m_RuleTransform: 1
   alwaysConnect: 0
   tilesToConnect:
-  - {fileID: 11400000, guid: 50540354aa8dc452aaffede5d4a7c3e1, type: 2}
+  - {fileID: 11400000, guid: a93d263b6e4d0eb429cf9c8108dfdd70, type: 2}
   checkSelf: 1

@@ -124,4 +124,9 @@ public class MainMenu : MonoBehaviour
             worldSelection.Delete();
         }
     }
+
+    public void OpenTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
 }
