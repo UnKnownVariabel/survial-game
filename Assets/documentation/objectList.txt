@@ -5,3 +5,4 @@
 5. crossbow tower
 6. stone
 7. spikes
+8. mortor

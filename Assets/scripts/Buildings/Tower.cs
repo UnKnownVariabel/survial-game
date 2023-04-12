@@ -13,7 +13,7 @@ public class Tower : Building
     public bool isLoaded;
     public Animator animator;
 
-    [SerializeField]private Mob target;
+    [SerializeField]protected Mob target;
 
     void Update()
     {
@@ -56,7 +56,7 @@ public class Tower : Building
         animator.SetTrigger("shoot");
         isLoaded = false;
     }
-    public void SpawnProjectile()
+    public virtual void SpawnProjectile()
     {
         Projectile proj = Instantiate(projectile, spawnPoint.position, pivotTransform.rotation);
         proj.rb.velocity = pivotTransform.up * projectileSpeed;

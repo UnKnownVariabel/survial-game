@@ -8,3 +8,4 @@
 7. pickaxe
 8. spikes
 9. heart
+10. mortor

@@ -12,12 +12,12 @@ public class Projectile : MonoBehaviour
     private float startSpeed;
     private float minSpeed;
 
-    private void Start()
+    protected virtual void Start()
     {
         startSpeed = rb.velocity.magnitude;
         minSpeed = startSpeed * 0.7f;
     }
-    public void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if(rb.velocity.magnitude < minSpeed)
         {
