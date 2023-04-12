@@ -7,11 +7,34 @@ public class TutorialManager : MonoBehaviour
 {
     public int currentTask;
     [SerializeField] private TMP_Text text;
+    [SerializeField] private TMP_Text nextText;
     [SerializeField] private TutorialTask[] tasks;
     [SerializeField] private float timeBetwenChecks;
     [SerializeField] private float warpTimeMultiplier;
     [SerializeField] private GameObject doneMenu;
 
+    private bool _taskDone = false;
+    public bool taskDone
+    {
+        get
+        {
+            return _taskDone;
+        }
+
+        private set
+        {
+            _taskDone = value;
+            if (value)
+            {
+                nextText.color = new Color(nextText.color.r, nextText.color.g, nextText.color.b, 1f);
+            }
+            else
+            {
+                nextText.color = new Color(nextText.color.r, nextText.color.g, nextText.color.b, 0.3f);
+            }
+        }
+    }
+    private bool notSpawnedMobs = true;
     private IEnumerator Coroutine;
 
     private void Start()
@@ -21,50 +44,52 @@ public class TutorialManager : MonoBehaviour
         text.text = tasks[currentTask].text;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            NextTask();
+        }
+    }
+
     IEnumerator CheckTask()
     {
-        if (Check())
+        if (!(Globals.timeHandler.time > tasks[currentTask].minTime && Globals.timeHandler.time < tasks[currentTask].maxTime))
         {
-            currentTask++;
-            if (currentTask >= tasks.Length)
+            float multiplier = Globals.timeHandler.multiplier;
+            Globals.timeHandler.multiplier = warpTimeMultiplier;
+
+            if (Globals.timeHandler.time < tasks[currentTask].minTime)
             {
-                doneMenu.SetActive(true);
-                Globals.pause = true;
+                yield return new WaitForSeconds((tasks[currentTask].minTime - Globals.timeHandler.time + 0.2f) * 3600 / warpTimeMultiplier);
+            }
+            else if (Globals.timeHandler.time > tasks[currentTask].maxTime)
+            {
+                yield return new WaitForSeconds((tasks[currentTask].minTime + 24 - Globals.timeHandler.time + 0.2f) * 3600 / warpTimeMultiplier);
             }
             else
             {
-                text.text = tasks[currentTask].text;
-                if (!(Globals.timeHandler.time > tasks[currentTask].minTime && Globals.timeHandler.time < tasks[currentTask].maxTime))
-                {
-                    float multiplier = Globals.timeHandler.multiplier;
-                    Globals.timeHandler.multiplier = warpTimeMultiplier;
-
-                    if (Globals.timeHandler.time < tasks[currentTask].minTime)
-                    {
-                        yield return new WaitForSeconds((tasks[currentTask].minTime - Globals.timeHandler.time + 0.2f) * 3600 / warpTimeMultiplier);
-                    }
-                    else if (Globals.timeHandler.time > tasks[currentTask].maxTime)
-                    {
-                        yield return new WaitForSeconds((tasks[currentTask].minTime + 24 - Globals.timeHandler.time + 0.2f) * 3600 / warpTimeMultiplier);
-                    }
-                    else
-                    {
-                        Debug.Log("error");
-                    }
-                    Globals.timeHandler.multiplier = multiplier;
-                }
-
-                for (int i = 0; i < tasks[currentTask].zombiesToSpawn; i++)
-                {
-                    MobSpawner.instance.SpawnMob(0);
-                }
-
-                for (int i = 0; i < tasks[currentTask].wolfToSpawn; i++)
-                {
-                    MobSpawner.instance.SpawnMob(1);
-                }
+                Debug.Log("error");
             }
-            
+            Globals.timeHandler.multiplier = multiplier;
+        }
+        if (notSpawnedMobs)
+        {
+            for (int i = 0; i < tasks[currentTask].zombiesToSpawn; i++)
+            {
+                MobSpawner.instance.SpawnMob(0);
+            }
+
+            for (int i = 0; i < tasks[currentTask].wolfToSpawn; i++)
+            {
+                MobSpawner.instance.SpawnMob(1);
+            }
+            notSpawnedMobs = false;
+        }
+
+        if (Check())
+        {
+            taskDone = true;
         }
 
         yield return new WaitForSeconds(timeBetwenChecks);
@@ -143,6 +168,25 @@ public class TutorialManager : MonoBehaviour
                 }
                 return ingredients;
             }
+        }
+    }
+
+    public void NextTask()
+    {
+        if (taskDone)
+        {
+            currentTask++;
+            if (currentTask >= tasks.Length)
+            {
+                doneMenu.SetActive(true);
+                Globals.pause = true;
+            }
+            else
+            {
+                text.text = tasks[currentTask].text;
+                notSpawnedMobs = true;
+            }
+            taskDone = false;
         }
     }
 }

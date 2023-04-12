@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 587357939615636793, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2764162062236086441, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_Name
       value: tree
@@ -242,6 +246,18 @@ PrefabInstance:
     - target: {fileID: 7674755671474946803, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054377000594488594, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6721253
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054377000594488594, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8872718
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054377000594488594, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9056604
       objectReference: {fileID: 0}
     - target: {fileID: 8807500056695086074, guid: 5fcbefa3d40e8436da9c270c8c67b10b, type: 3}
       propertyPath: Corpse

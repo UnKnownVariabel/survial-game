@@ -17,6 +17,7 @@ public class HealthBar : MonoBehaviour
         slider.value = health;
         if (!alwaysVisible)
         {
+            barAnimation.Rewind();
             barAnimation.Play();
         }
         else if(health < 1)

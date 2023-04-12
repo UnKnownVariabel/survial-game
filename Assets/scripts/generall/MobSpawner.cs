@@ -16,6 +16,7 @@ public class MobSpawner : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        timeTillSpawn = baseSpawnTime + Random.Range(-baseSpawnTime * spawnOffsetMax, baseSpawnTime * spawnOffsetMax);
     }
 
     public void SpawnMob()
