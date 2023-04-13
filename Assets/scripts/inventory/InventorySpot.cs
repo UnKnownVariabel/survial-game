@@ -24,12 +24,11 @@ public class InventorySpot : MonoBehaviour
                 if (item != null)
                 {
                     holdingSprite.sprite = item.sprite;
-                    try
+                    if (item.isTool)
                     {
-                        ToolData toolData = (ToolData)item;
-                        holdingSprite.transform.localScale = new Vector3 (1, 1, 0);
+                        holdingSprite.transform.localScale = new Vector3(1, 1, 0);
                     }
-                    catch
+                    else
                     {
                         holdingSprite.transform.localScale = new Vector3(0.5f, 0.5f, 0);
                     }

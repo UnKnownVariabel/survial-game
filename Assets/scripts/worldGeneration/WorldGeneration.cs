@@ -27,6 +27,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private StaticObject crossbowPrefab;
     [SerializeField] private StaticObject stonePrefab;
     [SerializeField] private StaticObject spikesPrefab;
+    [SerializeField] private StaticObject mortarPrefab;
     [SerializeField] private Item itemPref;
     
 
@@ -185,12 +186,12 @@ public class WorldGeneration : MonoBehaviour
                 tiles[x - startX, y - startY] = 2;
                 if (Random.value * data.plantSurvivability < 0.3f)
                 {
-                    StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                    StaticObject tree = Instantiate(treePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, groundMap.transform);
                     tree.chunk = chunk;
                 }
                 else if(Random.value < 0.3f)
                 {
-                    StaticObject stone = Instantiate(stonePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                    StaticObject stone = Instantiate(stonePrefab, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, groundMap.transform);
                     stone.chunk = chunk;
                 }
                 else if(Random.value < 0.1f)
@@ -242,14 +243,14 @@ public class WorldGeneration : MonoBehaviour
                     switch ((chunk.tiles[X, Y] - chunk.tiles[X, Y] % 16) / 16)
                     {
                         case 1:
-                            StaticObject tree = Instantiate(treePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            StaticObject tree = Instantiate(treePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity, groundMap.transform);
                             tree.chunk = chunk;
                             break;
                         case 2:
                             decorationMap.SetTile(new Vector3Int(X + startX, Y + startY, 0), stonesTile);
                             break;
                         case 3:
-                            StaticObject stump = Instantiate(stumpPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            StaticObject stump = Instantiate(stumpPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity, groundMap.transform);
                             stump.chunk = chunk;
                             break;
                         case 4:
@@ -260,12 +261,16 @@ public class WorldGeneration : MonoBehaviour
                             crossbow.chunk = chunk;
                             break;
                         case 6:
-                            StaticObject stone = Instantiate(stonePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            StaticObject stone = Instantiate(stonePrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity, groundMap.transform);
                             stone.chunk = chunk;
                             break;
                         case 7:
                             StaticObject spikes = Instantiate(spikesPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
                             spikes.chunk = chunk;
+                            break;
+                        case 8:
+                            StaticObject mortar = Instantiate(mortarPrefab, new Vector3(X + startX + 0.5f, Y + startY + 0.5f, 0), Quaternion.identity);
+                            mortar.chunk = chunk;
                             break;
                     }
                 }

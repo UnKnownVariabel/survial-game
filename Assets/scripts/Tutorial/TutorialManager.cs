@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Tab))
         {
             NextTask();
         }
@@ -54,6 +54,8 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator CheckTask()
     {
+        yield return new WaitForSeconds(timeBetwenChecks);
+
         if (!(Globals.timeHandler.time > tasks[currentTask].minTime && Globals.timeHandler.time < tasks[currentTask].maxTime))
         {
             float multiplier = Globals.timeHandler.multiplier;
@@ -92,7 +94,6 @@ public class TutorialManager : MonoBehaviour
             taskDone = true;
         }
 
-        yield return new WaitForSeconds(timeBetwenChecks);
 
         if(!(currentTask >= tasks.Length))
         {

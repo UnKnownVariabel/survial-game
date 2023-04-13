@@ -36,6 +36,10 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        if (!Directory.Exists(Application.persistentDataPath + "/saves"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/saves");
+        }
         var info = new DirectoryInfo(Application.persistentDataPath + "/saves");
         var fileInfo = info.GetFiles();
         foreach(FileInfo file in fileInfo)

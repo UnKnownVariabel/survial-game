@@ -219,8 +219,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -961,6 +961,15 @@ MonoBehaviour:
   text: {fileID: 112784051}
   nextText: {fileID: 109308337}
   tasks:
+  - name: movement
+    text: Use WASD to move. Press next or enter to continue
+    minTime: 0
+    maxTime: 24
+    requiredItems: []
+    requiredBuildings: 
+    mobQuota: 0
+    zombiesToSpawn: 0
+    wolfToSpawn: 0
   - name: collecting 1
     text: Hold down the right mouse button next to a tree to chop it down. Then press
       Q to pickupp the log.
