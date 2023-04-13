@@ -71,7 +71,7 @@ public class InventorySpot : MonoBehaviour
         image.enabled = true;
         if (selected)
         {
-            holdingSprite.sprite = item.sprite;
+            selected = true;
             try
             {
                 ToolData toolData = (ToolData)item;
