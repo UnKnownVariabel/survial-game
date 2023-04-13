@@ -15,6 +15,22 @@ public class Tower : Building
 
     [SerializeField]protected Mob target;
 
+    [SerializeField] private float timeBetweenUpdates;
+
+    private IEnumerator coroutine;
+
+    protected override void Start()
+    {
+        base.Start();
+        if(timeBetweenUpdates <= 0)
+        {
+            Debug.LogError("time between target updates should not be 0. force set to 0.5");
+            timeBetweenUpdates = 0.5f;
+        }
+        coroutine = UpdateTarget();
+        StartCoroutine(coroutine);
+    }
+
     void Update()
     {
         if(target != null)
@@ -25,10 +41,14 @@ public class Tower : Building
                 Shoot();
             }
         }
-        else
-        {
-            target = AquireTarget();
-        }
+    }
+
+    IEnumerator UpdateTarget()
+    {
+        target = AquireTarget();
+        coroutine = UpdateTarget();
+        yield return new WaitForSeconds(timeBetweenUpdates);
+        StartCoroutine(coroutine);
     }
 
     private Mob AquireTarget()

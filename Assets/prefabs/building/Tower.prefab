@@ -281,6 +281,7 @@ MonoBehaviour:
   isLoaded: 0
   animator: {fileID: 2998252659992871204}
   target: {fileID: 0}
+  timeBetweenUpdates: 0.2
 --- !u!198 &8574392659184365586 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8712912615089310473, guid: ed10c243fdd7b4b4db2786894fe58fa9, type: 3}

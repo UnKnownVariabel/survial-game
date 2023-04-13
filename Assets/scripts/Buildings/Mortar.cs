@@ -9,7 +9,8 @@ public class Mortar : Tower
     public override void SpawnProjectile()
     {
         Bomb bomb = Instantiate(bombPref, spawnPoint.position, Quaternion.identity);
-        bomb.direction = (target.transform.position - spawnPoint.position).normalized;
-        bomb.distance = Vector2.Distance(target.transform.position, spawnPoint.position);
+        Vector3 prediction = target.transform.position + (Vector3)target.rb.velocity * bombPref.loiteringTime;
+        bomb.direction = (prediction - spawnPoint.position).normalized;
+        bomb.distance = Vector2.Distance(prediction, spawnPoint.position);
     }
 }

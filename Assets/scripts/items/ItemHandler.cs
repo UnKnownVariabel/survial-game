@@ -5,37 +5,43 @@ using UnityEngine;
 public class ItemHandler : MonoBehaviour
 {
     [SerializeField] private ItemData[] items;
-    private static Dictionary<int, ItemData> itemIndexPairs;
+    private static ItemData[] itemsInOrder;
 
     private void Awake()
     {
-        itemIndexPairs = new Dictionary<int, ItemData>();
+        itemsInOrder = new ItemData[items.Length];
         for(int i = 0; i < items.Length; i++)
         {
-            itemIndexPairs.Add(items[i].ItemIndex, items[i]);
+            if (itemsInOrder[items[i].ItemIndex] != null)
+            {
+                Debug.LogError("two items of same index in item handler");
+            }
+            itemsInOrder[items[i].ItemIndex] = items[i];
         }
     }
 
     public static ItemData IndexToItem(int index)
     {
-        if(index == -1)
+        if(index < 0)
         {
+            Debug.LogError("item index: " + index.ToString() + " to low");
             return null;
         }
-        return itemIndexPairs[index];
+        else if(index >= itemsInOrder.Length)
+        {
+            Debug.LogError("item index: " + index.ToString() + " to high");
+            return null;
+        }
+        return itemsInOrder[index];
     }
     
     public static int ItemTopIndex(ItemData item)
     {
-        foreach (KeyValuePair<int, ItemData> pair in itemIndexPairs)
+        if(item == null)
         {
-            if(pair.Value == item)
-            {
-                return pair.Key;
-            }
+            Debug.LogError("item null");
+            return -1;
         }
-        Debug.Log("item not found");
-        Debug.Log(item);
-        return -1;
+        return item.ItemIndex;
     }
 }

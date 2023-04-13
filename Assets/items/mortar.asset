@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76393d263e0d649cc8cd7b8cd8f2e8af, type: 3}
-  m_Name: Mortor
+  m_Name: mortar
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 7e1f89d8067b7cb4eb26292473097839, type: 3}
   ItemIndex: 10

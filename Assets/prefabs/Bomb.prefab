@@ -52,11 +52,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
   distance: 0
-  loiteringTime: 2
+  loiteringTime: 1
   knockback: 4
   damage: 30
   smallRadius: 0.6
   largeRadius: 1.3
+  baseScale: 0.5
+  maxExtraScale: 0.3
   layerMask:
     serializedVersion: 2
     m_Bits: 384

@@ -115,6 +115,14 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2891975641005231774, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891975641005231774, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2998252659992871204, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
       propertyPath: m_Controller
       value: 
@@ -236,6 +244,7 @@ MonoBehaviour:
   isLoaded: 0
   animator: {fileID: 252976866143008250}
   target: {fileID: 0}
+  timeBetweenUpdates: 0.2
   bombPref: {fileID: 5882589011365594247, guid: fe2b436368960834cad9aba6f5275994, type: 3}
 --- !u!198 &6694446124117263564 stripped
 ParticleSystem:
