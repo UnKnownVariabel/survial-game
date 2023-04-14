@@ -5,6 +5,23 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
+    static private string _playerName;
+    static public string playerName
+    {
+        get 
+        {
+            if (_playerName == null || _playerName == "")
+            {
+                _playerName = PlayerPrefs.GetString("name");
+            }
+            return _playerName; 
+        }
+        set
+        {
+            _playerName = value;
+            PlayerPrefs.SetString("name", value);
+        }
+    }
     public Item itemPrefab;
     public ItemData[] itemsToSpawn;
     public Mob mob;

@@ -28,11 +28,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject createMenu;
     [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject nameMenu;
     [SerializeField] private OpenSave buttonPref;
     [SerializeField] private TMP_InputField field;
     [SerializeField] private Transform saves;
     [SerializeField] private GameObject options;
     [SerializeField] private TMP_Text warningText;
+    [SerializeField] private TMP_InputField nameField;
+    [SerializeField] private TMP_Text nameWarningText;
+    [SerializeField] private TMP_Text nameText;
 
     private void Start()
     {
@@ -51,6 +55,15 @@ public class MainMenu : MonoBehaviour
             button.path = file.ToString();
             button.mainMenu = this;
             //Debug.Log(name);
+        }
+
+        if (GameManager.playerName == "" || GameManager.playerName == null)
+        {
+            OpenNameMenu();
+        }
+        else
+        {
+            nameText.text = GameManager.playerName;
         }
     }
     public void NewWorld()
@@ -132,5 +145,29 @@ public class MainMenu : MonoBehaviour
     public void OpenTutorial()
     {
         SceneManager.LoadScene("Tutorial");
+    }
+
+    public void SetName()
+    {
+        if(nameField.text != "")
+        {
+            GameManager.playerName = nameField.text;
+            nameText.text = nameField.text;
+            nameMenu.SetActive(false);
+            mainMenu.SetActive(true);
+        }
+        else
+        {
+            nameWarningText.text = "you have to write a name";
+            nameWarningText.enabled = true;
+        }
+    }
+
+    public void OpenNameMenu()
+    {
+        nameWarningText.enabled = false;
+        nameField.text = GameManager.playerName;
+        nameMenu.SetActive(true);
+        mainMenu.SetActive(false);
     }
 }
