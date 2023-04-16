@@ -2,8 +2,11 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
+//TimeHandler manages time related functions.
 public class TimeHandler : MonoBehaviour
 {
+    public static TimeHandler instance;
+
     public PostProcessVolume postProcessVolume;
     public Gradient colorGradient;   
     public Gradient vignetteGradient;  
@@ -19,9 +22,11 @@ public class TimeHandler : MonoBehaviour
     private float last_time;
     private Vignette vignette;
     private ColorGrading colorGrading;
+
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
-        Globals.timeHandler = this;
+        instance = this;
     }
 
     // Start is called before the first frame update
@@ -66,11 +71,14 @@ public class TimeHandler : MonoBehaviour
         }
         last_time = time;
     }
+
+    // isNight returns true if it is night.
     public bool isNight()
     {
         return time < nightLenght / 2 || time > 24 - nightLenght / 2;
     }
 
+    // NightToDay is called in the transition betwen night and day.
     private void NightToDay()
     {
         foreach (Mob mob in Globals.mobs)
@@ -80,6 +88,7 @@ public class TimeHandler : MonoBehaviour
         SongManager.instance.mood = 0;
     }
 
+    // DayToNight is called in the transition betwen day and night.
     private void DayToNight()
     {
         SongManager.instance.mood = 1;

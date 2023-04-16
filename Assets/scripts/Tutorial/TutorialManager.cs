@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// TutorialManager manages tutorial tasks and checks if they are done.
 public class TutorialManager : MonoBehaviour
 {
     public int currentTask;
+
     [SerializeField] private TMP_Text text;
     [SerializeField] private TMP_Text nextText;
     [SerializeField] private TutorialTask[] tasks;
     [SerializeField] private float timeBetwenChecks;
     [SerializeField] private float warpTimeMultiplier;
     [SerializeField] private GameObject doneMenu;
+    
 
     private bool _taskDone = false;
+
+    // if task is done the next button becomes brighter.
     public bool taskDone
     {
         get
@@ -37,6 +42,7 @@ public class TutorialManager : MonoBehaviour
     private bool notSpawnedMobs = true;
     private IEnumerator Coroutine;
 
+    // Start is called before the first frame update.
     private void Start()
     {
         Coroutine = CheckTask();
@@ -44,6 +50,7 @@ public class TutorialManager : MonoBehaviour
         text.text = tasks[currentTask].text;
     }
 
+    // Update is called once per frame.
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Tab))
@@ -52,28 +59,29 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    // CheckTask waits for specified amount of seconds checks if task is done then calls itself again. 
     IEnumerator CheckTask()
     {
         yield return new WaitForSeconds(timeBetwenChecks);
 
-        if (!(Globals.timeHandler.time > tasks[currentTask].minTime && Globals.timeHandler.time < tasks[currentTask].maxTime))
+        if (!(TimeHandler.instance.time > tasks[currentTask].minTime && TimeHandler.instance.time < tasks[currentTask].maxTime))
         {
-            float multiplier = Globals.timeHandler.multiplier;
-            Globals.timeHandler.multiplier = warpTimeMultiplier;
+            float multiplier = TimeHandler.instance.multiplier;
+            TimeHandler.instance.multiplier = warpTimeMultiplier;
 
-            if (Globals.timeHandler.time < tasks[currentTask].minTime)
+            if (TimeHandler.instance.time < tasks[currentTask].minTime)
             {
-                yield return new WaitForSeconds((tasks[currentTask].minTime - Globals.timeHandler.time + 0.2f) * 3600 / warpTimeMultiplier);
+                yield return new WaitForSeconds((tasks[currentTask].minTime - TimeHandler.instance.time + 0.2f) * 3600 / warpTimeMultiplier);
             }
-            else if (Globals.timeHandler.time > tasks[currentTask].maxTime)
+            else if (TimeHandler.instance.time > tasks[currentTask].maxTime)
             {
-                yield return new WaitForSeconds((tasks[currentTask].minTime + 24 - Globals.timeHandler.time + 0.2f) * 3600 / warpTimeMultiplier);
+                yield return new WaitForSeconds((tasks[currentTask].minTime + 24 - TimeHandler.instance.time + 0.2f) * 3600 / warpTimeMultiplier);
             }
             else
             {
                 Debug.Log("error");
             }
-            Globals.timeHandler.multiplier = multiplier;
+            TimeHandler.instance.multiplier = multiplier;
         }
         if (notSpawnedMobs)
         {
@@ -172,6 +180,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    // Advances to next task.
     public void NextTask()
     {
         if (taskDone)

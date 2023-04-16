@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
+// Mobs are all enemys in the game.
 public class Mob : MovingObject
 {
     public float attackRange;
@@ -11,12 +9,14 @@ public class Mob : MovingObject
     public DestructibleObject target;
     public bool targetIsStatic;
 
+    // State is the current mode of the mob.
     protected int state;
     protected Path path;
     protected Vector2 direction;
 
     private Vector2 lastDir;
 
+    // Start is called before the first frame update.
     protected override void Start()
     {
         Globals.mobs.Add(this);
@@ -24,15 +24,19 @@ public class Mob : MovingObject
         base.Start();
     }
 
+    // Die is called when the destructibleObject runs out of health.
     protected override void Die()
     {
         Globals.mobs.Remove(this);
         base.Die();
     }
 
+    // Update is called once per frame.
     protected override void Update()
     {
         direction = Vector2.zero;
+
+        // Switch uses the int state to decide what function to call.
         switch (state)
         {
             case 0:
@@ -52,11 +56,13 @@ public class Mob : MovingObject
         base.Update();
     }
 
+    // Idle is called when mob is idle
     protected void Idle()
     {
 
     }
 
+    // ToTarget moves the mob towards the object defined by the variable target.
     protected void ToTarget()
     {
         if(target != null)
@@ -99,6 +105,8 @@ public class Mob : MovingObject
             FindTarget();
         }
     }
+
+    // Is called when mob is close the target. Attacks the target and moves closer if it is to far away.
     protected void CloseUp()
     {
         if (target == null)
@@ -137,7 +145,7 @@ public class Mob : MovingObject
     }
 
 
-
+    // Folows the path retuns true if the path is done.
     protected bool FollowPath()
     {
         if (moveToStaticPoint(path.current))
@@ -148,12 +156,14 @@ public class Mob : MovingObject
         return false;
     }
 
+    // Creates path to goal.
     protected void SettPathTo(Vector2 goal)
     {
         path = Pathfinder.CreatePath(transform.position, goal, 20, 1000, target, baseDamage / baseSwingTime);
         lastDir = Vector2.zero;
     }
 
+    // Makes mob move to a static point in world space.
     protected bool moveToStaticPoint(Vector2 position)
     {
         direction = (position - (Vector2)transform.position).normalized;
@@ -167,12 +177,15 @@ public class Mob : MovingObject
         return false;
 
     }
+
+    // Morning is called in every mob in the morning and ataches fire to the mob.
     public void Morning()
     {
         Fire newFire = Instantiate(fire, transform.position + new Vector3(0, 0, -1), Quaternion.identity, transform);
         newFire.target = this;
     }
-    // finds target and path to target
+
+    // Finds a target and creates a path to it.
     public void FindTarget()
     {
         float bestScore = 0;

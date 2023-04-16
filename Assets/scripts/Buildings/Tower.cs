@@ -1,24 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Tower is the class attached to all towers and it inherits from the class Building.
+// Towers are autonomous weapons which attack mobs.
 public class Tower : Building
 {
-    public float range;
-    public float chargeTime;
-    public float projectileSpeed;
-    public Projectile projectile;
-    public Transform pivotTransform;
-    public Transform spawnPoint;
-    public bool isLoaded;
-    public Animator animator;
+    [SerializeField] protected Mob target;
+    [SerializeField] protected Transform spawnPoint;
+    [SerializeField] protected float range;
 
-    [SerializeField]protected Mob target;
-
+    [SerializeField] private float chargeTime;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private Projectile projectile;
+    [SerializeField] private Transform pivotTransform;
+    [SerializeField] private bool isLoaded;
+    [SerializeField] private Animator animator;
     [SerializeField] private float timeBetweenUpdates;
 
     private IEnumerator coroutine;
 
+    // Start is called before the first frame update.
     protected override void Start()
     {
         base.Start();
@@ -31,6 +32,7 @@ public class Tower : Building
         StartCoroutine(coroutine);
     }
 
+    // Update is called once per frame.
     void Update()
     {
         if(target != null)
@@ -43,6 +45,7 @@ public class Tower : Building
         }
     }
 
+    // UpdateTarget calls AquireTarget and waits specified time then repeats.
     IEnumerator UpdateTarget()
     {
         target = AquireTarget();
@@ -51,6 +54,7 @@ public class Tower : Building
         StartCoroutine(coroutine);
     }
 
+    // AquireTarget searches all mobs for the closest one.
     private Mob AquireTarget()
     {
         float shortestDistanceSqr = Mathf.Infinity;
@@ -71,16 +75,22 @@ public class Tower : Building
         }
         return null;
     }
+
+    // Shoot starts shooting animation.
     private void Shoot()
     {
         animator.SetTrigger("shoot");
         isLoaded = false;
     }
+
+    // SpawnProjectile spawnProjectile and gives it its velocity
     public virtual void SpawnProjectile()
     {
         Projectile proj = Instantiate(projectile, spawnPoint.position, pivotTransform.rotation);
         proj.rb.velocity = pivotTransform.up * projectileSpeed;
     }
+
+    // LoadingDone is called when loading animation is done.
     public void LoadingDone()
     {
         isLoaded = true;

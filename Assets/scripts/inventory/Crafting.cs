@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Crafting handles the crafting of items.
 public class Crafting : MonoBehaviour
 {
     public Inventory inventory;
@@ -14,6 +14,8 @@ public class Crafting : MonoBehaviour
 
     [SerializeField] private Transform recipeSheet;
 
+    // Chekcks the amount of each crafting recipe the playe could potentially make
+    // then writes that above each recipe.
     public void UpdatePotentialValues()
     {
         UpdateResources();
@@ -32,6 +34,8 @@ public class Crafting : MonoBehaviour
             texts[i].text = (minAmount * recipes[i].output.Length).ToString();
         }
     }
+
+    // Checks the amount of each item the player has in his inventory.
     private void UpdateResources()
     {
         resources = new int[resources.Length];
@@ -44,6 +48,7 @@ public class Crafting : MonoBehaviour
         }
     }
 
+    // Trys to craft an item with a specified recipie.
     public void TryCraft(CraftingRecipe recipe)
     {
         List<Ingredient> ingredients = GetIngridients(recipe);
@@ -70,6 +75,7 @@ public class Crafting : MonoBehaviour
         UpdatePotentialValues();
     }
 
+    // Converts Crafting recipe to list of ingredients.
     public List<Ingredient> GetIngridients(CraftingRecipe recipe)
     {
         List<Ingredient> ingredients = new List<Ingredient>();

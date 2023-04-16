@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+// Songmanager plays music.
 public class SongManager : MonoBehaviour
 {
+    // Static setter and getter for the volume of the audioSource
     public float volume
     {
         get
@@ -15,6 +17,7 @@ public class SongManager : MonoBehaviour
         }
     }
 
+    // Mood decides which song list plays in the background.
     private int _mood = -1;
     public int mood
     {
@@ -52,16 +55,17 @@ public class SongManager : MonoBehaviour
     private int i = 0;
     private IEnumerator coroutine;
 
+    // Start is called before the first frame update.
     void Start()
     {
         instance = this;
         coroutine = PlaySong();
         audioSource.loop = true;
-        //StartCoroutine(coroutine);
         mood = 0;
         volume = PlayerPrefs.GetFloat("music volume");
     }
 
+    // PlaySong choses the next song than plays that one to the end only to than call itself again.
     IEnumerator PlaySong()
     {
         audioSource.clip = songs[i];

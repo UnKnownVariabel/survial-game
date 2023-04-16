@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+// Ingredient contains an item and the amount of that item needed.
 public class Ingredient
 {
+    // Constructer
     public Ingredient(ItemData data)
     {
         item = data;

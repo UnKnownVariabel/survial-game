@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// ItemData is the class all other item inherit from and contains the information they all need.
 [CreateAssetMenu(fileName = "new item", menuName = "item")]
 public class ItemData : ScriptableObject
 {

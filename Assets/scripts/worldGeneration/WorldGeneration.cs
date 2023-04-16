@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
+// World generation dose al of the procedural generation of the world.
 public class WorldGeneration : MonoBehaviour
 {
     public static bool isCreating = true;
@@ -37,6 +36,7 @@ public class WorldGeneration : MonoBehaviour
     public static WorldGeneration instance { get; private set; }
     public List<Action> actions = new List<Action>();
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         if (instance != null)
@@ -50,6 +50,7 @@ public class WorldGeneration : MonoBehaviour
         chunkBuffer = new Vector2Int(2, 1);
     }
 
+    // Start game is called from game manager in its Start method.
     public void StartGame()
     {
         if (isCreating)
@@ -86,7 +87,7 @@ public class WorldGeneration : MonoBehaviour
         }
     }
 
-
+    // CreateWorld creates a new world instead of loading one from a save.
     public void CreateWorld()
     {
         Globals.worldData = new WorldData();
@@ -95,6 +96,7 @@ public class WorldGeneration : MonoBehaviour
         Globals.chunks = new Dictionary<(int, int), Chunk>();
     }
 
+    // Update is called once per frame.
     private void Update()
     {
         if(player.position.x < Globals.currentChunk.x * chunkSize - chunkSize / 2)
@@ -140,6 +142,7 @@ public class WorldGeneration : MonoBehaviour
         CheckForActions();
     }
 
+    // Generates all the tiles, trees and stones for one chunk.
     private void GenerateChunk(int x, int y)
     {
         Chunk chunk;
@@ -174,6 +177,7 @@ public class WorldGeneration : MonoBehaviour
         Globals.chunks.Add((x, y), chunk);
         chunk.GenerateNodes();
 
+        // Draws one tile and mayby a tree or a stone.
         void DrawTile(int x, int y)
         {
             float magnification = 10;
@@ -224,6 +228,7 @@ public class WorldGeneration : MonoBehaviour
             Speed[x - startX, y - startY] = data.speed;
         }
 
+        // Redraws chunk with the data in an instance of the Chunk class.
         void RedrawChunk(Chunk chunk)
         {
             for (int Y = 0; Y < chunkSize; Y++)
@@ -287,6 +292,7 @@ public class WorldGeneration : MonoBehaviour
         }
     }
 
+    // Removes chunks which are outside the camera.
     private void CheckUnnecessaryChunks()
     {
         int x = Globals.currentChunk.x;
@@ -304,6 +310,7 @@ public class WorldGeneration : MonoBehaviour
             CheckChunk(x - chunkBuffer.x - 1, y + i);
         }
 
+        // Checks if chunk is outside camera.
         void CheckChunk(int x, int y)
         {
             if(Globals.chunks.ContainsKey((x, y)))
@@ -318,6 +325,7 @@ public class WorldGeneration : MonoBehaviour
         }
     }
 
+    // Checks if their are actions to preforme and dose one of them if so.
     private void CheckForActions()
     {
         if(actions.Count > 0)
@@ -342,6 +350,7 @@ public class WorldGeneration : MonoBehaviour
         }
     }
 
+    // Removes tiles and static objects in chunk.
     private void HideChunk(int x, int y)
     {
         int startX = x * chunkSize - chunkSize / 2;

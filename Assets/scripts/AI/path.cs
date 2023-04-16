@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+// Represents a path through world space
 public class Path
 {
-    //if there is an obsticle on the path i will be an intermediet target
+    // If there is an obsticle on the path i will be an intermediet target.
     public DestructibleObject intermedietTarget;
     public DestructibleObject target;
-    // returns lenght of the remaining path;
+
+    // Returns lenght of the remaining path.
     public int length
     {
         get
@@ -16,6 +15,8 @@ public class Path
             return positions.Length - i;
         }
     }
+
+    // Returns true if path is complete.
     public bool complete
     {
         get 
@@ -23,6 +24,8 @@ public class Path
             return length <= 0;
         }
     }
+
+    // Returns the current position go to.
     public Vector2 current
     {
         get
@@ -30,6 +33,8 @@ public class Path
             return positions[i];
         }
     } 
+
+    // Returns intermedietTarget if defined else just returns target.
     public DestructibleObject currentTarget
     {
         get
@@ -45,7 +50,7 @@ public class Path
     private int nextStop;
     private int i = 0;
 
-    
+    // Constructor takes in all positions in path plus the object which is its target.
     public Path(Vector2[] Positions, Node[] Nodes, DestructibleObject target)
     {
         this.target = target;
@@ -78,18 +83,21 @@ public class Path
 
         this.target = target;
     }
+
+    // GetNext advances the current position to the next one i the path.
     public bool GetNext()
     {
-        // checks if i+1 is before stop and returns false otherwise which indicates the path is complete
+        // Checks if i+1 is before stop and returns false otherwise which indicates the path is complete.
         if (i+1 < nextStop)
         {
             i++;
-            // if a barier has ben placed since the creation of the path this returns false which indicates that the path is complete which forces a new one to be calculated
+            //If a barier has ben placed since the creation of the path this returns false which indicates that the path is complete which forces a new one to be calculated.
             return nodes[i].health <= healths[i];
         }
         return false;
     }
-    //returns target if there is one left in the path
+
+    //Returns target if there is one left in the path
     public DestructibleObject NextTarget()
     {
         intermedietTarget = null;

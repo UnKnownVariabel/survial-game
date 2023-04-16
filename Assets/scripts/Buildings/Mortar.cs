@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
+// Mortar is the class attached to all mortars and it inherits from the class Tower.
 public class Mortar : Tower
 {
     [SerializeField] private Bomb bombPref;
+
+    // SpawnProjectile is called from the mortors shoot animation and spawns a bomb and sets its direction and distance.
     public override void SpawnProjectile()
     {
         Bomb bomb = Instantiate(bombPref, spawnPoint.position, Quaternion.identity);

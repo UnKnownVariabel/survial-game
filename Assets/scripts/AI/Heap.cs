@@ -1,18 +1,19 @@
-using UnityEngine;
-using System.Collections;
 using System;
 
+// Data structure from where you can efficently acces the biggest item.
 public class Heap<T> where T : IHeapItem<T>
 {
 
 	T[] items;
 	int currentItemCount;
 
+	// Constructer creates underlying array.
 	public Heap()
 	{
 		items = new T[32];
 	}
 
+	// Adds item to Heap.
 	public void Add(T item)
 	{
 		item.HeapIndex = currentItemCount;
@@ -25,6 +26,7 @@ public class Heap<T> where T : IHeapItem<T>
 		currentItemCount++;
 	}
 
+	// Removes first item while also returning that first item.
 	public T RemoveFirst()
 	{
 		T firstItem = items[0];
@@ -35,11 +37,13 @@ public class Heap<T> where T : IHeapItem<T>
 		return firstItem;
 	}
 
+	// Updates position of item inside heap.
 	public void UpdateItem(T item)
 	{
 		SortUp(item);
 	}
 
+	// Returns the amount of elements in the heap.
 	public int Count
 	{
 		get
@@ -48,6 +52,7 @@ public class Heap<T> where T : IHeapItem<T>
 		}
 	}
 
+	// Reruns if heap contains item or not.
 	public bool Contains(T item)
 	{
 		if(item.HeapIndex >= items.Length)
@@ -57,6 +62,8 @@ public class Heap<T> where T : IHeapItem<T>
 		return Equals(items[item.HeapIndex], item);
 	}
 
+	// Compares item to its two children and swaps with one of them if it is smaller
+	// and repeat till it is larger than bouth its children or there are no children.
 	void SortDown(T item)
 	{
 		while (true)
@@ -95,6 +102,8 @@ public class Heap<T> where T : IHeapItem<T>
         }
 	}
 
+	// Compares item to its parent and swaps if it is larger than the parent until
+	// the parent is larger or there is no parent.
 	void SortUp(T item)
 	{
 		int parentIndex = (item.HeapIndex - 1) / 2;
@@ -115,6 +124,7 @@ public class Heap<T> where T : IHeapItem<T>
 		}
 	}
 
+	// Swaps two items.
 	void Swap(T itemA, T itemB)
 	{
 		items[itemA.HeapIndex] = itemB;
@@ -125,6 +135,7 @@ public class Heap<T> where T : IHeapItem<T>
 	}
 }
 
+// Heap item containt methods of IComparable and a heapindex
 public interface IHeapItem<T> : IComparable<T>
 {
 	int HeapIndex

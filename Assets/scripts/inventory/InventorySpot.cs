@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +8,8 @@ public class InventorySpot : MonoBehaviour
     public int index;
     public SpriteRenderer holdingSprite;
     public Inventory inventory;
+
+    // If inventory spot is selected or not.
     public bool selected
     {
         get
@@ -50,11 +50,13 @@ public class InventorySpot : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private Image selecitonImage;
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         image.enabled = false;
     }
 
+    // AddItem adds one item of type specified by data.
     public void AddItem(ItemData data)
     {
         if(item != null && data != item)
@@ -83,6 +85,8 @@ public class InventorySpot : MonoBehaviour
             }
         }
     }
+
+    // Removes one item from inventory sport.
     public void RemoveItem()
     {
         amount--;
@@ -107,6 +111,7 @@ public class InventorySpot : MonoBehaviour
         }
     }
 
+    // Sets bouth the type of item and the amount of it.
     public void Set(ItemData item, int amount)
     {
         this.item = item;
@@ -143,6 +148,7 @@ public class InventorySpot : MonoBehaviour
         }
     }
 
+    // CLicked is called when this inventory slot is clicked.
     public void Clicked()
     {
         inventory.selectedInventorySpot = this;

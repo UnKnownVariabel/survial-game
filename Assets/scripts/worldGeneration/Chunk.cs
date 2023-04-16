@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// The world i divided in to 16 * 16 chunks of tiles for which the Chunk class
+// contains all needed information and functions.
 [Serializable]
 public class Chunk
 {
@@ -21,6 +23,7 @@ public class Chunk
     public List<int> itemIndexes { get; private set; }
     public List<Vector2> itemPositions { get; private set; } 
 
+    // Constructor cunstructs Chunk from 5 parameters.
     public Chunk(int X, int Y, float[,] dps, float[,] speed, byte[,] Tiles)
     {
         x = X;
@@ -32,6 +35,7 @@ public class Chunk
         itemPositions = new List<Vector2>();
     }
 
+    //Constructor constructs Chunk from chunkData.
     public Chunk(ChunkData data)
     {
         x = data.x; 
@@ -68,6 +72,8 @@ public class Chunk
         itemPositions = data.itemPositions.ToList();
         GenerateNodes();
     }
+
+    // Generates nodes for the Pathfinder to use.
     public void GenerateNodes()
     {
         int chunkSize = WorldGeneration.chunkSize;
@@ -85,27 +91,35 @@ public class Chunk
         }
     }
 
+    // Gets damage per second at position.
     public float GetDPS(Vector2 pos)
     {
         Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(DPS.GetLength(0) / 2 - x * WorldGeneration.chunkSize, DPS.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return DPS[position.x, position.y];
     }
+
+    // Gets moving speed multiplier at position.
     public float GetSpeed(Vector2 pos)
     {
         Vector2Int position = (Vector2Int)TileManager.instance.tilemap.WorldToCell(pos) + new Vector2Int(speed.GetLength(0) / 2 - x * WorldGeneration.chunkSize, speed.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return speed[position.x, position.y];
     }
+
+    // Gets internal tile position from world pos.
     public (int, int) TilePos(Vector3 position)
     {
         Vector2Int pos = (Vector2Int)TileManager.instance.tilemap.WorldToCell(position) + new Vector2Int(DPS.GetLength(0) / 2 - x * WorldGeneration.chunkSize, DPS.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return (pos.x, pos.y);
     }
+
+    // Sets health value of node at world position.
     public void SettHealth(Vector2 pos, float health)
     {
         (int x, int y) key = TilePos(pos);
         nodes[key.x, key.y].health = health;
     }
 
+    // Adds item to chunk item list.
     public void AddItem(Item item)
     {
         items.Add(item);
@@ -113,6 +127,7 @@ public class Chunk
         itemPositions.Add(item.transform.position);
     }
 
+    // Removes item from chunk item list.
     public void RemoveItem(Item item)
     {
         int i = items.IndexOf(item);

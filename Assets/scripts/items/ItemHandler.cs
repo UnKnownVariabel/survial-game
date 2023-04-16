@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Item handler convert item indexes to item types and types to indexes.
 public class ItemHandler : MonoBehaviour
 {
     [SerializeField] private ItemData[] items;
     private static ItemData[] itemsInOrder;
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         itemsInOrder = new ItemData[items.Length];
@@ -20,6 +20,7 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
+    // Converts itemIndex to ItemData
     public static ItemData IndexToItem(int index)
     {
         if(index < 0)
@@ -34,6 +35,7 @@ public class ItemHandler : MonoBehaviour
         return itemsInOrder[index];
     }
     
+    // Converts itemData to a itemIndex.
     public static int ItemTopIndex(ItemData item)
     {
         if(item == null)

@@ -1,15 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-//using System;
 
+// Pathfinder creates paths.
 public class Pathfinder
 { 
+    // CreatePath creates a path between position and goal.
     public static Path CreatePath(Vector2 position, Vector2 goal, float speed, float health, DestructibleObject target, float dps)
     {
-        //DateTime startTime = System.DateTime.Now;
-
         int dpsMultiplier = (int)(80 / health / speed);
         if (dpsMultiplier > 20)
         {
@@ -83,7 +81,6 @@ public class Pathfinder
             Path[pathLength] = PathToWorldPos((node.xPos, node.yPos));
             nodes[pathLength] = node;
         }
-        //Debug.Log("milliseconds to run A*: " + (System.DateTime.Now - startTime).TotalMilliseconds.ToString());
         return new Path(Path, nodes, target);
 
         List<Node> GetNeighbours(Node node)
@@ -108,6 +105,8 @@ public class Pathfinder
             }
             return neighbours;
         }
+
+        // Returns G cost which is how hard it is to get to specific tile.
         int Gcost(Node node, Node parent)
         {
             int cost = node.travelDamage * dpsMultiplier + node.travelCost + Mathf.Abs((node.xPos - parent.xPos) * (node.yPos - parent.yPos) * node.diagonalExtra) + parent.G;
@@ -117,6 +116,8 @@ public class Pathfinder
             }
             return cost;
         }
+
+        // Returns H cost which is airway to the goal
         int Hcost(Node node)
         {
             int dstX = Mathf.Abs(node.xPos - endNode.xPos);
@@ -127,6 +128,8 @@ public class Pathfinder
             return 14 * dstX + 10 * (dstY - dstX);
         }
     }
+
+    // Returns closest Node to a world position.
     public static Node GetClosestNode(Vector2 position)
     {
         (int x, int y) pathPos = WorldToPathPos(position);
@@ -150,6 +153,8 @@ public class Pathfinder
         }
         return bestNode;
     }
+
+    // Returns Node based on path cordinats.
     public static Node GetNode(int x, int y)
     {
         const int chunksize = 16;
@@ -179,7 +184,6 @@ public class Pathfinder
         }
         catch
         {
-            //Debug.Log("chunk dose not exist: " + key.ToString());
             return null;
         }
         x = x - key.x * chunksize + chunksize / 2;
@@ -194,10 +198,14 @@ public class Pathfinder
         }
         return chunk.nodes[x, y];
     }
+
+    // Returns path position based on world position.
     public static (int x, int y) WorldToPathPos(Vector3 position)
     {
         return (Mathf.RoundToInt(position.x - 0.5f), Mathf.RoundToInt(position.y - 0.5f));
     }
+
+    // Returns world position based on path position.
     public static Vector3 PathToWorldPos((int x, int y) position)
     {
         return new Vector3(position.x + 0.5f, position.y + 0.5f, 0);

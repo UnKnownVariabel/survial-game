@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEngine.Tilemaps;
+﻿using UnityEngine;
 
+// Player is the class attached to the player.
 public class Player : MovingObject
 {
+    public static Player instance;
+
     [SerializeField] private Inventory inventory;
     [SerializeField] private SpriteRenderer holdingSprite;
     [SerializeField] private float pickUpDistance = 0.5f;
@@ -22,20 +21,23 @@ public class Player : MovingObject
     private Vector2 direction;
     private bool handsOut = false;
 
+    // Awake is called when script instance is loaded.
     protected override void Awake()
     {
         base.Awake();
         lastSwing = Time.time;
-        Globals.player = this;
+        instance = this;
     }
 
+    // Update is called once per frame.
     protected override void Update()
     {
         if (Globals.pause)
         {
             return;
         }
-        // movement
+
+        // Player movement.
         direction = Vector2.zero;
         if (Input.GetKey(KeyCode.W))
         {
@@ -55,10 +57,13 @@ public class Player : MovingObject
         }
         Move(direction);
 
+        // Pickup items.
         if (Input.GetKey(KeyCode.Q))
         {
             PickUpItems();
         }
+
+        // Open / close crafting menu.
         if (Input.GetKeyDown(KeyCode.E))
         {
             crafting.gameObject.SetActive(!crafting.gameObject.activeSelf);
@@ -67,11 +72,14 @@ public class Player : MovingObject
                 crafting.UpdatePotentialValues();
             }
         }
+
+        // Drop item.
         if (Input.GetKeyDown(KeyCode.R))
         {
             inventory.DropItem();
         }
 
+        // Hold out hands if player is holding something.
         if(inventory.selectedInventorySpot.item != null)
         {
             handsOut = true;
@@ -84,6 +92,7 @@ public class Player : MovingObject
         Vector2 Direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
         SetDirection(Direction);
 
+        // Attack if left mouse button is pressed.
         if (Input.GetMouseButton(0) && !MouseInputUIBlocker.BlockedByUI)
         {
             float time = Time.time - lastSwing;
@@ -107,6 +116,8 @@ public class Player : MovingObject
                 Attack(baseDamage, damageCollider.transform.localPosition, baseSwingTime, baseKnockback, Multipliers.One, layerMask);
             }
         }
+
+        // If rigth mouse button pressed either place item if thats possible or eat item if that is possible.
         else if (Input.GetMouseButton(1) && inventory.selectedInventorySpot.item != null && !MouseInputUIBlocker.BlockedByUI)
         {
             if (inventory.selectedInventorySpot.item.isPlaceble)
@@ -134,6 +145,8 @@ public class Player : MovingObject
                 }
             }
         }
+
+        // Preview buildings.
         if(inventory.selectedInventorySpot.item != null)
         {
             if (inventory.selectedInventorySpot.item.isPlaceble)
@@ -165,11 +178,13 @@ public class Player : MovingObject
         base.Update();
     }
 
+    // Checks if building can be placed.
     private bool CanPlace((int x, int y) key, Chunk chunk)
     {
         return !chunk.staticObjects.ContainsKey(key) && chunk.tiles[key.x, key.y] % 16 != 0;
     }
 
+    // Override anim to add all the sprites where the player is holding out his hands.
     protected override void Anim()
     {
         if (handsOut)
@@ -191,6 +206,7 @@ public class Player : MovingObject
         }
     }
 
+    // Overides SetDirection so tool flips when turning around.
     protected override void SetDirection(Vector2 direction)
     {
         if (direction.x < 0)
@@ -213,6 +229,8 @@ public class Player : MovingObject
         }
 
     }
+
+    // PickupItems picks upp items which are closer than pickUpDistance.
     void PickUpItems()
     {
         PickUpInChunk(Globals.currentChunk);
@@ -250,6 +268,8 @@ public class Player : MovingObject
             }
         }
     }
+
+    // Override to attack which calls tool animation.
     protected void Attack(float damage, Vector2 extraOffset, float swingTime, float knockback, Multipliers multipliers, LayerMask layerMask)
     {
         handsOut = true;
@@ -262,6 +282,8 @@ public class Player : MovingObject
         toolAnimation.Rewind("tool");
         toolAnimation.Play("tool");
     }
+
+    // Override to Die which activates the deathscreen when the player dies.
     protected override void Die()
     {
         deathScreen.gameObject.SetActive(true);

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// ToolData contains information about a tool.
 [CreateAssetMenu(fileName = "new tool", menuName = "tool")]
 public class ToolData : ItemData
 {

@@ -1,8 +1,11 @@
 using UnityEngine;
 
+// DestructubleObject is the class all destructible objects inherit from.
 public class DestructibleObject : MonoBehaviour
 {
     [System.Serializable]
+
+    // Drop is a struct with the item to be dropt and the probability that it will be dropped.
     public struct Drop
     {
         public ItemData item;
@@ -26,15 +29,18 @@ public class DestructibleObject : MonoBehaviour
     {
         get
         {
-            return realHealth;
+            return _health;
         }
     }
-    private float realHealth;
+    private float _health;
+
+    // Awake is called when script instance is loaded.
     protected virtual void Awake()
     {
         SetHealth(maxHealth);
     }
 
+    // Start is called before the first frame update.
     protected virtual void Start()
     {
         Globals.destructibleObjects.Add(this);
@@ -43,34 +49,40 @@ public class DestructibleObject : MonoBehaviour
             Globals.targets.Add(this);
         }
     }
+
+    // SetHealth is a setter for _health
     public void SetHealth(float health)
     {
         if(health <= maxHealth)
         {
-            realHealth = health;
+            _health = health;
         }
         else
         {
-            realHealth = maxHealth;
+            _health = maxHealth;
         }
     }
+
+    // AddHealth adds health to _health
     protected void AddHealth(float value)
     {
-        realHealth += value;
-        if(realHealth > maxHealth)
+        _health += value;
+        if(_health > maxHealth)
         {
-            realHealth = maxHealth;
+            _health = maxHealth;
         }
         if (healthBar != null)
         {
-            healthBar.SetHealth(realHealth / maxHealth);
+            healthBar.SetHealth(_health / maxHealth);
         }
     }
+
+    // TakeDamage remove from _health and calls Die if _health <= 0.
     public void TakeDamage(float damage)
     {
-        int temp = (int)realHealth / minVisDamage;
-        realHealth -= damage;
-        if (realHealth <= 0)
+        int temp = (int)_health / minVisDamage;
+        _health -= damage;
+        if (_health <= 0)
         {
             Die();
         }
@@ -78,9 +90,9 @@ public class DestructibleObject : MonoBehaviour
         {
             if(healthBar != null)
             {
-                healthBar.SetHealth(realHealth / maxHealth);
+                healthBar.SetHealth(_health / maxHealth);
             }
-            if (temp != (int)realHealth / minVisDamage)
+            if (temp != (int)_health / minVisDamage)
             {
                 if(particlesystem != null)
                 {
@@ -93,6 +105,8 @@ public class DestructibleObject : MonoBehaviour
             }
         }
     }
+
+    // Die Destoys gameObject and is often overriden by childclasses to add behaviour.
     protected virtual void Die()
     {
         for (int i = 0; i < drops.Length; i++)
@@ -111,6 +125,8 @@ public class DestructibleObject : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
+    // OnDestroy is called when gameObject is destroyed.
     protected virtual void OnDestroy()
     {
         Globals.destructibleObjects.Remove(this);

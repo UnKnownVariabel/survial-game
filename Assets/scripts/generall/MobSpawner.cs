@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+// Mobspawner spawns in mobs att night.
 public class MobSpawner : MonoBehaviour
 {
     public static MobSpawner instance;
@@ -13,12 +11,14 @@ public class MobSpawner : MonoBehaviour
 
     private float timeTillSpawn;
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         instance = this;
         timeTillSpawn = baseSpawnTime + Random.Range(-baseSpawnTime * spawnOffsetMax, baseSpawnTime * spawnOffsetMax);
     }
 
+   // SpawnMob with no parameter spawns random mob at random position around the player.
     public void SpawnMob()
     {
         float number = Random.Range(0f, 1f);
@@ -32,28 +32,32 @@ public class MobSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnMob(int i)
+    // Spawn mob with type parameter spawns mob of type at random place around the player.
+    public void SpawnMob(int type)
     {
         float minDistance = Mathf.Sqrt(Camera.main.orthographicSize * Camera.main.aspect * Camera.main.orthographicSize * Camera.main.aspect + Camera.main.orthographicSize * Camera.main.orthographicSize);
         float distance = minDistance * 1.5f;
         float angle = Random.Range(0, 360);
-        Vector2 position = (Vector2)Globals.player.transform.position + new Vector2(Mathf.Sin(angle) * distance, Mathf.Cos(angle) * distance);
-        Instantiate(mobs[i], position, Quaternion.identity);
+        Vector2 position = (Vector2)Player.instance.transform.position + new Vector2(Mathf.Sin(angle) * distance, Mathf.Cos(angle) * distance);
+        Instantiate(mobs[type], position, Quaternion.identity);
     }
 
+    // SpawnMob with thre parameters spawns specified mob at specified position with specified amount of health left.
     public void SpawnMob(int i, Vector2 position, float health)
     {
         Mob mob = Instantiate(mobs[i - 1], position, Quaternion.identity);
         mob.SetHealth(health);
     }
+
+    // Update is called once per frame.
     private void Update()
     {
-        if (Globals.timeHandler.isNight())
+        if (TimeHandler.instance.isNight())
         {
             timeTillSpawn -= Time.deltaTime;
             if (timeTillSpawn < 0)
             {
-                float spawnTime = baseSpawnTime / (Globals.timeHandler.day + 1);
+                float spawnTime = baseSpawnTime / (TimeHandler.instance.day + 1);
                 timeTillSpawn = spawnTime + Random.Range(-spawnTime * spawnOffsetMax, spawnTime * spawnOffsetMax);
                 SpawnMob();
             }

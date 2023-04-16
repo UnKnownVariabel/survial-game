@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+// Class atached to the bombs which come out of the mortor.
 public class Bomb : MonoBehaviour
 {
     public Vector2 direction;
@@ -23,12 +21,16 @@ public class Bomb : MonoBehaviour
 
     private float startTime;
     private bool isExploding = false;
+
+    // Start is called before the first frame update.
     private void Start()
     {
         rb.velocity = direction * distance / loiteringTime;
         startTime = Time.time;
         transform.localScale = new Vector3(baseScale, baseScale, baseScale);
     }
+
+    // Update is called once per frame.
     private void Update()
     {
         float time = Time.time - startTime;
@@ -47,6 +49,7 @@ public class Bomb : MonoBehaviour
         }
     }
 
+    // Is called when the bomb is suposed to explode.
     private void Explode()
     {
         rb.velocity = new Vector2(0, 0);
@@ -98,6 +101,7 @@ public class Bomb : MonoBehaviour
 
     }
 
+    // Is called from explosion animation and Deletes the bomb.
     public void Delete()
     {
         Destroy(gameObject);

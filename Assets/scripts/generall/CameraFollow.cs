@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// CameraFollow is attached to camera and makes it folow the player.
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform player;
@@ -11,8 +10,10 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float minZoom = 1.0f;
     [SerializeField] private float maxZoom = 10.0f;
 
+    // Update is called once per frame.
     void Update()
     {
+        // Following player
         if (camera.orthographicSize * (1 - cameraBuffer) < player.position.y - camera.transform.position.y)
         {
             camera.transform.position = new Vector3(camera.transform.position.x, player.position.y - camera.orthographicSize * (1 - cameraBuffer), camera.transform.position.z);
@@ -29,6 +30,8 @@ public class CameraFollow : MonoBehaviour
         {
             camera.transform.position = new Vector3(player.position.x + camera.orthographicSize * camera.aspect * (1 - cameraBuffer), camera.transform.position.y, camera.transform.position.z);
         }
+
+        // Zooming in and out.
         float zoomDelta = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
 
         if (zoomDelta != 0)

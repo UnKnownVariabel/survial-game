@@ -3,9 +3,12 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// An instance of OpenSave is attached to each button which represents a save file.
 public class OpenSave : MonoBehaviour
 {
+    // If button selected.
     private bool _selected;
+
     public bool selected
     {
         get
@@ -25,6 +28,7 @@ public class OpenSave : MonoBehaviour
 
     [SerializeField] private Image selectionImage;
 
+    // Open this buttons savefile.
     public void Open()
     {
         Save.loadPath = path;
@@ -32,6 +36,7 @@ public class OpenSave : MonoBehaviour
         SceneManager.LoadScene("World Scene");
     }
 
+    // Is called if button is clicked.
     public void Clicked()
     {
         if (selected)
@@ -43,6 +48,8 @@ public class OpenSave : MonoBehaviour
             mainMenu.worldSelection = this;
         }
     }
+
+    // Deletes save file and button.
     public void Delete()
     {
         System.IO.File.Delete(path);

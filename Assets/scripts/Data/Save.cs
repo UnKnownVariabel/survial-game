@@ -2,16 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+// Save class is used to save and load worlds.
 public class Save : MonoBehaviour
 {
     public static Save instance;
     public static string loadPath;
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         instance = this;
     }
 
+    // SaveGame populates a WorldData instance and the converts it to json and saves that to a json file.
     public void SaveGame()
     {
         DateTime start = DateTime.Now;
@@ -22,10 +26,10 @@ public class Save : MonoBehaviour
         }
 
         Globals.worldData.name = WorldData.current_name;
-        Globals.worldData.time = Globals.timeHandler.time;
-        Globals.worldData.day = Globals.timeHandler.day;
+        Globals.worldData.time = TimeHandler.instance.time;
+        Globals.worldData.day = TimeHandler.instance.day;
 
-        //convert inventory to inventory information stored in WorldData
+        // Convert inventory to inventory information stored in WorldData.
         Globals.worldData.inventoryTypes = new int[Inventory.instance.spots.Length];
         Globals.worldData.inventoryAmounts = new int[Inventory.instance.spots.Length];
         for(int i = 0; i < Inventory.instance.spots.Length; i++)
@@ -34,15 +38,15 @@ public class Save : MonoBehaviour
             Globals.worldData.inventoryAmounts[i] = Inventory.instance.spots[i].amount;
         }
 
-        //Saving mob positions
+        // Saving mob positions.
         Globals.worldData.mobs = new MobData[Globals.mobs.Count];
         for(int i = 0; i < Globals.worldData.mobs.Length; i++)
         {
             Globals.worldData.mobs[i] = new MobData(Globals.mobs[i]);
         }
-        Globals.worldData.player = new MobData(Globals.player);
+        Globals.worldData.player = new MobData(Player.instance);
         
-        //converting data to json and saving it to file;
+        // Converting data to json and saving it to file.
         string persistentDataPath = Application.persistentDataPath;
         if(!System.IO.Directory.Exists(persistentDataPath + "/saves"))
         {
@@ -55,6 +59,7 @@ public class Save : MonoBehaviour
         Debug.Log("saved world in: " + (DateTime.Now - start).TotalMilliseconds.ToString() + " milliseconds");
     }
 
+    // LoeadGame converts Json file at loadPath to WorldData then loads that data in to the scene.
     public void LoadGame()
     {
         string loadedData = System.IO.File.ReadAllText(loadPath);
@@ -68,9 +73,9 @@ public class Save : MonoBehaviour
         {
             Globals.chunks.Add((Globals.worldData.chunks[i].x, Globals.worldData.chunks[i].y), new Chunk(worldData.chunks[i]));
         }
-        Globals.timeHandler.time = worldData.time;
-        Globals.timeHandler.day = worldData.day;
-        Globals.timeHandler.dayText.text = "day " + Globals.timeHandler.day.ToString();
+        TimeHandler.instance.time = worldData.time;
+        TimeHandler.instance.day = worldData.day;
+        TimeHandler.instance.dayText.text = "day " + TimeHandler.instance.day.ToString();
 
         for (int i = 0; i < Inventory.instance.spots.Length; i++)
         {
@@ -82,7 +87,7 @@ public class Save : MonoBehaviour
         {
             MobSpawner.instance.SpawnMob(worldData.mobs[i].type, worldData.mobs[i].position, worldData.mobs[i].health);
         }
-        Globals.player.SetHealth(worldData.player.health);
-        Globals.player.transform.position = worldData.player.position;
+        Player.instance.SetHealth(worldData.player.health);
+        Player.instance.transform.position = worldData.player.position;
     }
 }

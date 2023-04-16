@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+// StaticObject is the class all non moving objects inherit from like buildings.
+// It is also directly attached to trees, stones and stumps.
 
 public class StaticObject : DestructibleObject
 {
     public byte objectIndex;
+
+    // Start is called before the first frame update.
     protected override void Start()
     {
         base.Start();
@@ -14,6 +16,8 @@ public class StaticObject : DestructibleObject
         chunk.tiles[pos.x, pos.y] = (byte)(objectIndex * 16 + rest);
         chunk.staticObjects[pos] = this;
     }
+
+    // Die is called when the destructibleObject runs out of health.
     protected override void Die()
     {
         (int x, int y) pos = chunk.TilePos(transform.position);

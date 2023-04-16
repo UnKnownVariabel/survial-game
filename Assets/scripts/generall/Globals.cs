@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-public class Globals : MonoBehaviour
+//Globals contains static variables which need to be accessed globaly and are not singeltons.
+public class Globals
 {
     public static WorldData worldData;
     public static List<DestructibleObject> destructibleObjects;
@@ -15,8 +14,6 @@ public class Globals : MonoBehaviour
     public static Chunk currentChunk;
     public static Dictionary<(int, int), Chunk> chunks;
     public static Tilemap groundTilemap, decorationTilemap, wallTilemap;
-    public static Player player;
-    public static TimeHandler timeHandler;
 
     private static bool _isPaused;
     public static bool pause
@@ -38,6 +35,8 @@ public class Globals : MonoBehaviour
             }
         }
     }
+
+    // returns chunk which contains world pos position.
     public static Chunk GetChunk(Vector3 position)
     {
         (int x, int y) key = (Mathf.RoundToInt(position.x / (float)WorldGeneration.chunkSize), Mathf.RoundToInt(position.y / (float)WorldGeneration.chunkSize));

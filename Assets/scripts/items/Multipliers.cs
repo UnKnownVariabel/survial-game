@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+// Multipliers contains multipliers for tool against the diffrent destructible object types.
 [System.Serializable]
 public struct Multipliers
 {
     public float mob, wood, stone;
+
+    // Constructor.
     public Multipliers(float Mob, float Wood, float Stone)
     {
         mob = Mob; 

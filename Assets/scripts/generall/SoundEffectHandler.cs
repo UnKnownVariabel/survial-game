@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// SoundEffects handler plays sound effects and is atached to a destructibleObject.
 public class SoundEffectHandler : MonoBehaviour
 {
     public static List<SoundEffectHandler> instances;
 
+    // Setter and getter to the volume on the audioSource.
     public float volume
     {
         get
@@ -25,6 +27,7 @@ public class SoundEffectHandler : MonoBehaviour
     
     private IEnumerator coroutine;
 
+    // PlayClip plays clip specified by its index in the clips array.
     public void PlayClip(int i)
     {
         StopCoroutine(coroutine);
@@ -32,6 +35,7 @@ public class SoundEffectHandler : MonoBehaviour
         StartCoroutine(coroutine);
     }
 
+    // Start is called before the first frame update.
     private void Start()
     {
         if(instances == null)
@@ -44,11 +48,13 @@ public class SoundEffectHandler : MonoBehaviour
         StartCoroutine(coroutine);
     }
 
+    // OnDestroy is called when gameObject is destroyed.
     private void OnDestroy()
     {
         instances.Remove(this);
     }
 
+    // PlayRandom plays a random clip out of the random clips array and then whaits a while and calls itself again.
     IEnumerator PlayRandom()
     {
         if(randomClips.Length > 0)
@@ -65,6 +71,7 @@ public class SoundEffectHandler : MonoBehaviour
         }
     }
 
+    // PlayCLipRoutine is the coroutine that actualy plays the specified clip in PlayClip.
     IEnumerator PlayClipRoutine(int i)
     {
         audioSource.clip = triggerdClips[i];

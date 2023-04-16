@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// Map is attached to the map of the player sorroundings.
 public class Map : MonoBehaviour
 {
     public Color[] colors;
@@ -12,17 +13,20 @@ public class Map : MonoBehaviour
 
     public static Map instance;
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         instance = this;
     }
 
+    // LateUpdate is called after Update.
     private void LateUpdate()
     {
-        mapPos.localPosition = -(Globals.player.transform.position - offset) * chunkSize / WorldGeneration.chunkSize;
-        point.eulerAngles = Globals.player.pivotTransform.eulerAngles + new Vector3(0, 0, -90);
+        mapPos.localPosition = -(Player.instance.transform.position - offset) * chunkSize / WorldGeneration.chunkSize;
+        point.eulerAngles = Player.instance.pivotTransform.eulerAngles + new Vector3(0, 0, -90);
     }
 
+    // Draws entire map.
     public void DrawMap()
     {
         
@@ -38,6 +42,7 @@ public class Map : MonoBehaviour
         offset = new Vector3(Globals.currentChunk.x * WorldGeneration.chunkSize, Globals.currentChunk.y * WorldGeneration.chunkSize);
     }
 
+    // Draws one chunk to one texture.
     public Texture2D ChunkToTexture(Chunk chunk)
     {
         Texture2D texture = new Texture2D(WorldGeneration.chunkSize, WorldGeneration.chunkSize);

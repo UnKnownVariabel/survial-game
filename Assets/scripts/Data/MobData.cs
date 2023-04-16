@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// MobData contains all the data needed to save and reconstruct a movingObject.
 [Serializable]
 public class MobData
 {
@@ -10,6 +9,7 @@ public class MobData
     public float health;
     public Vector2 position;
 
+    // Constructor converts movingObject to MobData.
     public MobData( MovingObject mob)
     {
         type = mob.mobType;

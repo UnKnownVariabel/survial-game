@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using System;
 
+// MovingObject is the class all moving objects inherit from like the player or mobs.
 public class MovingObject : DestructibleObject
 {
     public float maxSpeed = 4;
@@ -22,31 +21,34 @@ public class MovingObject : DestructibleObject
     protected float lastSwing;
     protected int dir;
     protected float animState;
-    
 
+    // Awake is called when script instance is loaded.
     protected override void Awake()
     {
         base.Awake();
     }
 
+    // Start is called before the first frame update.
     protected override void Start()
     {
         base.Start();
         Globals.characters.Add(this);
     }
 
+    // Update is called once per frame.
     protected virtual void Update()
     {
         Anim();
     }
-    public void Move(Vector2 movement)
+
+    // Move takes in a direction and accelerates in that direction.
+    public void Move(Vector2 direction)
     {
-        if(movement.magnitude > 1)
+        if(direction.magnitude > 1)
         {
-            movement.Normalize();
+            direction.Normalize();
         }
-        //Debug.Log(TileManager.instance.DPS[1, 1]);
-        Vector2 goal_velocity = movement * maxSpeed * Globals.GetChunk(transform.position).GetSpeed(transform.position);
+        Vector2 goal_velocity = direction * maxSpeed * Globals.GetChunk(transform.position).GetSpeed(transform.position);
         Vector2 acceleration_direction = (goal_velocity - rb.velocity).normalized;
         rb.velocity = rb.velocity + acceleration_direction * acceleration * Time.deltaTime;
         if((acceleration_direction.x < 0 && goal_velocity.x - rb.velocity.x > 0) || (acceleration_direction.x > 0 && goal_velocity.x - rb.velocity.x < 0) || (acceleration_direction.y < 0 && goal_velocity.y - rb.velocity.y > 0) || (acceleration_direction.y > 0 && goal_velocity.y - rb.velocity.y < 0))
@@ -58,6 +60,8 @@ public class MovingObject : DestructibleObject
             TakeDamage(Globals.GetChunk(transform.position).GetDPS(transform.position) * Time.deltaTime);
         }
     }
+
+    // SetDirection sets decides which direction the sprite should be and also sets the rotation of the tool / hands.
     protected virtual void SetDirection(Vector2 direction)
     {
         if(direction == Vector2.zero)
@@ -82,6 +86,8 @@ public class MovingObject : DestructibleObject
         }
         pivotTransform.right = direction;
     }
+
+    // Anim cycles through walking animation if the object is moving.
     protected virtual void Anim()
     {
         if(rb.velocity == Vector2.zero)
@@ -95,6 +101,8 @@ public class MovingObject : DestructibleObject
             spriteRenderer.sprite = sprites[dir * 3 + Mathf.FloorToInt(animState / frameTime)];
         }
     }
+
+    // Attack damages all destructibleObjects in damageCollider and in layerMask.
     protected virtual int? Attack(float damage, Vector2 extraOffset, LayerMask layerMask, float knockback, Multipliers multipliers)
     {
         Vector2 Direction = pivotTransform.right;
@@ -141,10 +149,14 @@ public class MovingObject : DestructibleObject
             return new Vector2(rotation.x * vector.x - rotation.y * vector.y, rotation.y * vector.x + rotation.x * vector.y);
         }
     }
+
+    // Attack with just setting layerMask.
     protected int? Attack(LayerMask layerMask)
     {
         return Attack(baseDamage, new Vector2(0, 0), layerMask, baseKnockback, Multipliers.One);
     }
+
+    // Knockback can be called from other objects to knock this object back.
     public void Knockback(Vector2 dir)
     {
         rb.velocity += dir;

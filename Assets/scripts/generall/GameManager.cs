@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+// GameManager manages genarall things.
 public class GameManager : MonoBehaviour
 {
     static private string _playerName;
@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public MobSpawner mobSpawner;
 
     [SerializeField] private GameObject pauseMenu;
+
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         Globals.destructibleObjects = new List<DestructibleObject>();
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         Globals.targets = new List<DestructibleObject>();
         Globals.walls = new Dictionary<(int, int), Building>();
     }
+
+    // Start is called before the first frame update.
     private void Start()
     {
         WorldGeneration.instance.StartGame();
@@ -59,6 +63,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    // Update is called once per frame.
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

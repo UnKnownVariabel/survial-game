@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// ChunkData contains all the data needed to save and reconstruct one chunk.
 [Serializable]
 public class ChunkData
 {
@@ -10,6 +9,8 @@ public class ChunkData
     public byte[] tiles;
     public int[] items;
     public Vector2[] itemPositions;
+
+    // Constructor converts normal instance of Chunk class to ChunkData.
     public ChunkData (Chunk chunk)
     {
         x = chunk.x;

@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// WorldData contains all the data needed to save and reconstruct a World.
 [Serializable]
 public class WorldData
 {
@@ -18,6 +17,9 @@ public class WorldData
     public MobData player;
     public string identifier;
 
+    // Constructor creates unique identifier which is used to identefie the world
+    // when submiting a new score to the leaderboard. So the same world dosen't populate
+    // the entire leaderboard.
     public WorldData()
     {
         identifier = SystemInfo.deviceUniqueIdentifier.ToString() + UnityEngine.Random.Range(int.MinValue, int.MaxValue).ToString();

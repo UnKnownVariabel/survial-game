@@ -3,11 +3,15 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
+// Leaderboard is submits scores and writes them on the leaderboard.
 public class Leaderboard : MonoBehaviour
 {
     public static Leaderboard instance;
     public TMP_Text playerNames;
     public TMP_Text playerScores;
+
+    // LoginRoutine logs in to lootlocker with an identifier.
+    // In the main menu the device identifier is used while the worldData identifier is used whilst playing and saving scores.
     public static IEnumerator LoginRoutine(string identifier)
     {
         bool done = false;
@@ -28,6 +32,8 @@ public class Leaderboard : MonoBehaviour
         });
         yield return new WaitWhile(() => done == false);
     }
+
+    // SubmitScoreRoutine submits score with the acount currently logged in.
     public static IEnumerator SubmitScoreRoutine()
     {
         bool done = false;
@@ -50,6 +56,7 @@ public class Leaderboard : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
+    // Setts the player name for the guest acount and therfore on the leaderboard.
     public static void SetPlayerName()
     {
         LootLockerSDKManager.SetPlayerName(GameManager.playerName, (response) =>
@@ -65,12 +72,13 @@ public class Leaderboard : MonoBehaviour
         });
     }
 
+    // GetScore convertes the time in the TimeHandler to a score.
     public static int GetScore()
     {
-        if (Globals.timeHandler != null)
+        if (TimeHandler.instance != null)
         {
-            int score = 10000 * Globals.timeHandler.day;
-            score += (int)(10000f * (Globals.timeHandler.time - 6) / 24f);
+            int score = 10000 * TimeHandler.instance.day;
+            score += (int)(10000f * (TimeHandler.instance.time - 6) / 24f);
             return score;
         }
         else
@@ -80,6 +88,7 @@ public class Leaderboard : MonoBehaviour
         }
     }
 
+    // GetTime converts a score to a time.
     public static (int days, float hours) GetTime(int score)
     {
         float time = score / 10000f;
@@ -88,16 +97,13 @@ public class Leaderboard : MonoBehaviour
         return (days, hours);
     }
 
+    // Awake is called when script instance is loaded.
     private void Awake()
     {
         instance = this;
     }
 
-    private void OnEnable()
-    {
-        StartCoroutine(FetchTopHighscoresRoutine());
-    }
-
+    // FetchTopHighscoresRoutine fetches top 10 highscores and dispays them.
     public IEnumerator FetchTopHighscoresRoutine()
     {
         string leaderboardKey = "leaderboard";
@@ -139,6 +145,10 @@ public class Leaderboard : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    
+    // OnEnable is called when object is enabled and active and here it fetches the highscorse.
+    private void OnEnable()
+    {
+        StartCoroutine(FetchTopHighscoresRoutine());
+    }
 
 }

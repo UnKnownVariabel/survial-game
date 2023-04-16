@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+// Main menu controles the main menu and some sub menus.
 public class MainMenu : MonoBehaviour
 {
+    // world selection is the save selected in the load world menu.
     private OpenSave _worldSelection;
     public OpenSave worldSelection
     {
@@ -39,6 +41,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private TMP_Text nameWarningText;
     [SerializeField] private TMP_Text nameText;
 
+    // Start is called before the first frame update.
     private void Start()
     {
         if (!Directory.Exists(Application.persistentDataPath + "/saves"))
@@ -78,14 +81,18 @@ public class MainMenu : MonoBehaviour
             PlayerPrefs.SetFloat("effects volume", 0.5f);
         }
     }
+
+    // Opens the new world menu.
     public void NewWorld()
     {
         createMenu.SetActive(true);
         mainMenu.SetActive(false);
     }
+
+    // Creates a new world and loads it if name fits criteria.
     public void CreateWorld()
     {
-        // checking length of name
+        // Checking length of name.
         if(field.text.Length > 9)
         {
             warningText.enabled = true;
@@ -99,7 +106,7 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // checking if name is already used in for other world
+        // Checking if name is already used in for other world.
         var info = new DirectoryInfo(Application.persistentDataPath + "/saves");
         var fileInfo = info.GetFiles();
         foreach (FileInfo file in fileInfo)
@@ -119,17 +126,21 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("World Scene");
     }
     
+    // Opens load world menu.
     public void LoadWorld()
     {
         loadMenu.SetActive(true);
         mainMenu.SetActive(false);
     }
 
+    // Opens settings.
     public void OpenSettings()
     {
         settingsMenu.SetActive(true);
         mainMenu.SetActive(false);
     }
+
+    // Goes back to main menu from sub menu.
     public void Back()
     {
         createMenu.SetActive(false);
@@ -140,6 +151,7 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
     }
     
+    // Loads savefile from worldSelection.
     public void Open()
     {
         if(worldSelection != null)
@@ -147,7 +159,8 @@ public class MainMenu : MonoBehaviour
             worldSelection.Open();
         }
     }
-
+    
+    // Deletes world selection.
     public void Delete()
     {
         if (worldSelection != null)
@@ -156,11 +169,13 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    // Opens tutorial scene.
     public void OpenTutorial()
     {
         SceneManager.LoadScene("Tutorial");
     }
 
+    // Sets name.
     public void SetName()
     {
         if(nameField.text != "")
@@ -178,6 +193,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    // Opens name menu.
     public void OpenNameMenu()
     {
         nameWarningText.enabled = false;
@@ -186,6 +202,7 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(false);
     }
 
+    // Open leaderboard.
     public void OpenLeaderboard()
     {
         leaderboard.SetActive(true);

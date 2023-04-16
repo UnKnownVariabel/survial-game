@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ public class CraftingButton : MonoBehaviour
     [SerializeField] private Transform layoutGroup;
     [SerializeField] private IngredientDisplay ingredientDisplay;
 
+    // Start is called before the first frame update.
     private void Start()
     {
         List<Ingredient> ingredients = crafting.GetIngridients(recipe);
@@ -22,15 +22,20 @@ public class CraftingButton : MonoBehaviour
             display.sprite.sprite = ingredient.item.sprite;
         }
     }
+
+    // Trys to craft the recipe and is called by pressing the button.
     public void Craft()
     {
         crafting.TryCraft(recipe);
     }
+
+    // Shows ingredients needed to craft the item.
     public void ShowRecepie()
     {
         sheet.gameObject.SetActive(true);
 
     }
+    // Hides the ingredients needen to creaft the item.
     public void HideRecepie()
     {
        sheet.gameObject.SetActive(false);

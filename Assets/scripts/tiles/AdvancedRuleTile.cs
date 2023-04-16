@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
 
+// The AdvancedRuleTile has added rules.
 [CreateAssetMenu(menuName = "Advanced Rule Tile")]
 public class AdvancedRuleTile : RuleTile<AdvancedRuleTile.Neighbor>
 {
@@ -14,6 +15,7 @@ public class AdvancedRuleTile : RuleTile<AdvancedRuleTile.Neighbor>
     [Tooltip("Check itseft when the mode is set to \"any\"")]
     public bool checkSelf = true;
 
+    // Adds three rules for neighbors.
     public class Neighbor : RuleTile.TilingRule.Neighbor
     {
         public const int Any = 3;
@@ -21,6 +23,7 @@ public class AdvancedRuleTile : RuleTile<AdvancedRuleTile.Neighbor>
         public const int Nothing = 5;
     }
 
+    // Switch statement to chose rule.
     public override bool RuleMatch(int neighbor, TileBase tile)
     {
         switch (neighbor)

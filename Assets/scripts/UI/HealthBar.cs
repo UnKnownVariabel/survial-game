@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// Healtbar is attached to all healthbars and is used to adjust the healthbar.
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
@@ -8,6 +9,8 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private bool alwaysVisible;
     [SerializeField] private Image background;
     [SerializeField] private Image border;
+
+    // Sets the value of the healthbar slider and starts animation.
     public void SetHealth(float health)
     {
         if(health > 1 || health < 0)

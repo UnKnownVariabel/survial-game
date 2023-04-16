@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Inventory stores and displays all the items the player is holding.
 public class Inventory : MonoBehaviour
 {
     public SpriteRenderer holdingSprite;
     public Crafting crafting;
     [SerializeField] public InventorySpot[] spots;
     public static Inventory instance;
+
+    // The spot in the inventory which is currently sellected.
     public InventorySpot selectedInventorySpot
     {
         get
@@ -29,8 +30,8 @@ public class Inventory : MonoBehaviour
                     try
                     {
                         ToolData toolData = (ToolData)selectedInventorySpot.item;
-                        Globals.player.damageCollider.offset = toolData.offset;
-                        Globals.player.damageCollider.size = toolData.size;
+                        Player.instance.damageCollider.offset = toolData.offset;
+                        Player.instance.damageCollider.size = toolData.size;
                     }
                     catch
                     {
@@ -45,7 +46,8 @@ public class Inventory : MonoBehaviour
         }
     }
     private InventorySpot _selectedInventorySpet;
-    // Start is called before the first frame update
+
+    // Start is called before the first frame update.
     private void Awake()
     {
         instance = this;
@@ -58,10 +60,10 @@ public class Inventory : MonoBehaviour
         selectedInventorySpot = spots[0];
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
-        //arow navigation in inventory
+        // Arow navigation in inventory.
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             int i = selectedInventorySpot.index - 1;
@@ -81,7 +83,7 @@ public class Inventory : MonoBehaviour
             selectedInventorySpot = spots[i];
         }
 
-        //numpad navigation in inventory
+        // Numpad navigation in inventory.
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             selectedInventorySpot = spots[0];
@@ -123,6 +125,8 @@ public class Inventory : MonoBehaviour
             selectedInventorySpot = spots[9];
         }
     }
+
+    // PickUpItem places item in inventory if possible.
     public bool PickUpItem(ItemData data)
     {
         for (int i = 0; i < spots.Length; i++)
@@ -158,6 +162,8 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    
+    // Trys to find a inventory spot with the same type of item in it as the paramater and then select it.
     public void TryFindSameItem(ItemData data)
     {
         for(int i = 0; i < spots.Length; i++)
@@ -169,6 +175,8 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    // Checks if inventory contains enough of the item specified in the ingredient.
     public bool CheckForIngredient(Ingredient ingredient)
     {
         int amount = 0;
@@ -185,6 +193,8 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
+
+    // Removes items of type and amount specified in ingredient.
     public void RemoveIngredient(Ingredient ingredient)
     {
         for (int i = 0; i < spots.Length; i++)
@@ -206,6 +216,8 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    // Drops item on ground.
     public void DropItem()
     {
         if(selectedInventorySpot.item != null)
