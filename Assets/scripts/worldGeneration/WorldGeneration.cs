@@ -60,7 +60,8 @@ public class WorldGeneration : MonoBehaviour
         {
             Save.instance.LoadGame();
         }
-        Time.timeScale = 1;
+        StartCoroutine(Leaderboard.LoginRoutine(Globals.worldData.identifier));
+        Globals.pause = false;
         for(int Y = -chunkBuffer.y; Y <= chunkBuffer.y; Y++)
         {
             for(int X = -chunkBuffer.x; X <= chunkBuffer.x; X++)

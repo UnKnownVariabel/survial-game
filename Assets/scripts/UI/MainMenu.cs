@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject createMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject nameMenu;
+    [SerializeField] private GameObject leaderboard;
     [SerializeField] private OpenSave buttonPref;
     [SerializeField] private TMP_InputField field;
     [SerializeField] private Transform saves;
@@ -64,6 +65,17 @@ public class MainMenu : MonoBehaviour
         else
         {
             nameText.text = GameManager.playerName;
+        }
+
+        StartCoroutine(Leaderboard.LoginRoutine(SystemInfo.deviceUniqueIdentifier));
+
+        if (!PlayerPrefs.HasKey("music volume"))
+        {
+            PlayerPrefs.SetFloat("music volume", 0.5f);
+        }
+        if (!PlayerPrefs.HasKey("effects volume"))
+        {
+            PlayerPrefs.SetFloat("effects volume", 0.5f);
         }
     }
     public void NewWorld()
@@ -123,6 +135,8 @@ public class MainMenu : MonoBehaviour
         createMenu.SetActive(false);
         loadMenu.SetActive(false);
         settingsMenu.SetActive(false);
+        nameMenu.SetActive(false);
+        leaderboard.SetActive(false);
         mainMenu.SetActive(true);
     }
     
@@ -153,6 +167,7 @@ public class MainMenu : MonoBehaviour
         {
             GameManager.playerName = nameField.text;
             nameText.text = nameField.text;
+            Leaderboard.SetPlayerName();
             nameMenu.SetActive(false);
             mainMenu.SetActive(true);
         }
@@ -168,6 +183,12 @@ public class MainMenu : MonoBehaviour
         nameWarningText.enabled = false;
         nameField.text = GameManager.playerName;
         nameMenu.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    public void OpenLeaderboard()
+    {
+        leaderboard.SetActive(true);
         mainMenu.SetActive(false);
     }
 }

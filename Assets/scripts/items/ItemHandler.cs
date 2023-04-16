@@ -24,7 +24,6 @@ public class ItemHandler : MonoBehaviour
     {
         if(index < 0)
         {
-            Debug.LogError("item index: " + index.ToString() + " to low");
             return null;
         }
         else if(index >= itemsInOrder.Length)
@@ -39,7 +38,6 @@ public class ItemHandler : MonoBehaviour
     {
         if(item == null)
         {
-            Debug.LogError("item null");
             return -1;
         }
         return item.ItemIndex;

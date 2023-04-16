@@ -87,6 +87,7 @@ MonoBehaviour:
   crossbowPrefab: {fileID: 4970833803382047711, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
   stonePrefab: {fileID: 4405211323443627137, guid: d0e8c1ea523c9d64c8154bd2b0689158, type: 3}
   spikesPrefab: {fileID: 3902148597279618282, guid: 196ed2b4b47d5a94cad02eb1ba940240, type: 3}
+  mortarPrefab: {fileID: 1785329014978762138, guid: 36f8177ad5e15b344a5ee8fea126e605, type: 3}
   itemPref: {fileID: 7293722478587238818, guid: 753d3333ee486475783702edc90f36f5, type: 3}
   offset: {x: 0, y: 0}
 --- !u!114 &8175683193596252746
@@ -179,7 +180,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   multiplier: 500
   time: 6
-  day: 1
+  day: 0
   minuteArm: {fileID: 0}
   hourArm: {fileID: 0}
   dayText: {fileID: 0}

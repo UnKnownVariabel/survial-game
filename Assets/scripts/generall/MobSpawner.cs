@@ -53,7 +53,7 @@ public class MobSpawner : MonoBehaviour
             timeTillSpawn -= Time.deltaTime;
             if (timeTillSpawn < 0)
             {
-                float spawnTime = baseSpawnTime / Globals.timeHandler.day;
+                float spawnTime = baseSpawnTime / (Globals.timeHandler.day + 1);
                 timeTillSpawn = spawnTime + Random.Range(-spawnTime * spawnOffsetMax, spawnTime * spawnOffsetMax);
                 SpawnMob();
             }

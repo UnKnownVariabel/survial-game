@@ -10,7 +10,7 @@ public class DeathScreen : MonoBehaviour
     private void OnEnable()
     {
         Globals.pause = true;
-        float result = Globals.timeHandler.day + Globals.timeHandler.time / 24 - 0.25f;
+        float result = Globals.timeHandler.day + (Globals.timeHandler.time - 6) / 24;
         text.text = "you survived: " + Mathf.Floor(result) + " days and " + Mathf.Round(((result % 1) * 24)).ToString() + " hours";
     }
 
@@ -22,5 +22,10 @@ public class DeathScreen : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void SubmitScore()
+    {
+        StartCoroutine(Leaderboard.SubmitScoreRoutine());
     }
 }

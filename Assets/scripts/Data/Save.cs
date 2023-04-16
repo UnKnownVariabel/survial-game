@@ -70,6 +70,7 @@ public class Save : MonoBehaviour
         }
         Globals.timeHandler.time = worldData.time;
         Globals.timeHandler.day = worldData.day;
+        Globals.timeHandler.dayText.text = "day " + Globals.timeHandler.day.ToString();
 
         for (int i = 0; i < Inventory.instance.spots.Length; i++)
         {

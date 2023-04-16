@@ -32,6 +32,8 @@ public class TimeHandler : MonoBehaviour
         dayText.text = "day " + day.ToString();
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {
