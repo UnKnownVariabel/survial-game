@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 // Class atached to the bombs which come out of the mortor.
@@ -14,9 +15,10 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float baseScale;
     [SerializeField] private float maxExtraScale;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private float explosionTime;
 
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private ParticleSystem particleSystem;
 
     private float startTime;
@@ -39,7 +41,8 @@ public class Bomb : MonoBehaviour
             if (!isExploding)
             {
                 isExploding = true;
-                Explode();
+                IEnumerator corutine = Explode();
+                StartCoroutine(corutine);
             }
         }
         else
@@ -50,10 +53,10 @@ public class Bomb : MonoBehaviour
     }
 
     // Is called when the bomb is suposed to explode.
-    private void Explode()
+    private IEnumerator Explode()
     {
         rb.velocity = new Vector2(0, 0);
-        anim.SetTrigger("explode");
+        sprite.enabled = false;
         particleSystem.Play();
 
         Collider2D[] smallRadiusEnemys = Physics2D.OverlapCircleAll(transform.position, smallRadius, layerMask);
@@ -99,9 +102,15 @@ public class Bomb : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(explosionTime);
+
+        Delete();
+
     }
 
-    // Is called from explosion animation and Deletes the bomb.
+    
+
+    // Deletes the bomb.
     public void Delete()
     {
         Destroy(gameObject);
