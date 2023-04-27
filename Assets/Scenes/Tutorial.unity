@@ -192,7 +192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pick up the axe and hew down 10 trees. Then pickupp the log.
+  m_text: this is a sample text. Text text text. whatever is writen here is not important.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4df2188e28a814548bed63cb78d73b5c, type: 2}
   m_sharedMaterial: {fileID: -2534140060607939442, guid: 4df2188e28a814548bed63cb78d73b5c, type: 2}
@@ -219,8 +219,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -446,20 +446,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221229509}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -400}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 112784050}
   - {fileID: 1931588353}
-  m_Father: {fileID: 497218861}
-  m_RootOrder: 7
+  m_Father: {fileID: 4776683057169674114}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 175, y: -350}
-  m_SizeDelta: {x: 310, y: 200}
+  m_AnchoredPosition: {x: 200, y: -350}
+  m_SizeDelta: {x: 400, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &221229511
 MonoBehaviour:
@@ -709,7 +709,7 @@ RectTransform:
   - {fileID: 752030905}
   - {fileID: 1437914845}
   m_Father: {fileID: 497218861}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -962,7 +962,7 @@ MonoBehaviour:
   nextText: {fileID: 109308337}
   tasks:
   - name: movement
-    text: Use WASD to move. Press next or enter to continue
+    text: Use WASD to move. Press next or enter to continue.
     minTime: 0
     maxTime: 24
     requiredItems: []
@@ -971,7 +971,7 @@ MonoBehaviour:
     zombiesToSpawn: 0
     wolfToSpawn: 0
   - name: collecting 1
-    text: Hold down the right mouse button next to a tree to chop it down. Then press
+    text: Hold down the left mouse button next to a tree to chop it down. Then press
       Q to pickupp the log.
     minTime: 0
     maxTime: 24
@@ -982,8 +982,8 @@ MonoBehaviour:
     zombiesToSpawn: 0
     wolfToSpawn: 0
   - name: collecting 2
-    text: Hold down the right mouse button next to a bolder to break it up. Then
-      press Q to pickupp the stone.
+    text: Hold down the left mouse button next to a bolder to break it up. Then press
+      Q to pickupp the stone.
     minTime: 0
     maxTime: 24
     requiredItems:
@@ -1015,7 +1015,7 @@ MonoBehaviour:
     zombiesToSpawn: 0
     wolfToSpawn: 0
   - name: building 1
-    text: Craft a crossbow. Then sellect it in your inventory. Then left click to
+    text: Craft a crossbow. Then sellect it in your inventory. Then right click to
       place the crossbow.
     minTime: 0
     maxTime: 24
@@ -1426,6 +1426,11 @@ PrefabInstance:
       objectReference: {fileID: 1554430637}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f21a214e8f73761468c86437530991b3, type: 3}
+--- !u!224 &4776683057169674114 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4776683057129168614, guid: f21a214e8f73761468c86437530991b3, type: 3}
+  m_PrefabInstance: {fileID: 4776683057169674113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6908814640636417626
 PrefabInstance:
   m_ObjectHideFlags: 0

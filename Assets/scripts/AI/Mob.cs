@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 // Mobs are all enemys in the game.
@@ -14,11 +15,16 @@ public class Mob : MovingObject
     protected Path path;
     protected Vector2 direction;
 
+    [SerializeField] private float timeBetweenUpdate = 3;
+
     private Vector2 lastDir;
+    private IEnumerator coroutine;
 
     // Start is called before the first frame update.
     protected override void Start()
     {
+        coroutine = UpdateTarget();
+        StartCoroutine(coroutine);
         Globals.mobs.Add(this);
         state = 1;
         base.Start();
@@ -214,5 +220,17 @@ public class Mob : MovingObject
         {
             targetIsStatic = false;
         }
+    }
+
+    // Updates targets then waits for presett amount of seconds
+    private IEnumerator UpdateTarget()
+    {
+        yield return new WaitForSeconds(timeBetweenUpdate);
+        if(state == 1)
+        {
+            FindTarget();
+        }
+        coroutine = UpdateTarget();
+        StartCoroutine(coroutine);
     }
 }

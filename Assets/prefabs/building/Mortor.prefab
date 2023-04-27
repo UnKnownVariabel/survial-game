@@ -91,6 +91,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5234831525036303073, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
+      propertyPath: timeBetweenClips
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5234831525036303073, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
+      propertyPath: triggerdClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 88d680267428ca84da30ea7cf4d035cb, type: 3}
     - target: {fileID: 602741235573708910, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -187,6 +195,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 2998252659992871204, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
   m_PrefabInstance: {fileID: 3033508558615786718}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2108541697613326785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5234831525036303073, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
+  m_PrefabInstance: {fileID: 3033508558615786718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5684950298624854042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01948c27b9cc35408a474cb6c41e3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2630888644354034434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1052686443844108252, guid: 0a786e7bc7a6fe340bf82d021fd608c8, type: 3}
@@ -227,7 +246,7 @@ MonoBehaviour:
     maxY: 0
   type: 0
   targetDesirebility: 40
-  soundEffectHandler: {fileID: 0}
+  soundEffectHandler: {fileID: 2108541697613326785}
   itemPrefab: {fileID: 0}
   healthBar: {fileID: 7185684662401333803}
   Corpse: {fileID: 0}
@@ -235,15 +254,15 @@ MonoBehaviour:
   particlesystem: {fileID: 6694446124117263564}
   objectIndex: 8
   itemData: {fileID: 11400000, guid: 99d04b15440475f4cadb586ad7f2dbda, type: 2}
+  target: {fileID: 0}
+  spawnPoint: {fileID: 2630888644354034434}
   range: 4
   chargeTime: 4
   projectileSpeed: 10
   projectile: {fileID: 0}
   pivotTransform: {fileID: 3527953309595881607}
-  spawnPoint: {fileID: 2630888644354034434}
   isLoaded: 0
   animator: {fileID: 252976866143008250}
-  target: {fileID: 0}
   timeBetweenUpdates: 0.2
   bombPref: {fileID: 5882589011365594247, guid: fe2b436368960834cad9aba6f5275994, type: 3}
 --- !u!198 &6694446124117263564 stripped

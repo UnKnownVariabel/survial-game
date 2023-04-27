@@ -74,15 +74,6 @@ public class InventorySpot : MonoBehaviour
         if (selected)
         {
             selected = true;
-            try
-            {
-                ToolData toolData = (ToolData)item;
-                holdingSprite.transform.localScale = new Vector3(1, 1, 0);
-            }
-            catch
-            {
-                holdingSprite.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-            }
         }
     }
 
@@ -135,16 +126,7 @@ public class InventorySpot : MonoBehaviour
         }
         if (selected && item != null)
         {
-            holdingSprite.sprite = item.sprite;
-            try
-            {
-                ToolData toolData = (ToolData)item;
-                holdingSprite.transform.localScale = new Vector3(1, 1, 0);
-            }
-            catch
-            {
-                holdingSprite.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-            }
+            selected = true;
         }
     }
 

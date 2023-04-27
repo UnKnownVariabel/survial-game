@@ -18,7 +18,14 @@ public class OpenSave : MonoBehaviour
         set
         {
             _selected = value;
-            selectionImage.enabled = value;
+            if (value)
+            {
+                image.color = selectedColor;
+            }
+            else
+            {
+                image.color = color;
+            }
         }
     }
 
@@ -26,7 +33,9 @@ public class OpenSave : MonoBehaviour
     public string path;
     public MainMenu mainMenu;
 
-    [SerializeField] private Image selectionImage;
+    [SerializeField] private Image image;
+    [SerializeField] private Color color;
+    [SerializeField] private Color selectedColor;
 
     // Open this buttons savefile.
     public void Open()

@@ -20,6 +20,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private SoundEffectHandler soundEffectHandler;
 
     private float startTime;
     private bool isExploding = false;
@@ -58,6 +59,7 @@ public class Bomb : MonoBehaviour
         rb.velocity = new Vector2(0, 0);
         sprite.enabled = false;
         particleSystem.Play();
+        soundEffectHandler.PlayClip(0);
 
         Collider2D[] smallRadiusEnemys = Physics2D.OverlapCircleAll(transform.position, smallRadius, layerMask);
         Collider2D[] largeRadiusEnemys = Physics2D.OverlapCircleAll(transform.position, largeRadius, layerMask);
@@ -70,14 +72,9 @@ public class Bomb : MonoBehaviour
                 {
                     Object.TakeDamage(damage / 2);
                 }
-                try
+                if (smallRadiusEnemys[i].gameObject.TryGetComponent(out MovingObject movingObject))
                 {
-                    MovingObject movingObject = (MovingObject)Object;
                     movingObject.Knockback(knockback * (Object.transform.position - transform.position).normalized / 2);
-                }
-                catch
-                {
-
                 }
             }
         }

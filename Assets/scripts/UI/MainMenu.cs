@@ -80,6 +80,10 @@ public class MainMenu : MonoBehaviour
         {
             PlayerPrefs.SetFloat("effects volume", 0.5f);
         }
+        if(!PlayerPrefs.HasKey("auto save"))
+        {
+            PlayerPrefs.SetInt("auto save", 1);
+        }
     }
 
     // Opens the new world menu.
@@ -93,10 +97,10 @@ public class MainMenu : MonoBehaviour
     public void CreateWorld()
     {
         // Checking length of name.
-        if(field.text.Length > 9)
+        if(field.text.Length > 16)
         {
             warningText.enabled = true;
-            warningText.text = "name has to be less than 10 characters";
+            warningText.text = "name has to be less than 17 characters";
             return;
         }
         if(field.text.Length < 1)

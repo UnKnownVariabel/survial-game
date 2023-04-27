@@ -7,8 +7,9 @@ using TMPro;
 public class Leaderboard : MonoBehaviour
 {
     public static Leaderboard instance;
-    public TMP_Text playerNames;
-    public TMP_Text playerScores;
+
+    public TMP_Text[] names = new TMP_Text[10];
+    public TMP_Text[] scores = new TMP_Text[10];
 
     // LoginRoutine logs in to lootlocker with an identifier.
     // In the main menu the device identifier is used while the worldData identifier is used whilst playing and saving scores.
@@ -112,29 +113,30 @@ public class Leaderboard : MonoBehaviour
         {
             if (response.success)
             {
-                string tempPlayerNames = "Names\n\n";
-                string tempPlayerScores = "Times\n\n";
 
                 LootLockerLeaderboardMember[] members = response.items;
 
-                for (int i = 0; i < members.Length; i++)
+                for (int i = 0; i < 10; i++)
                 {
-                    tempPlayerNames += members[i].rank + ". ";
+                    if (members.Length <= i)
+                    {
+                        names[i].text = "";
+                        scores[i].text = "";
+                        continue;
+                    }
+                    names[i].text = members[i].rank + ". ";
                     if (members[i].player.name != "")
                     {
-                        tempPlayerNames += members[i].player.name;
+                        names[i].text += members[i].player.name;
                     }
                     else
                     {
-                        tempPlayerNames += members[i].player.id;
+                        names[i].text += members[i].player.id;
                     }
                     (int days, float hours) = GetTime(members[i].score);
-                    tempPlayerScores += days.ToString() + " days " + Mathf.Round(hours).ToString() + " hours\n";
-                    tempPlayerNames += "\n";
+                    scores[i].text = days.ToString() + " days " + Mathf.Round(hours).ToString() + " hours";
                 }
                 done = true;
-                playerNames.text = tempPlayerNames;
-                playerScores.text = tempPlayerScores;
             }
             else
             {

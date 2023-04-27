@@ -16,6 +16,7 @@ public class Player : MovingObject
     [SerializeField] private Color cantPlaceColor;
     [SerializeField] private Color canPlaceColor;
     [SerializeField] private ParticleSystem heartEmitter;
+    [SerializeField] private float regenePS;
 
 
     private Vector2 direction;
@@ -175,6 +176,8 @@ public class Player : MovingObject
         {
             previewSprite.enabled = false;
         }
+
+        AddHealth(regenePS * Time.deltaTime);
         base.Update();
     }
 

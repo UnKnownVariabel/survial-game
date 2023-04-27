@@ -37,7 +37,9 @@ public class Tower : Building
     {
         if(target != null)
         {
-            pivotTransform.up = target.transform.position - pivotTransform.position;
+            Vector3 prediction = target.transform.position + (Vector3)target.rb.velocity * (Vector2.Distance(spawnPoint.position, target.transform.position) / projectileSpeed);
+            pivotTransform.up = prediction - pivotTransform.position;
+            pivotTransform.eulerAngles = new Vector3 (0, 0, pivotTransform.eulerAngles.z);
             if (isLoaded)
             {
                 Shoot();
@@ -80,6 +82,7 @@ public class Tower : Building
     private void Shoot()
     {
         animator.SetTrigger("shoot");
+        soundEffectHandler.PlayClip(0);
         isLoaded = false;
     }
 

@@ -98,10 +98,12 @@ public class DestructibleObject : MonoBehaviour
                 {
                     particlesystem.Play();
                 }
-                if (soundEffectHandler != null)
+
+                // Plays sound when damaged but was to obnoxius.
+                /*if (soundEffectHandler != null)
                 {
                     soundEffectHandler.PlayClip(0);
-                }
+                }*/
             }
         }
     }

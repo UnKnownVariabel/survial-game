@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6908814640285876902}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6908814640265916503
 SpriteRenderer:
@@ -119,9 +119,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6908814640731592585}
-  - {fileID: 7828212313255079271}
   - {fileID: 6908814640265916502}
   - {fileID: 6908814640427605685}
+  - {fileID: 2347064684655444855}
   - {fileID: 6908814641900729727}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6b1a6e5be3242c9b62a84a085c3bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 400
   minVisDamage: 3
   chunk:
     isSpawnd: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   cantPlaceColor: {r: 1, g: 0, b: 0.08434963, a: 0.5019608}
   canPlaceColor: {r: 0.1882353, g: 1, b: 0, a: 0.5019608}
   heartEmitter: {fileID: 6908814640427605687}
+  regenePS: 3
 --- !u!212 &6908814640285876896
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -455,7 +456,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6908814640285876902}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &6908814640427605687
 ParticleSystem:
@@ -10336,8 +10337,17 @@ PrefabInstance:
       propertyPath: alwaysVisible
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9183816739246417093, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+--- !u!4 &2347064684655444855 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9183816739246417093, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
+  m_PrefabInstance: {fileID: 6908814640479807410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2573011991682882774 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8958827930876984164, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
@@ -10349,8 +10359,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd96033a1c6e4b2695fa6f7a387338a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &7828212313255079271 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3693637584299838165, guid: 819c0784f32784fed8284186b08a9bf9, type: 3}
-  m_PrefabInstance: {fileID: 6908814640479807410}
-  m_PrefabAsset: {fileID: 0}

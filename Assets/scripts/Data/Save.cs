@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,13 +7,36 @@ using UnityEngine;
 // Save class is used to save and load worlds.
 public class Save : MonoBehaviour
 {
+    public float timeBetweenAutoSave;
     public static Save instance;
     public static string loadPath;
+
+    private IEnumerator coroutine;
 
     // Awake is called when script instance is loaded.
     private void Awake()
     {
+        if (timeBetweenAutoSave <= 0)
+        {
+            timeBetweenAutoSave = 1;
+        }
         instance = this;
+    }
+    private void Start()
+    {
+        coroutine = AutoSave();
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator AutoSave()
+    {
+        yield return new WaitForSeconds(timeBetweenAutoSave);
+        if (Settings.autoSave)
+        {
+            SaveGame();
+        }
+        coroutine = AutoSave();
+        StartCoroutine(coroutine);
     }
 
     // SaveGame populates a WorldData instance and the converts it to json and saves that to a json file.
