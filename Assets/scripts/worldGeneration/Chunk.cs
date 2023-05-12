@@ -106,7 +106,7 @@ public class Chunk
     }
 
     // Gets internal tile position from world pos.
-    public (int, int) TilePos(Vector3 position)
+    public (int x, int y) TilePos(Vector3 position)
     {
         Vector2Int pos = (Vector2Int)TileManager.instance.tilemap.WorldToCell(position) + new Vector2Int(DPS.GetLength(0) / 2 - x * WorldGeneration.chunkSize, DPS.GetLength(1) / 2 - y * WorldGeneration.chunkSize);
         return (pos.x, pos.y);
